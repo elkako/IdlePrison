@@ -132,8 +132,11 @@ public class Jugador {
         for (int i:idle) {
             total += i;
         }
-        if(!isNota(5))
-            if(dinero >= 100) NotaManager.getNota(getPlayer(),5);
+
+        if(!isNota(3))
+            if(total >= 1) NotaManager.getNota(getPlayer(),3);
+        if(!isNota(7))
+            if(total >= 10) NotaManager.getNota(getPlayer(),7);
 
     }
 

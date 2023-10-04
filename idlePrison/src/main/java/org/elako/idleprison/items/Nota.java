@@ -15,13 +15,16 @@ public class Nota {
     private final List<String> conseguido;
     private final double recompensa;
     private final int numero;
+    private final TipoNota tipo;
 
-    public Nota(int numero, String nombre, List<String> consejo, List<String> conseguido, double recompensa) {
+    public Nota(int numero, String nombre, List<String> consejo, List<String> conseguido, double recompensa,
+                TipoNota tipo) {
         this.nombre = nombre;
         this.consejo = consejo;
         this.conseguido = conseguido;
         this.recompensa = recompensa;
         this.numero = numero;
+        this.tipo = tipo;
     }
 
     public ItemStack crearObjeto(){

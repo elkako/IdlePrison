@@ -288,7 +288,6 @@ public class IdleManager {
     public double comprar(Player p, int idle, int cantidad){
         String jugador = p.getName();
 
-        if(!NotaManager.isNota(jugador,3)) NotaManager.getNota(p, 3);
         double dinero = getDineroCompra(idle, jugador,cantidad);
         playerManager.reloadTimeOffline(jugador);
         playerManager.setIdle(idle, jugador, playerManager.getIdle(idle,jugador)+cantidad);

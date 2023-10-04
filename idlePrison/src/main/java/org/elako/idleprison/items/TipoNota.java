@@ -1,5 +1,6 @@
 package org.elako.idleprison.items;
 
 public enum TipoNota {
-    //implimentar
+    OTRO, IDLE, SECRETO, MINERO, DINERO, VENDER, RANGO, COMER, ESENCIA
+
 }
