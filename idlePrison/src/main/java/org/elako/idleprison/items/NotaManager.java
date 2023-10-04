@@ -57,26 +57,32 @@ public class NotaManager {
                 ChatColor.WHITE + " Rompe 30 bloques"
         ),20));
 
-        notas.add(new Nota( notas.size()+1, "Vendedor empedernido", List.of( //6
+        notas.add(new Nota( notas.size()+1, "Mendigo", List.of( //6
+                ChatColor.WHITE + "Invierte ese dinero sabiamente,",
+                ChatColor.WHITE + " no te lo gastes en drogas"
+        ),List.of(
+                ChatColor.WHITE + " Consigue 100 E"
+        ),100));
+
+        notas.add(new Nota( notas.size()+1, "Vendedor empedernido", List.of( //7
                 ChatColor.WHITE + "Ten cuidado de no vender objetos que necesites"
         ),List.of(
                 ChatColor.WHITE + " Vende 100 items"
         ),20));
 
-        notas.add(new Nota( notas.size()+1, "Elitista", List.of( //7
+        notas.add(new Nota( notas.size()+1, "Elitista", List.of( //8
                 ChatColor.WHITE + "Subir de rango te da acceso a nuevas minas,",
                 ChatColor.WHITE + " nuevos crafteos e idles, cada vez costará más"
         ),List.of(
                 ChatColor.WHITE + " Sube de rango por primera vez"
         ),40));
 
-        notas.add(new Nota( notas.size()+1, "Mileurista", List.of( //8
-                ChatColor.WHITE + "Invierte ese dinero sabiamente,",
-                ChatColor.WHITE + " no te lo gastes en drogas"
+        notas.add(new Nota( notas.size()+1, "Mileurista", List.of( //9
+                ChatColor.WHITE + "Invierte ese dinero con sabiduría,",
+                ChatColor.WHITE + " no te lo gastes en meretrices"
         ),List.of(
                 ChatColor.WHITE + " Consigue 1.000 E"
         ),100));
-
 
 
         notas.add(new Nota( notas.size()+1, "Mi primer luisbi", List.of( //X
