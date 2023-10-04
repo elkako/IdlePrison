@@ -3,6 +3,7 @@ package org.elako.idleprison.player;
 import org.bukkit.entity.Player;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.NotaManager;
+import org.elako.idleprison.items.TipoNota;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -133,10 +134,12 @@ public class Jugador {
             total += i;
         }
 
-        if(!isNota(3))
-            if(total >= 1) NotaManager.getNota(getPlayer(),3);
-        if(!isNota(7))
-            if(total >= 10) NotaManager.getNota(getPlayer(),7);
+        int nota1 = NotaManager.getNum(TipoNota.IDLE, 1);
+        int nota2 = NotaManager.getNum(TipoNota.IDLE, 2);
+        if(!isNota(nota1))
+            if(total >= 1) NotaManager.getNota(getPlayer(),nota1);
+        if(!isNota(nota2))
+            if(total >= 10) NotaManager.getNota(getPlayer(),nota2);
 
     }
 
@@ -147,10 +150,12 @@ public class Jugador {
 
     public void setDineroRenacer(double dineroRenacer) { this.dineroRenacer = dineroRenacer; }
     public void setDineroRun(double dineroRun) {
-        if(!isNota(5))
-            if(dinero >= 100) NotaManager.getNota(getPlayer(),5);
-        else if(!isNota(9))
-            if(dinero >= 1000) NotaManager.getNota(getPlayer(),9);
+        int nota1 = NotaManager.getNum(TipoNota.DINERO, 1);
+        int nota2 = NotaManager.getNum(TipoNota.DINERO, 2);
+        if(!isNota(nota1))
+            if(dinero >= 100) NotaManager.getNota(getPlayer(),nota1);
+        if(!isNota(nota2))
+            if(dinero >= 1000) NotaManager.getNota(getPlayer(),nota2);
 
         this.dineroRun = dineroRun;
     }
@@ -196,13 +201,20 @@ public class Jugador {
     }
 
     public void setItemsVendidos(int cant) {
-        if(!isNota(8))
-            if(cant >= 100) NotaManager.getNota(getPlayer(),8);
+        int nota1 = NotaManager.getNum(TipoNota.VENDER, 1);
+        if(!isNota(nota1))
+            if(cant >= 100) NotaManager.getNota(getPlayer(),nota1);
+
         itemsVendidos = cant;
     }
     public void setBloquesRotos(int n) {
-        if(!isNota(5))
-            if(n >= 30) NotaManager.getNota(getPlayer(),5);
+        int nota1 = NotaManager.getNum(TipoNota.MINERO, 1);
+        int nota2 = NotaManager.getNum(TipoNota.MINERO, 2);
+        if(!isNota(nota1))
+            if(n >= 10) NotaManager.getNota(getPlayer(),nota1);
+        if(!isNota(nota2))
+            if(n >= 20) NotaManager.getNota(getPlayer(),nota2);
+
         bloquesRotos = n;
     }
 

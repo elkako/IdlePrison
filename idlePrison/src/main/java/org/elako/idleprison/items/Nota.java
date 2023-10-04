@@ -47,5 +47,6 @@ public class Nota {
 
     public double getRecompensa() { return recompensa; }
     public int getNumero() { return numero; }
+    public TipoNota getTipo() { return tipo; }
     public String getNombre() { return nombre; }
 }

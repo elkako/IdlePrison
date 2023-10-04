@@ -2,6 +2,7 @@ package org.elako.idleprison.player;
 
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.NotaManager;
+import org.elako.idleprison.items.TipoNota;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -27,6 +28,12 @@ public class PlayerManager {
     public Rangos getRango(String player){ return getPlayer(player).getRango(); }
     public void setRango(String player, String rango){
         Rangos rangos = Rangos.valueOf(rango.toUpperCase());
+        int nota1 = NotaManager.getNum(TipoNota.RANGO, 1);
+        int nota2 = NotaManager.getNum(TipoNota.RANGO, 2);
+        if(!isNota(player, nota1))
+            if(rangos.equals(Rangos.CONDENADO3)) NotaManager.getNota(getPlayer(player).getPlayer(),nota1);
+        if(!isNota(player, nota2))
+            if(rangos.equals(Rangos.CAMPESINO1)) NotaManager.getNota(getPlayer(player).getPlayer(),nota2);
         if(!isNota(player,8))
             if(rangos.equals(Rangos.CONDENADO3)) NotaManager.getNota(IdlePrison.getPlugin().getServer().getPlayer(player),7);
         // añadir nota salir infierno

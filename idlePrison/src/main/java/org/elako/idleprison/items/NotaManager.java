@@ -58,6 +58,14 @@ public class NotaManager {
                 ChatColor.WHITE + " Rompe 30 bloques"
         ),20, TipoNota.MINERO));
 
+        notas.add(new Nota( notas.size()+1, "Minero gay", List.of( //5
+                ChatColor.WHITE + "Las minas se regeneran cada 5 minutos aproximádamente",
+                ChatColor.WHITE + " puedes utilizar '/mina' si quieres subir encima de",
+                ChatColor.WHITE + " una mina rápidamente"
+        ),List.of(
+                ChatColor.WHITE + " Rompe 30 bloques"
+        ),20, TipoNota.MINERO));
+
         notas.add(new Nota( notas.size()+1, "Mendigo", List.of( //6
                 ChatColor.WHITE + "Invierte ese dinero sabiamente,",
                 ChatColor.WHITE + " no te lo gastes en drogas"
@@ -85,28 +93,28 @@ public class NotaManager {
                 ChatColor.WHITE + " Sube de rango por primera vez"
         ),40, TipoNota.DINERO));
 
-        notas.add(new Nota( notas.size()+1, "Zona secreta 2", List.of( //10 todo
+        notas.add(new Nota( notas.size()+1, "Zona secreta 2", List.of( //todo 10
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
                 ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
         ),List.of(
                 ChatColor.WHITE + " Encuentra el secreto de la zona infierno2"
         ),70, TipoNota.SECRETO));
 
-        notas.add(new Nota( notas.size()+1, "Fondon", List.of( //11 todo
+        notas.add(new Nota( notas.size()+1, "Fondon", List.of( //todo 11
                 ChatColor.WHITE + "La comida es útil para cuando pierdes vida"
         ),List.of(
                 ChatColor.WHITE + " Comer 100 alimentos"
         ),70, TipoNota.COMER));
 
         //infierno3
-        notas.add(new Nota( notas.size()+1, "Tecnología arcana", List.of( //12 todo
+        notas.add(new Nota( notas.size()+1, "Tecnología arcana", List.of( //todo 12
                 ChatColor.WHITE + "Los fragmentos son usados para construir esencias",
                 ChatColor.WHITE + " las cuales a su vez sirven para mejorar picos"
         ),List.of(
                 ChatColor.WHITE + " Obtén tu primer fragmento de esencia"
         ),70, TipoNota.ESENCIA));
 
-        notas.add(new Nota( notas.size()+1, "Destrucción masiva", List.of( //13 todo
+        notas.add(new Nota( notas.size()+1, "Destrucción masiva", List.of( //todo 13
                 ChatColor.WHITE + "Aumenta la velocidad con la que mina el",
                 ChatColor.WHITE + " pico que encantes"
         ),List.of(
@@ -120,7 +128,7 @@ public class NotaManager {
                 ChatColor.WHITE + " Consigue 1.000 E"
         ),150, TipoNota.DINERO));
 
-        notas.add(new Nota( notas.size()+1, "Zona secreta 3", List.of( //15 todo
+        notas.add(new Nota( notas.size()+1, "Zona secreta 3", List.of( //todo 15
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
                 ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
         ),List.of(
@@ -135,7 +143,7 @@ public class NotaManager {
                 ChatColor.WHITE + " Encuentra el secreto de la zona infierno2"
         ),500, TipoNota.SECRETO));
 
-        notas.add(new Nota( notas.size()+1, "Mi primer luisbi", List.of( //17 todo
+        notas.add(new Nota( notas.size()+1, "Mi primer luisbi", List.of( //todo 17
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota"
         ),List.of(
                 ChatColor.WHITE + " Consigue 10.000 E"
@@ -160,12 +168,19 @@ public class NotaManager {
 
         //renacer primera vez
 
-        //conseguir x idles?
-        //comer x comida?
 
     }
 
     //todo añadir get nota por tiponota
+
+    public static int getNum(TipoNota tipo, int n) {
+        int contador=0;
+        for (Nota nota :notas) {
+            if(nota.getTipo().equals(tipo)) contador++;
+            if(contador >= n) return nota.getNumero();
+        }
+        return 0;
+    }
 
     public static void getNota(Player p, int n) {
         if(playerManager.isNotaRecibidas(p.getName(),n)) return;
