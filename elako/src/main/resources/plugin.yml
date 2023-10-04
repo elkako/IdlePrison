@@ -1,0 +1,13 @@
+name: elako
+version: '${project.version}'
+main: me.elako.elako.Elako
+api-version: 1.18
+commands:
+  inmolar:
+    aliases: [inmolar]
+    description: para explotar con tamaño n /inmolar (n)
+  ubicacion:
+      aliases: [ubicacion]
+  generador:
+    aliases: [generador]
+    description: para generar un spawner en tu ubicación /generador

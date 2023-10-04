@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="plugun:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/plugun_jar</output-path>
+    <root id="archive" name="plugun.jar">
+      <element id="module-output" name="plugun" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/spigot-api-1.18.2-R0.1-20220605.001135-49.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

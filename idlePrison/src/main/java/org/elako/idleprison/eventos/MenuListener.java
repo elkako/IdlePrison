@@ -1,0 +1,476 @@
+package org.elako.idleprison.eventos;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.*;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.elako.idleprison.items.VenderManager;
+import org.elako.idleprison.player.IdleManager;
+import org.elako.idleprison.comandos.*;
+import org.elako.idleprison.items.MaterialesManager;
+import org.elako.idleprison.items.PicosManager;
+import org.elako.idleprison.player.DineroManager;
+import org.elako.idleprison.player.PlayerManager;
+import org.elako.idleprison.player.TreeSkillManager;
+import org.elako.idleprison.mina.MinaManager;
+import org.elako.idleprison.player.RangosManager;
+
+public class MenuListener implements Listener {
+    private TreeSkillManager treeSkillManager;
+    private MinaManager minaManager;
+    private RangosManager rangosManager;
+    private IdleManager idleManager;
+    private PlayerManager playerManager;
+    private MaterialesManager materialesManager;
+
+    private VenderManager venderManager;
+
+    public MenuListener(TreeSkillManager treeskill, MinaManager mina, RangosManager rango, IdleManager idle,
+                        PlayerManager player, MaterialesManager materiales, VenderManager venderManager) {
+        this.playerManager = player;
+        idleManager = idle;
+        rangosManager = rango;
+        treeSkillManager = treeskill;
+        minaManager = mina;
+        materialesManager = materiales;
+        this.venderManager = venderManager;
+    }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent e) {
+        if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.GREEN + "Vender")) {
+            Player p = (Player) e.getPlayer();
+            for (ItemStack i : e.getView().getTopInventory()) {
+                if (i == null) continue;
+                if (i.getItemMeta() == null) continue;
+               if (!i.getType().equals(Material.LIME_STAINED_GLASS_PANE) && !i.getType().equals(Material.GRAY_STAINED_GLASS_PANE)
+                        && !i.getType().equals(Material.RED_STAINED_GLASS_PANE) && !i.getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
+                    p.getInventory().addItem(i);
+                }
+            }
+
+        }
+    }
+
+    private void manejadorMenu(InventoryClickEvent e, Player p) {
+        e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
+            return;
+        }
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.IRON_PICKAXE)) {
+            p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE_FAR, 100, 2);
+            rangosManager.ascender(p);
+            p.openInventory(Idleprison.crearInventario(p));
+        } else if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            Inventory inventario = Crafteo.crearInventario(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.COAL_ORE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            Inventory inventario = Mina.crearInventario(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.OAK_SAPLING)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            Inventory inventario = TreeSkill.crearInventario(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.CHEST)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            Inventory inventario = Idle.crearInventario(p,1);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.GOLD_INGOT)){
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            Inventory inventario = Vender.crearInventario(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.NETHER_STAR)){
+            treeSkillManager.renacer(p);
+            p.closeInventory();
+        }
+    }
+
+    private void manejadorMinas(InventoryClickEvent e, Player p) {
+        e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
+            return;
+        }
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.CALCITE)) {
+            minaManager.tpMina(p, "infierno1");
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.WARPED_NYLIUM)) {
+            minaManager.tpMina(p, "infierno2");
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.MAGMA_BLOCK)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            minaManager.tpMina(p, "infierno3");
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.TUFF)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            minaManager.tpMina(p, "infierno4");
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.STONE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            minaManager.tpMina(p, "afueras1");
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.RED_TERRACOTTA)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            minaManager.tpMina(p, "afueras2");
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.SMOOTH_SANDSTONE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            minaManager.tpMina(p, "afueras3");
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.COAL_ORE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            minaManager.tpMina(p, "afueras4");
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.LIGHT_BLUE_CONCRETE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            minaManager.tpMina(p, "extra1");
+            e.getView().close();
+        } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(Idleprison.crearInventario(p));
+        }
+    }
+
+    private void manejadorCraftear(InventoryClickEvent e, Player p) {
+        e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
+            return;
+        }
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            p.openWorkbench(null,true);
+        } else if (e.getCurrentItem().getType().equals(Material.BOOK)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            Inventory inventario = Crafteo.crearCraftGuide(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(Idleprison.crearInventario(p));
+        }
+    }
+
+    private void manejadorCraftguide(InventoryClickEvent e, Player p) {
+        e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
+            return;
+        }
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.CRIMSON_PLANKS)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            Inventory inventario = Crafteo.guiaCrafteoTablonesInfierno(p);
+            p.openInventory(inventario);
+        }else if (e.getCurrentItem().getType().equals(Material.WOODEN_PICKAXE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            if (e.getCurrentItem().getItemMeta().hasEnchant(Enchantment.DIG_SPEED)) {
+                Inventory inventario = Crafteo.guiaCrafteoPicoAzul1(p);
+                p.openInventory(inventario);
+            } else if (e.getCurrentItem().getItemMeta().hasEnchant(Enchantment.LOOT_BONUS_MOBS)) {
+                Inventory inventario = Crafteo.guiaCrafteoPicoVerde1(p);
+                p.openInventory(inventario);
+            } else {
+                Inventory inventario = Crafteo.guiaCrafteoPicoMadera(p);
+                p.openInventory(inventario);
+            }
+        } else if (e.getCurrentItem().getType().equals(Material.LIGHT_BLUE_TERRACOTTA)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoEsenciaAzul1(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.COOKED_COD)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoPescadoBrasa(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.STONE_PICKAXE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            if (e.getCurrentItem().getItemMeta().hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
+                Inventory inventario = Crafteo.guiaCrafteoPicoRojo1(p);
+                p.openInventory(inventario);
+            } else if (e.getCurrentItem().getItemMeta().hasEnchant(Enchantment.DIG_SPEED)) {
+                Inventory inventario = Crafteo.guiaCrafteoPicoAzul2(p);
+                p.openInventory(inventario);
+            } else {
+                Inventory inventario = Crafteo.guiaCrafteoPicoPiedra(p);
+                p.openInventory(inventario);
+            }
+        } else if (e.getCurrentItem().getType().equals(Material.OAK_PLANKS)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoTablonesRoble(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.RED_TERRACOTTA)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoEsenciaRoja1(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.GRANITE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoGranGranito(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoLentes(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.SPYGLASS)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+            if (e.getCurrentItem().getItemMeta().hasEnchants()) {
+                Inventory inventario = Crafteo.guiaCrafteoCatalejo1(p);
+                p.openInventory(inventario);
+            } else {
+                Inventory inventario = Crafteo.guiaCrafteoCatalejo(p);
+                p.openInventory(inventario);
+            }
+        } else if (e.getCurrentItem().getType().equals(Material.LIME_TERRACOTTA)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoEsenciaVerde1(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.LIGHT_BLUE_CONCRETE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoEsenciaAzul2(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.BREAD)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoPan(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.YELLOW_TERRACOTTA)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
+            Inventory inventario = Crafteo.guiaCrafteoEsenciaAmarilla1(p);
+            p.openInventory(inventario);
+        } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(Crafteo.crearInventario(p));
+        }
+    }
+
+    private void manejadorIdle(InventoryClickEvent e, Player p, int cantidad) {
+        e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
+            return;
+        }
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.LIME_CONCRETE)) {
+            p.playSound(p.getLocation(),Sound.BLOCK_STONE_BUTTON_CLICK_ON,100,2);
+            if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x"+cantidad+" niño minero")){
+                idleManager.comprarMaterial(1,p.getName(),cantidad);
+                double dinero = idleManager.comprar(p,1, cantidad);
+                if (dinero != 0) {
+                    p.sendMessage("Comprado por: " + DineroManager.dineroToString(dinero) + "E, 1 alga seca y " +
+                            (playerManager.getIdle(1,p.getName())) + " polvo de hueso" );
+                    p.openInventory(Idle.crearInventario(p,cantidad));
+                }
+                else p.sendMessage("No suficiente dinero");
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x"+cantidad+" minero experimentado")) {
+                idleManager.comprarMaterial(2,p.getName(),cantidad);
+                double dinero = idleManager.comprar(p,2, cantidad);
+                if (dinero != 0) {
+                    p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
+                    p.openInventory(Idle.crearInventario(p,cantidad));
+                }
+                else p.sendMessage("No suficiente dinero");
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x"+cantidad+" yacimiento de calcita")) {
+                idleManager.comprarMaterial(3,p.getName(),cantidad);
+                double dinero = idleManager.comprar(p,3, cantidad);
+                if (dinero != 0) {
+                    p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
+                    p.openInventory(Idle.crearInventario(p,cantidad));
+                }
+                else p.sendMessage("No suficiente dinero");
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x"+cantidad+" cueva de granito")) {
+                idleManager.comprarMaterial(4,p.getName(),cantidad);
+                double dinero = idleManager.comprar(p,4, cantidad);
+                if (dinero != 0) {
+                    p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
+                    p.openInventory(Idle.crearInventario(p,cantidad));
+                }
+                else p.sendMessage("No suficiente dinero");
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x" + cantidad + " piramide de arenisca")) {
+                idleManager.comprarMaterial(5,p.getName(),cantidad);
+                double dinero = idleManager.comprar(p,5, cantidad);
+                if (dinero != 0) {
+                    p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
+                    p.openInventory(Idle.crearInventario(p,cantidad));
+                }
+                else p.sendMessage("No suficiente dinero");
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x" + cantidad + " mina de carbón")) {
+                idleManager.comprarMaterial(6,p.getName(),cantidad);
+                double dinero = idleManager.comprar(p,6, cantidad);
+                if (dinero != 0) {
+                    p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
+                    p.openInventory(Idle.crearInventario(p,cantidad));
+                }
+                else p.sendMessage("No suficiente dinero");
+            }
+        } else if (e.getCurrentItem().getType().equals(Material.YELLOW_CONCRETE)){
+            p.sendMessage("No tienes suficiente dinero");
+            p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,2);
+        } else if (e.getCurrentItem().getType().equals(Material.LIGHT_GRAY_CONCRETE)){
+            if (e.getCurrentItem().getItemMeta().getDisplayName().contains("10")){
+                p.openInventory(Idle.crearInventario(p,10));
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("64")){
+                p.openInventory(Idle.crearInventario(p,64));
+            } else p.openInventory(Idle.crearInventario(p,1));
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+        } else if (e.getCurrentItem().getType().equals(Material.BLACK_CONCRETE)){
+            p.sendMessage("Bloqueado");
+            p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,2);
+        } else if (e.getCurrentItem().getType().equals(Material.CHEST)) {
+            p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,1);
+            idleManager.recogerDinero(p);
+            p.openInventory(Idle.crearInventario(p,cantidad));
+        } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(Idleprison.crearInventario(p));
+        }
+    }
+
+    private void manejadorVender(InventoryClickEvent e, Player p) {
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
+            return;
+        }
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getClickedInventory().equals(e.getView().getTopInventory())) {
+            if (e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE)) {
+                p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,1);
+                venderManager.vender(e.getView().getTopInventory().getContents(), p);
+                e.setCancelled(true);         // No mover item
+            } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+                p.openInventory(Idleprison.crearInventario(p));
+                e.setCancelled(true);         // No mover item
+            } else if (e.getCurrentItem().getType().equals(Material.GRAY_STAINED_GLASS_PANE)) {
+                e.setCancelled(true);         // No mover item
+            } else if (e.getCurrentItem().getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
+                e.setCancelled(true);         // No mover item
+            }
+        }
+    }
+
+    private void manejadorTreeSkill(InventoryClickEvent e, Player p) {
+        e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
+            return;
+        }
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.YELLOW_CONCRETE)) {
+            if (treeSkillManager.getPuntosDisponibles(p.getName())>0){
+                p.playSound(p.getLocation(),Sound.BLOCK_STONE_BUTTON_CLICK_ON,100,2);
+                if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Trebol de 4 hojas (click para comprar)")) {
+                    playerManager.setTreeSkill(1,p.getName(),1);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Curso de marketing online (click para comprar)")) {
+                    playerManager.setTreeSkill(2,p.getName(),1);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Stonks (click para comprar)")) {
+                    playerManager.setTreeSkill(3,p.getName(),1);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "El ascendido (click para comprar)")) {
+                    playerManager.setTreeSkill(1,p.getName(),2);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Rebajas (click para comprar)")) {
+                    playerManager.setTreeSkill(2,p.getName(),2);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Ingresos pasivos (click para comprar)")) {
+                    playerManager.setTreeSkill(3,p.getName(),2);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Constitución ancha (click para comprar)")) {
+                    playerManager.setTreeSkill(1,p.getName(),3);
+                    p.setHealthScale(20+ TreeSkillManager.getHealthBoost(p.getName()));
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Minero adolescente (click para comprar)")) {
+                    playerManager.setTreeSkill(2,p.getName(),3);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Ahorrador (click para comprar)")) {
+                    playerManager.setTreeSkill(3,p.getName(),3);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Haste I (click para comprar)")) {
+                    playerManager.setTreeSkill(1,p.getName(),4);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Regeneration I (click para comprar)")) {
+                    playerManager.setTreeSkill(2,p.getName(),4);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Speed I (click para comprar)")) {
+                    playerManager.setTreeSkill(3,p.getName(),4);
+                    p.openInventory(TreeSkill.crearInventario(p));
+                }
+            } else {
+                p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,2);
+                p.sendMessage("No te quedan puntos");
+            }
+        } else if (e.getCurrentItem().getType().equals(Material.RED_CONCRETE)) {
+            p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,2);
+            p.sendMessage("No te quedan puntos");
+        } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(Idleprison.crearInventario(p));
+        }
+    }
+
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        Player p = (Player) e.getView().getPlayer();
+
+        if(e.getClickedInventory()==null) return;
+
+        if (isMenu(e.getCurrentItem())) {
+            p.openInventory(Idleprison.crearInventario(p));
+            e.setCancelled(true);
+        }
+
+        if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_RED + "Menú")) {
+            manejadorMenu(e,p);
+
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + "Minas")) {
+            manejadorMinas(e,p);
+
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + "Craftear")) {
+            manejadorCraftear(e,p);
+
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + "CraftGuide")) {
+            manejadorCraftguide(e, p);
+
+        } else if (e.getView().getTitle().contains(ChatColor.BOLD + "" + ChatColor.GOLD + "Idle")) {
+            if (e.getView().getTitle().contains("10")) manejadorIdle(e,p,10);
+            else if (e.getView().getTitle().contains("64")) manejadorIdle(e,p,64);
+            else manejadorIdle(e,p,1);
+
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.GREEN + "Vender")) {
+            manejadorVender(e,p);
+
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "TreeSkill")) {
+            manejadorTreeSkill(e,p);
+
+        }
+
+    }
+
+    private boolean isMenu(ItemStack item) {
+        if (item == null) return false;
+        return item.equals(PicosManager.getMenu());
+    }
+}

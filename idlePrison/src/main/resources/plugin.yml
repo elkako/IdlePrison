@@ -1,0 +1,36 @@
+name: idlePrison
+version: '${project.version}'
+main: org.elako.idleprison.IdlePrison
+api-version: 1.18
+authors: [elako]
+commands:
+  idleprison:
+    aliases: [idleprison, ip]
+    description: comando general del plugin pon /ip help para mas información
+  ipcrear:
+    aliases: [ ipcrear , ipcr ]
+    description: sirve para crear minas si eres admin pon /ipcrear help para mas información
+  rango:
+    aliases: [ rango ]
+    description: sirve para administar rangos, pon /rango help para mas información
+  dinero:
+    aliases: [ dinero ]
+    description: sirve para administar dinero, pon /dinero help para mas información
+  mina:
+    aliases: [ mina ]
+    description: sirve para teletransportarte a minas, pon /mina help para mas información
+  vender:
+    aliases: [ vender ]
+    description: para vender objetos, pon /vender help para mas información
+  treeskill:
+    aliases: [ treeskill ]
+    description: para ver el menú de treeskill
+  crafteo:
+    aliases: [ crafteo, ipct ]
+    description: pon /crafteo help para mas información
+  idle:
+    aliases: [ idle ]
+    description: pon /idle help para mas información
+  renacer:
+    aliases: [ renacer ]
+    description: pon /renacer help para mas información
