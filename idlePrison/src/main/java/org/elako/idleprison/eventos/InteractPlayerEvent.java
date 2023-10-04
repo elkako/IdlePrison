@@ -10,10 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.elako.idleprison.comandos.*;
-import org.elako.idleprison.items.IpMateriales;
-import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.items.NotaManager;
-import org.elako.idleprison.items.VenderManager;
+import org.elako.idleprison.items.*;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.RangosManager;
 
@@ -31,17 +28,13 @@ public class InteractPlayerEvent implements Listener {
     }
 
     public void getRecompensa(Player p, int n){
-       switch (n){
+        switch (n){
            case 1:
-               NotaManager.getNotaRecompensa(p, 1);
                p.getInventory().addItem(MaterialesManager.getItem(IpMateriales.ALGA,5));
                break;
            case 2:
-               NotaManager.getNotaRecompensa(p, 2);
-
                break;
            case 3:
-               NotaManager.getNotaRecompensa(p, 3);
                break;
        }
     }
@@ -83,9 +76,11 @@ public class InteractPlayerEvent implements Listener {
                 Sign sign = (Sign) clickedBlock.getState();
                 String firstLine = sign.getLine(0);
                 int recompensa = Integer.parseInt(firstLine.substring(firstLine.length()-1));
-                if(!playerManager.isRecompensa(p.getName(), recompensa)) {
+                int nota = NotaManager.getNum(TipoNota.SECRETO, recompensa);
+
+                if(!playerManager.isNotaRecibidas(p.getName(), nota)) {
+                    NotaManager.getNota(p,nota);
                     getRecompensa(p, recompensa);
-                    playerManager.setRecompensas(p.getName(),recompensa);
                 }
             }
         }

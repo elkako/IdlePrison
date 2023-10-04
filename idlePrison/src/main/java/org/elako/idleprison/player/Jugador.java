@@ -152,10 +152,13 @@ public class Jugador {
     public void setDineroRun(double dineroRun) {
         int nota1 = NotaManager.getNum(TipoNota.DINERO, 1);
         int nota2 = NotaManager.getNum(TipoNota.DINERO, 2);
+        int nota3 = NotaManager.getNum(TipoNota.DINERO, 3);
         if(!isNota(nota1))
             if(dinero >= 100) NotaManager.getNota(getPlayer(),nota1);
         if(!isNota(nota2))
             if(dinero >= 1000) NotaManager.getNota(getPlayer(),nota2);
+        if(!isNota(nota3))
+            if(dinero >= 10000) NotaManager.getNota(getPlayer(),nota3);
 
         this.dineroRun = dineroRun;
     }
@@ -202,8 +205,11 @@ public class Jugador {
 
     public void setItemsVendidos(int cant) {
         int nota1 = NotaManager.getNum(TipoNota.VENDER, 1);
+        int nota2 = NotaManager.getNum(TipoNota.VENDER, 2);
         if(!isNota(nota1))
-            if(cant >= 100) NotaManager.getNota(getPlayer(),nota1);
+            if(cant >= 70) NotaManager.getNota(getPlayer(),nota1);
+        if(!isNota(nota2))
+            if(cant >= 700) NotaManager.getNota(getPlayer(),nota1);
 
         itemsVendidos = cant;
     }
@@ -211,9 +217,9 @@ public class Jugador {
         int nota1 = NotaManager.getNum(TipoNota.MINERO, 1);
         int nota2 = NotaManager.getNum(TipoNota.MINERO, 2);
         if(!isNota(nota1))
-            if(n >= 10) NotaManager.getNota(getPlayer(),nota1);
+            if(n >= 30) NotaManager.getNota(getPlayer(),nota1);
         if(!isNota(nota2))
-            if(n >= 20) NotaManager.getNota(getPlayer(),nota2);
+            if(n >= 300) NotaManager.getNota(getPlayer(),nota2);
 
         bloquesRotos = n;
     }

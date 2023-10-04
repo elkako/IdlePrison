@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.items.NotaManager;
 import org.elako.idleprison.items.PicosManager;
 import org.elako.idleprison.player.RangosManager;
@@ -19,9 +20,16 @@ public class ItemDropEvent implements Listener {
     @EventHandler
     public void onDropItem(PlayerDropItemEvent e){
         Player p = e.getPlayer();
-        if(!e.getItemDrop().getItemStack().getType().equals(Material.PAPER)) return;
+        ItemStack item = e.getItemDrop().getItemStack();
+        if(!item.getType().equals(Material.PAPER)) return;
+        int nota;
 
-        int nota = Integer.parseInt(String.valueOf(e.getItemDrop().getItemStack().getItemMeta().getDisplayName().charAt(9)));
+        try {
+            nota = Integer.parseInt(item.getItemMeta().getDisplayName().substring(9,10));
+        } catch (NumberFormatException excepcion) {
+            nota = Integer.parseInt(item.getItemMeta().getDisplayName().substring(9,9));
+        }
+
         e.getItemDrop().remove();
 
         NotaManager.sendMensajeRecompensa(p, nota);
