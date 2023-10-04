@@ -65,10 +65,10 @@ public class NotaManager {
                 ChatColor.WHITE + " Consigue 100 E"
         ),100));
 
-        notas.add(new Nota( notas.size()+1, "Empresario empedernido", List.of( //7
+        notas.add(new Nota( notas.size()+1, "Empresario empedernido", List.of( //7 todo
                 ChatColor.WHITE + "Ten cuidado de no vender objetos que necesites"
         ),List.of(
-                ChatColor.WHITE + " Vende 70 items"
+                ChatColor.WHITE + " Consigue 10 idles"
         ),20));
 
         notas.add(new Nota( notas.size()+1, "Vendedor empedernido", List.of( //8
@@ -85,28 +85,28 @@ public class NotaManager {
                 ChatColor.WHITE + " Sube de rango por primera vez"
         ),40));
 
-        notas.add(new Nota( notas.size()+1, "Zona secreta 2", List.of( //10
+        notas.add(new Nota( notas.size()+1, "Zona secreta 2", List.of( //10 todo
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
                 ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
         ),List.of(
                 ChatColor.WHITE + " Encuentra el secreto de la zona infierno2"
         ),70));
 
-        notas.add(new Nota( notas.size()+1, "Fondon", List.of( //11
+        notas.add(new Nota( notas.size()+1, "Fondon", List.of( //11 todo
                 ChatColor.WHITE + "La comida es útil para cuando pierdes vida"
         ),List.of(
                 ChatColor.WHITE + " Comer 100 alimentos"
         ),70));
 
         //infierno3
-        notas.add(new Nota( notas.size()+1, "Tecnología arcana", List.of( //12
+        notas.add(new Nota( notas.size()+1, "Tecnología arcana", List.of( //12 todo
                 ChatColor.WHITE + "Los fragmentos son usados para construir esencias",
                 ChatColor.WHITE + " las cuales a su vez sirven para mejorar picos"
         ),List.of(
                 ChatColor.WHITE + " Obtén tu primer fragmento de esencia"
         ),70));
 
-        notas.add(new Nota( notas.size()+1, "Destrucción masiva", List.of( //13
+        notas.add(new Nota( notas.size()+1, "Destrucción masiva", List.of( //13 todo
                 ChatColor.WHITE + "Aumenta la velocidad con la que mina el",
                 ChatColor.WHITE + " pico que encantes"
         ),List.of(
@@ -120,7 +120,7 @@ public class NotaManager {
                 ChatColor.WHITE + " Consigue 1.000 E"
         ),100));
 
-        notas.add(new Nota( notas.size()+1, "Zona secreta 3", List.of( //15
+        notas.add(new Nota( notas.size()+1, "Zona secreta 3", List.of( //15 todo
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
                 ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
         ),List.of(
@@ -128,7 +128,14 @@ public class NotaManager {
         ),150));
 
         //infierno4
-        notas.add(new Nota( notas.size()+1, "Mi primer luisbi", List.of( //16
+        notas.add(new Nota( notas.size()+1, "Zona secreta 4", List.of( //16
+                ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
+                ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
+        ),List.of(
+                ChatColor.WHITE + " Encuentra el secreto de la zona infierno2"
+        ),70));
+
+        notas.add(new Nota( notas.size()+1, "Mi primer luisbi", List.of( //17 todo
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota"
         ),List.of(
                 ChatColor.WHITE + " Consigue 10.000 E"
