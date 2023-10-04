@@ -1,8 +1,11 @@
 package org.elako.idleprison.player;
 
+import org.bukkit.entity.Player;
 import org.elako.idleprison.IdlePrison;
+import org.elako.idleprison.items.NotaManager;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Jugador {
     private String jugador;
@@ -13,13 +16,7 @@ public class Jugador {
     private final int rateOFFLINE = 120; //10 mins
     private int timeOffline = rateOFFLINE;
     private int duracionScoreboard = 0;
-    private int idle1;// niño minerow
-    private int idle2; // minero experto
-    private int idle3; // yacimiento de calcita
-    private int idle4; // mina de carbon
-    private int idle5; // mina de carbon
-    private int idle6; // mina de carbon
-
+    private LinkedList<Integer> idle = new LinkedList<>();
     private double dineroRenacer;
     private double dineroRun;
     private int rama1;
@@ -40,12 +37,12 @@ public class Jugador {
         this.dineroRun = dineroRun;
         this.dineroRenacer = dineroRenacer;
         this.rango = rango;
-        this.idle1 = idle1;
-        this.idle2 = idle2;
-        this.idle3 = idle3;
-        this.idle4 = idle4;
-        this.idle5 = idle5;
-        this.idle6 = idle6;
+        idle.add(idle1);
+        idle.add(idle2);
+        idle.add(idle3);
+        idle.add(idle4);
+        idle.add(idle5);
+        idle.add(idle6);
         rama1 = treeskill1;
         rama2 = treeskill2;
         rama3 = treeskill3;
@@ -72,22 +69,7 @@ public class Jugador {
     public void reloadTimeScoreboard(int segs) { duracionScoreboard = segs; }
 
     public int getIdle(int i){
-        switch (i){
-            case 1:
-                return idle1; // niño minero
-            case 2:
-                return idle2; // minero experto
-            case 3:
-                return idle3; // yacimiento de calcita
-            case 4:
-                return idle4; // cueva de granito
-            case 5:
-                return idle5; // piramide de arenisca
-            case 6:
-                return idle6; // mina de carbón
-            default:
-                return 0;
-        }
+        return idle.get(i-1);
     }
 
     public double getDineroRun() { return dineroRun; }
@@ -136,34 +118,39 @@ public class Jugador {
     public double getDineroAcum() { return dineroAcumulado; }
 
     public void setDinero(double dinero) { this.dinero = dinero; }
-    public void setRango(Rangos rango) { this.rango = rango; }
+    public void setRango(Rangos rango) {
+        this.rango = rango;
+    }
     public void setPermisos(String permiso) { this.permisos = permiso;}
 
-    public void setIdle(int i, int cantidad){
-        switch (i){
-            case 1:
-                idle1 = cantidad; // niño minero
-                return;
-            case 2:
-                idle2 = cantidad; // minero experto
-                return;
-            case 3:
-                idle3 = cantidad; // yacimiento de calcita
-                return;
-            case 4:
-                idle4 = cantidad; // cueva de granito
-                return;
-            case 5:
-                idle5 = cantidad; // piramide de arenisca
-                return;
-            case 6:
-                idle6 = cantidad; // mina de carbón
-                return;
+    public Player getPlayer(){
+        return IdlePrison.getPlugin().getServer().getPlayer(jugador);
+    }
+
+    public void actualizarNotasIdle(){
+        int total = 0;
+        for (int i:idle) {
+            total += i;
         }
+        if(!isNota(5))
+            if(dinero >= 100) NotaManager.getNota(getPlayer(),5);
+
+    }
+
+    public void setIdle(int i, int cantidad){
+        actualizarNotasIdle();
+        idle.set(i-1, cantidad);
     }
 
     public void setDineroRenacer(double dineroRenacer) { this.dineroRenacer = dineroRenacer; }
-    public void setDineroRun(double dineroRun) { this.dineroRun = dineroRun; }
+    public void setDineroRun(double dineroRun) {
+        if(!isNota(5))
+            if(dinero >= 100) NotaManager.getNota(getPlayer(),5);
+        else if(!isNota(9))
+            if(dinero >= 1000) NotaManager.getNota(getPlayer(),9);
+
+        this.dineroRun = dineroRun;
+    }
 
     public void setTreeSkill(int i, int n){
         switch (i){
@@ -205,8 +192,16 @@ public class Jugador {
         IdlePrison.getPlugin().escribirRecompensas(jugador, recompensas);
     }
 
-    public void setItemsVendidos(int itemsVendidos) { this.itemsVendidos = itemsVendidos; }
-    public void setBloquesRotos(int bloquesRotos) { this.bloquesRotos = bloquesRotos; }
+    public void setItemsVendidos(int cant) {
+        if(!isNota(8))
+            if(cant >= 100) NotaManager.getNota(getPlayer(),8);
+        itemsVendidos = cant;
+    }
+    public void setBloquesRotos(int n) {
+        if(!isNota(5))
+            if(n >= 30) NotaManager.getNota(getPlayer(),5);
+        bloquesRotos = n;
+    }
 
     public void diferenciaDinero(double money) {
         diferenciaDinero = money;

@@ -17,6 +17,7 @@ public class NotaManager {
         this.dineroManager = dineroManager;
         this.playerManager = playerManager;
 
+        //infierno1
         notas.add(new Nota( notas.size()+1, "Mira la descripción de la nota", List.of( //1
                 ChatColor.WHITE + "Las notas vendrán con " + ChatColor.GRAY + "un consejo " + ChatColor.WHITE +"y como",
                 ChatColor.WHITE + " se obtuvieron, al pulsar 'Q' con ella en la",
@@ -64,41 +65,88 @@ public class NotaManager {
                 ChatColor.WHITE + " Consigue 100 E"
         ),100));
 
-        notas.add(new Nota( notas.size()+1, "Vendedor empedernido", List.of( //7
+        notas.add(new Nota( notas.size()+1, "Empresario empedernido", List.of( //7
                 ChatColor.WHITE + "Ten cuidado de no vender objetos que necesites"
         ),List.of(
-                ChatColor.WHITE + " Vende 100 items"
+                ChatColor.WHITE + " Vende 70 items"
         ),20));
 
-        notas.add(new Nota( notas.size()+1, "Elitista", List.of( //8
+        notas.add(new Nota( notas.size()+1, "Vendedor empedernido", List.of( //8
+                ChatColor.WHITE + "Ten cuidado de no vender objetos que necesites"
+        ),List.of(
+                ChatColor.WHITE + " Vende 70 items"
+        ),20));
+
+        //infierno2
+        notas.add(new Nota( notas.size()+1, "Elitista", List.of( //9
                 ChatColor.WHITE + "Subir de rango te da acceso a nuevas minas,",
                 ChatColor.WHITE + " nuevos crafteos e idles, cada vez costará más"
         ),List.of(
                 ChatColor.WHITE + " Sube de rango por primera vez"
         ),40));
 
-        notas.add(new Nota( notas.size()+1, "Mileurista", List.of( //9
+        notas.add(new Nota( notas.size()+1, "Zona secreta 2", List.of( //10
+                ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
+                ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
+        ),List.of(
+                ChatColor.WHITE + " Encuentra el secreto de la zona infierno2"
+        ),70));
+
+        notas.add(new Nota( notas.size()+1, "Fondon", List.of( //11
+                ChatColor.WHITE + "La comida es útil para cuando pierdes vida"
+        ),List.of(
+                ChatColor.WHITE + " Comer 100 alimentos"
+        ),70));
+
+        //infierno3
+        notas.add(new Nota( notas.size()+1, "Tecnología arcana", List.of( //12
+                ChatColor.WHITE + "Los fragmentos son usados para construir esencias",
+                ChatColor.WHITE + " las cuales a su vez sirven para mejorar picos"
+        ),List.of(
+                ChatColor.WHITE + " Obtén tu primer fragmento de esencia"
+        ),70));
+
+        notas.add(new Nota( notas.size()+1, "Destrucción masiva", List.of( //13
+                ChatColor.WHITE + "Aumenta la velocidad con la que mina el",
+                ChatColor.WHITE + " pico que encantes"
+        ),List.of(
+                ChatColor.WHITE + " Craftea tu primera esencia de destrucción"
+        ),70));
+
+        notas.add(new Nota( notas.size()+1, "Mileurista", List.of( //14
                 ChatColor.WHITE + "Invierte ese dinero con sabiduría,",
                 ChatColor.WHITE + " no te lo gastes en meretrices"
         ),List.of(
                 ChatColor.WHITE + " Consigue 1.000 E"
         ),100));
 
+        notas.add(new Nota( notas.size()+1, "Zona secreta 3", List.of( //15
+                ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
+                ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
+        ),List.of(
+                ChatColor.WHITE + " Encuentra el secreto de la zona infierno3"
+        ),150));
 
-        notas.add(new Nota( notas.size()+1, "Mi primer luisbi", List.of( //X
+        //infierno4
+        notas.add(new Nota( notas.size()+1, "Mi primer luisbi", List.of( //16
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota"
         ),List.of(
                 ChatColor.WHITE + " Consigue 10.000 E"
         ),1000));
 
+        //afueras1
 
-        //vender x objetos
-        //romper x bloques
-        //conseguir x dinero
+        //afueras2
 
-        //subir primer rango
+        //extra1
+
         //muere por primera vez
-        //obtener primer fragmento
+
+        //afueras3
+
+
+
+        //consigue primer esencia rojo, verde ,amarillonegro
         //consigue analizador de bloques
         //renacer primera vez
 

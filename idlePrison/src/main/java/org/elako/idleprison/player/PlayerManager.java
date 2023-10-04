@@ -29,6 +29,7 @@ public class PlayerManager {
         Rangos rangos = Rangos.valueOf(rango.toUpperCase());
         if(!isNota(player,8))
             if(rangos.equals(Rangos.CONDENADO3)) NotaManager.getNota(IdlePrison.getPlugin().getServer().getPlayer(player),7);
+        // añadir nota salir infierno
         IdlePrison.getPlugin().escribirRango(player, rango);
         getPlayer(player).setRango(rangos);
     }
@@ -44,16 +45,12 @@ public class PlayerManager {
 
     public int getItemsVendidos(String player){ return getPlayer(player).getItemsVendidos(); }
     public void setItemsVendidos(String player, int cant){
-        if(!isNota(player,6))
-            if(cant >= 100) NotaManager.getNota(IdlePrison.getPlugin().getServer().getPlayer(player),7);
         IdlePrison.getPlugin().escribirItemsVendidos(player,cant);
         getPlayer(player).setItemsVendidos(cant);
     }
 
     public int getBloquesRotos(String player){ return getPlayer(player).getBloquesRotos(); }
     public void setBloquesRotos(String player, int n){
-        if(!isNota(player,5))
-            if(n >= 30) NotaManager.getNota(IdlePrison.getPlugin().getServer().getPlayer(player),6);
         IdlePrison.getPlugin().escribirBloquesRotos(player,n);
         getPlayer(player).setBloquesRotos(n);
     }
@@ -107,11 +104,6 @@ public class PlayerManager {
     }
 
     public void setDineroRun(String player, double dinero){
-        if(!isNota(player,5))
-            if(dinero >= 100) NotaManager.getNota(IdlePrison.getPlugin().getServer().getPlayer(player),5);
-        else if(!isNota(player,8))
-            if(dinero >= 1000) NotaManager.getNota(IdlePrison.getPlugin().getServer().getPlayer(player),8);
-
         IdlePrison.getPlugin().escribirDineroRun(player, dinero);
         getPlayer(player).setDineroRun(dinero);
     }
