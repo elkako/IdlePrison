@@ -1,19 +1,19 @@
 package org.elako.idleprison;
 
-import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
+import org.elako.idleprison.items.IpMateriales;
+import org.elako.idleprison.items.MaterialesManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class pruebas {
     public static void cambio(int i, int n){
-        i=3;
-        n=5;
     }
 
     public static void main(String[] args) {
-        int i=1;
-        int n=8;
 
-        cambio(i,n);
-
-        System.out.print(" a"+ i + "" + n );
     }
 }

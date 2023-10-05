@@ -10,6 +10,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
 import org.elako.idleprison.comandos.*;
+import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.eventos.*;
 import org.elako.idleprison.items.*;
 import org.elako.idleprison.mina.BloqueManager;
@@ -31,6 +32,7 @@ public final class IdlePrison extends JavaPlugin {
     private static BloqueManager bloque;
     private static NotaManager nota;
     private static VenderManager vender;
+    private static CrafteoManager crafteo;
     private static IdlePrison plugin;
 
     public static IdlePrison getPlugin(){
@@ -297,6 +299,7 @@ public final class IdlePrison extends JavaPlugin {
         idle = new IdleManager(dinero,playerManager);
         mina = new MinaManager(rango);
         treeskill = new TreeSkillManager(playerManager,rango,mina);
+        crafteo = new CrafteoManager();
 
         insertarConfig();
 
@@ -345,7 +348,6 @@ public final class IdlePrison extends JavaPlugin {
         pescadoBrasaReceta.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.PESCADO_CRUDO)));
         pescadoBrasaReceta.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS)));
         getServer().addRecipe(pescadoBrasaReceta);
-
 
         ShapedRecipe esenciaAzul1 = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL1));
         esenciaAzul1.shape("SSS" , "SSS" , "SSS");
