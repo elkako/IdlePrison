@@ -27,17 +27,17 @@ public class BreakPutBlockEvent implements Listener {
         bloqueManager = bloques;
     }
 
-
     public int generarNumeros(int MAX, int MIN) {
         return (int) (Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
     }
     public boolean probabilidad(double prob){  return (generarNumeros(100, 1)< prob*100); }
 
-
-
     public void bloquePrisonDrop(Block bloque, Player p, int verde, Boolean damage){
         playerManager.setBloquesRotos(p.getName(), playerManager.getBloquesRotos(p.getName())+1);
 
+        if(PlayerManager.inventarioLleno(p)) {
+            p.sendMessage("Inventario lleno no puedes recibir item");
+        }
         bloqueManager.drop(bloque,p,damage);
 
         dineroManager.addMoney(p.getName(),verde*10);

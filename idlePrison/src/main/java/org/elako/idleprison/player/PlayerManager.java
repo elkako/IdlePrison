@@ -1,14 +1,26 @@
 package org.elako.idleprison.player;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.NotaManager;
 import org.elako.idleprison.items.TipoNota;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class PlayerManager {
     LinkedList<Jugador> jugadores = new LinkedList<>();
+
+    public static boolean inventarioLleno(Player jugador) {
+        for (ItemStack item : jugador.getInventory().getContents()) {
+            if (item == null || item.getType() == Material.AIR) {
+                // Espacio vacío en el inventario
+                return false;
+            }
+        }
+        return true; // Si no se encontraron espacios vacíos, el inventario está lleno
+    }
 
     public Jugador getPlayer(String player){
         //IdlePrison.getPlugin().getServer().getConsoleSender().sendMessage("[PPPP]"); // pruebas
@@ -34,8 +46,6 @@ public class PlayerManager {
             if(rangos.equals(Rangos.CONDENADO3)) NotaManager.getNota(getPlayer(player).getPlayer(),nota1);
         if(!isNota(player, nota2))
             if(rangos.equals(Rangos.CAMPESINO1)) NotaManager.getNota(getPlayer(player).getPlayer(),nota2);
-        if(!isNota(player,8))
-            if(rangos.equals(Rangos.CONDENADO3)) NotaManager.getNota(IdlePrison.getPlugin().getServer().getPlayer(player),7);
         // añadir nota salir infierno
         IdlePrison.getPlugin().escribirRango(player, rango);
         getPlayer(player).setRango(rangos);

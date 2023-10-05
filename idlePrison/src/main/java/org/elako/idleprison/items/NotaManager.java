@@ -191,8 +191,6 @@ public class NotaManager {
 
         //afueras3
 
-
-
         //consigue primer verde ,amarillonegro
         //consigue analizador de bloques
 
@@ -202,8 +200,6 @@ public class NotaManager {
 
 
     }
-
-    //todo añadir get nota por tiponota
 
     public static int getNum(TipoNota tipo, int n) {
         int contador=0;
@@ -216,6 +212,9 @@ public class NotaManager {
 
     public static void getNota(Player p, int n) {
         if(playerManager.isNotaRecibidas(p.getName(),n)) return;
+        if(PlayerManager.inventarioLleno(p)) {
+            p.sendMessage("Inventario lleno no puedes recibir nota");
+        }
         p.getInventory().addItem(notas.get(n-1).crearObjeto());
         playerManager.setNotasRecibidas(p.getName(),n);
     }
