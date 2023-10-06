@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class CrafteoShaped extends Crafteo {
 
     public CrafteoShaped(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
-        super(receta, resultado, permiso, false);
+        super(receta, resultado, permiso);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class CrafteoShaped extends Crafteo {
     }
 
     @Override
-    public Recipe getCrafteo() {
+    public List<Recipe> getCrafteo() {
         ShapedRecipe receta = new ShapedRecipe(getResultado());
 
         List<ItemStack> array = getReceta().stream().distinct().collect(Collectors.toList());
@@ -55,7 +55,7 @@ public class CrafteoShaped extends Crafteo {
         receta.shape(s1, s2,s3);
         IdlePrison.imprimirConsola("Crafteo creado:[" + s1 + "], [" + s2 + "], [" + s3 + "]");
 
-        return receta;
+        return List.of(receta);
     }
 
     @Override

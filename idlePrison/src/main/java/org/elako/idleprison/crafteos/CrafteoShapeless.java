@@ -6,22 +6,20 @@ import org.bukkit.inventory.*;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.player.Rangos;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CrafteoShapeless extends Crafteo {
 
     public CrafteoShapeless(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
-        super(receta, resultado, permiso, false);
+        super(receta, resultado, permiso);
     }
 
     @Override
     public ItemStack getIcono() { return getResultado(); }
 
     @Override
-    public Recipe getCrafteo() {
+    public List<Recipe> getCrafteo() {
         ShapelessRecipe receta = new ShapelessRecipe(getResultado());
         String s= "";
 
@@ -32,7 +30,7 @@ public class CrafteoShapeless extends Crafteo {
         s = s.substring(0,s.length()-2);
         IdlePrison.imprimirConsola("Crafteo creado:[" + s + "]");
 
-        return receta;
+        return List.of( receta );
     }
 
     @Override

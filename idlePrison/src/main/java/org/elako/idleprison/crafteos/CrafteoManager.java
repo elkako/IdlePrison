@@ -2,6 +2,8 @@ package org.elako.idleprison.crafteos;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
+import org.elako.idleprison.items.IpFragmento;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.player.Rangos;
@@ -21,5 +23,15 @@ public class CrafteoManager {
                 nulo, MaterialesManager.getItem(IpMateriales.ALGA), MaterialesManager.getItem(IpMateriales.PAN)) ), new ItemStack(Material.CALCITE), Rangos.CONDENADO4 ) );
 
         crafteos.getFirst().getCrafteo();
+    }
+
+    public LinkedList<Recipe> getCrafteos() {
+        LinkedList<Recipe> recetas = new LinkedList<>();
+        for (Crafteo c : crafteos) {
+            for (Recipe r :c.getCrafteo()) {
+                recetas.add( r );
+            }
+        }
+        return recetas;
     }
 }
