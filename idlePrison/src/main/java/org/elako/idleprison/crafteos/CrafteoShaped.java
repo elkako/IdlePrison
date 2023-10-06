@@ -58,6 +58,6 @@ public class CrafteoShaped extends Crafteo {
 
     @Override
     public Inventory getGuide(Player p) {
-        return guiaCrafteoSimple(p, getReceta(), getResultado());
+        return guiaCrafteoSimple(p, new LinkedList<>(getReceta()), new ItemStack(getResultado()));
     }
 }

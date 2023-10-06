@@ -64,6 +64,8 @@ public class CrafteoManager {
     }
 
     public void interactuar(ItemStack item, Player p){
+        if (item.getType().equals(Material.RED_STAINED_GLASS_PANE))
+            p.openInventory(org.elako.idleprison.comandos.Crafteo.crearInventario(p));
         for ( Crafteo c : crafteos ) {
             if (item.equals(c.getResultado())) p.openInventory(c.getGuide(p));
         }

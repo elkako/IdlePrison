@@ -172,8 +172,10 @@ public class MenuListener implements Listener {
         }
         if (e.getCurrentItem() == null) return;
 
+        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
         crafteoManager.interactuar(e.getCurrentItem(), p);
 
+        /*
         if (e.getCurrentItem().getType().equals(Material.CRIMSON_PLANKS)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
             Inventory inventario = Crafteo.guiaCrafteoTablonesInfierno(p);
@@ -264,7 +266,7 @@ public class MenuListener implements Listener {
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
             p.openInventory(Crafteo.crearInventario(p));
-        }
+        }*/
     }
 
     private void manejadorIdle(InventoryClickEvent e, Player p, int cantidad) {
