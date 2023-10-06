@@ -47,8 +47,20 @@ public class CrafteoShapeless extends Crafteo {
                 for (int i = 0; i < 4; i++) guia.add(vacio);
                 break;
             case 2:
-            Case 3:
+                guia.add(vacio);
+                guia.add(lista.pop());
+                for (int i = 0; i < 5; i++) guia.add(vacio);
+                guia.add(lista.pop());
+                break;
+            case 3:
+                for (int i = 0; i < 3; i++) guia.add(vacio);
+                for (int i = 0; i < 3; i++) guia.add(lista.pop());
+                for (int i = 0; i < 3; i++) guia.add(vacio);
+                break;
+            case 9:
+                for (int i = 0; i < 9; i++) guia.add(lista.pop());
+                break;
         }
-        return guiaCrafteoSimple(p, , getResultado());
+        return guiaCrafteoSimple(p, guia, getResultado());
     }
 }
