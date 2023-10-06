@@ -53,7 +53,7 @@ public class CrafteoShaped extends Crafteo {
         }
 
         receta.shape(s1, s2,s3);
-        IdlePrison.imprimirConsola("Craft2:[" + s1 + "], [" + s2 + "], [" + s3 + "[");
+        IdlePrison.imprimirConsola("Crafteo creado:[" + s1 + "], [" + s2 + "], [" + s3 + "]");
 
         return receta;
     }

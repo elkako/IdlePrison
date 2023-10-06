@@ -56,7 +56,8 @@ public abstract class Crafteo {
                 case 20:
                 case 21:
                 case 22:
-                    inventario.setItem(i, items.pop());
+                    ItemStack item = items.pop();
+                    if(!item.getType().equals(Material.BARRIER))inventario.setItem(i, item);
                     break;
                 case 15:
                     inventario.setItem(i, resul);
