@@ -1,6 +1,8 @@
 package org.elako.idleprison.crafteos;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.elako.idleprison.items.IpFragmento;
@@ -34,4 +36,11 @@ public class CrafteoManager {
         }
         return recetas;
     }
+
+    public void interactuar(ItemStack item, Player p){
+        for ( Crafteo c : crafteos ) {
+            if (item.equals(c.getResultado())) p.openInventory(c.getGuide(p));
+        }
+    }
+
 }

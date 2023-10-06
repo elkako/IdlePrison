@@ -21,9 +21,6 @@ public class CrafteoEncantar extends Crafteo {
     }
 
     @Override
-    public ItemStack getIcono() { return getResultado(); }
-
-    @Override
     public List<Recipe> getCrafteo() {
         ShapelessRecipe recetaW = new ShapelessRecipe(new ItemStack(Material.WOODEN_PICKAXE));
         ShapelessRecipe recetaS = new ShapelessRecipe(new ItemStack(Material.STONE_PICKAXE));

@@ -25,7 +25,6 @@ public abstract class Crafteo {
         this.permiso = permiso;
     }
 
-    public abstract ItemStack getIcono();
     public abstract List<Recipe> getCrafteo();
 
     public abstract Inventory getGuide(Player p);
