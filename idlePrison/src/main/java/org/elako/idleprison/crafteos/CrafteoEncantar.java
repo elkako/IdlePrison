@@ -1,9 +1,11 @@
 package org.elako.idleprison.crafteos;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.player.Rangos;
 
@@ -18,6 +20,20 @@ public class CrafteoEncantar extends Crafteo {
         super(receta, resultado, permiso);
         this.encanti = encanti;
         this.nivel = nivel;
+    }
+
+    @Override
+    public ItemStack getIcono() {
+        ItemStack item = getResultado();
+        ItemMeta meta = item.getItemMeta();
+
+        if(encanti.equals(Enchantment.DIG_SPEED)) meta.setDisplayName(ChatColor.WHITE + "Pico destructor ["+ nivel + "]");
+        else if(encanti.equals(Enchantment.LOOT_BONUS_BLOCKS)) meta.setDisplayName(ChatColor.WHITE + "Pico vivo ["+ nivel + "]");
+        else if(encanti.equals(Enchantment.LOOT_BONUS_MOBS)) meta.setDisplayName(ChatColor.WHITE + "Pico capitalista ["+ nivel + "]");
+        else if(encanti.equals(Enchantment.MULTISHOT)) meta.setDisplayName(ChatColor.WHITE + "Pico oscuro ["+ nivel + "]");
+
+        item.setItemMeta(meta);
+        return item;
     }
 
     @Override
@@ -72,4 +88,5 @@ public class CrafteoEncantar extends Crafteo {
         }
         return guiaCrafteoSimple(p, guia, getResultado());
     }
+
 }

@@ -21,9 +21,7 @@ public class CrafteoShaped extends Crafteo {
     }
 
     @Override
-    public ItemStack getIcono() {
-        return getResultado();
-    }
+    public ItemStack getIcono() { return getResultado(); }
 
     @Override
     public List<Recipe> getCrafteo() {

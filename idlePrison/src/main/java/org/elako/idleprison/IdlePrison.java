@@ -299,7 +299,7 @@ public final class IdlePrison extends JavaPlugin {
         idle = new IdleManager(dinero,playerManager);
         mina = new MinaManager(rango);
         treeskill = new TreeSkillManager(playerManager,rango,mina);
-        crafteo = new CrafteoManager();
+        crafteo = new CrafteoManager(rango);
 
         insertarConfig();
 
@@ -309,7 +309,7 @@ public final class IdlePrison extends JavaPlugin {
         pm.registerEvents(new BlockDropEvent(mina), this);
         pm.registerEvents(new MesasCrafteoEvent(rango),this);
         pm.registerEvents(new JoinPlayerEvent(rango,dinero, playerManager),this);
-        pm.registerEvents(new MenuListener(treeskill,mina,rango, idle, playerManager, materiales, vender),this);
+        pm.registerEvents(new MenuListener(treeskill,mina,rango, idle, playerManager, vender, crafteo),this);
         pm.registerEvents(new DeathPlayerEvent(vender,dinero), this);
         pm.registerEvents(new ItemsEvent(mina,bloque),this);
         pm.registerEvents(new ComerEvent(rango),this);

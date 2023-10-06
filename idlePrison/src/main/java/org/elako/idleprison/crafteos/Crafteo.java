@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
-import org.bukkit.inventory.ShapedRecipe;
 import org.elako.idleprison.comandos.Idleprison;
 import org.elako.idleprison.player.Rangos;
 
@@ -28,6 +27,8 @@ public abstract class Crafteo {
     public abstract List<Recipe> getCrafteo();
 
     public abstract Inventory getGuide(Player p);
+
+    public abstract ItemStack getIcono();
 
 
     public LinkedList<ItemStack> getReceta() { return receta; }

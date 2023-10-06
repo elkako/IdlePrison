@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.items.VenderManager;
 import org.elako.idleprison.player.IdleManager;
 import org.elako.idleprison.comandos.*;
@@ -27,19 +28,18 @@ public class MenuListener implements Listener {
     private RangosManager rangosManager;
     private IdleManager idleManager;
     private PlayerManager playerManager;
-    private MaterialesManager materialesManager;
-
+    private CrafteoManager crafteoManager;
     private VenderManager venderManager;
 
     public MenuListener(TreeSkillManager treeskill, MinaManager mina, RangosManager rango, IdleManager idle,
-                        PlayerManager player, MaterialesManager materiales, VenderManager venderManager) {
-        this.playerManager = player;
+                        PlayerManager player, VenderManager vender, CrafteoManager crafteo) {
+        playerManager = player;
         idleManager = idle;
         rangosManager = rango;
         treeSkillManager = treeskill;
         minaManager = mina;
-        materialesManager = materiales;
-        this.venderManager = venderManager;
+        crafteoManager = crafteo;
+        venderManager = vender;
     }
 
     @EventHandler
@@ -156,8 +156,9 @@ public class MenuListener implements Listener {
             p.openWorkbench(null,true);
         } else if (e.getCurrentItem().getType().equals(Material.BOOK)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+
             Inventory inventario = Crafteo.crearCraftGuide(p);
-            p.openInventory(inventario);
+            p.openInventory(crafteoManager.CraftGuide(p));
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
             p.openInventory(Idleprison.crearInventario(p));
@@ -170,6 +171,8 @@ public class MenuListener implements Listener {
             return;
         }
         if (e.getCurrentItem() == null) return;
+
+        crafteoManager.interactuar(e.getCurrentItem(), p);
 
         if (e.getCurrentItem().getType().equals(Material.CRIMSON_PLANKS)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
@@ -442,7 +445,7 @@ public class MenuListener implements Listener {
             e.setCancelled(true);
         }
 
-        if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_RED + "Menú")) {
+        if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_RED) + "Menú")) {
             manejadorMenu(e,p);
 
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + "Minas")) {
