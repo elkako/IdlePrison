@@ -10,10 +10,12 @@ org\elako\idleprison\mina\IpBloque$Morir.class
 org\elako\idleprison\eventos\MesasCrafteoEvent.class
 org\elako\idleprison\eventos\ComerEvent.class
 org\elako\idleprison\comandos\Vender.class
+org\elako\idleprison\crafteos\CrafteoShapelessDoble.class
 org\elako\idleprison\comandos\Mina.class
 org\elako\idleprison\comandos\Renacer.class
 org\elako\idleprison\comandos\Rango.class
 org\elako\idleprison\items\Nota.class
+org\elako\idleprison\crafteos\CrafteoEncantar.class
 org\elako\idleprison\player\RangosManager.class
 org\elako\idleprison\items\PicosManager.class
 org\elako\idleprison\mina\BloqueManager.class
@@ -35,6 +37,7 @@ org\elako\idleprison\items\MaterialesManager.class
 org\elako\idleprison\eventos\DeathPlayerEvent.class
 org\elako\idleprison\mina\DropCuanti.class
 org\elako\idleprison\comandos\Dinero.class
+org\elako\idleprison\crafteos\CrafteoShapeless.class
 org\elako\idleprison\IdlePrison.class
 org\elako\idleprison\pruebas.class
 org\elako\idleprison\player\DineroManager.class
