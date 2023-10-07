@@ -66,12 +66,13 @@ public class CrafteoManager {
             )), MaterialesManager.getItem(IpMateriales.TABLONES_ROBLE,17)
         ) );
 
+        ItemStack picoPiedra = PicosManager.getPicoPiedra();
         ItemStack roca = MaterialesManager.getItem(IpMateriales.ROCA);
         crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
                 roca,   roca,       roca,
                 roca,   picoMadera, roca,
                 roca,   roca,       roca
-        ) ), PicosManager.getPicoPiedra(), Rangos.SINTECHO2 ) );
+        ) ), picoPiedra, Rangos.SINTECHO2 ) );
 
         ItemStack arena = MaterialesManager.getItem(IpMateriales.ARENA);
         ItemStack bloqueMagma = MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO);
@@ -86,6 +87,78 @@ public class CrafteoManager {
                 arena,          arena, arena
             )), lente
         ) );
+
+        ItemStack fragmentoRoja1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_ROJO1);
+        ItemStack esenciaRoja1 = MaterialesManager.getItem(IpMateriales.ESENCIA_ROJA1);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                fragmentoRoja1,   fragmentoRoja1,   fragmentoRoja1,
+                fragmentoRoja1,   fragmentoRoja1,   fragmentoRoja1,
+                fragmentoRoja1,   fragmentoRoja1,   fragmentoRoja1
+        ) ), esenciaRoja1, Rangos.SINTECHO1 ) );
+
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaRoja1) ), picoPiedra,
+                Rangos.SINTECHO1, Enchantment.LOOT_BONUS_BLOCKS, 1
+        ) );
+
+
+        ItemStack granGranito = MaterialesManager.getItem(IpMateriales.GRAN_GRANITO);
+        ItemStack granito = MaterialesManager.getItem(IpMateriales.GRANITO);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                granito,   granito,   granito,
+                granito,   granito,   granito,
+                granito,   granito,   granito
+        ) ), granGranito, Rangos.SINTECHO1 ) );
+
+        ItemStack fragmentoVerde1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_VERDE1);
+        ItemStack esenciaVerde1 = MaterialesManager.getItem(IpMateriales.ESENCIA_VERDE1);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1,
+                fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1,
+                fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1
+        ) ), esenciaVerde1, Rangos.CAMPESINO3 ) );
+
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde1) ), picoMadera,
+                Rangos.CAMPESINO3, Enchantment.LOOT_BONUS_MOBS, 1
+        ) );
+
+        ItemStack fragmentoAzul2 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_AZUL2);
+        ItemStack esenciaAzul2 = MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL2);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                fragmentoAzul2,   fragmentoAzul2,   fragmentoAzul2,
+                fragmentoAzul2,   fragmentoAzul2,   fragmentoAzul2,
+                fragmentoAzul2,   fragmentoAzul2,   fragmentoAzul2
+        ) ), esenciaAzul2, Rangos.CAMPESINO3 ) );
+
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul2) ), picoPiedra,
+                Rangos.CAMPESINO3, Enchantment.DIG_SPEED, 2
+        ) );
+
+        ItemStack trigo = MaterialesManager.getItem(IpMateriales.TRIGO);
+        ItemStack tablones = MaterialesManager.getItem(IpMateriales.TABLONES_ROBLE);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                nulo,   nulo,       nulo,
+                trigo,  trigo,      trigo,
+                nulo,   tablones,   nulo
+        ) ), MaterialesManager.getItem(IpMateriales.PAN,2), Rangos.CAMPESINO2 ) );
+
+        ItemStack catalejo = PicosManager.getCatalejo();
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                nulo,       nulo,       lente,
+                tablones,   tablones,  lente,
+                nulo,       nulo,       nulo
+        ) ), catalejo, Rangos.CAMPESINO2 ) );
+
+        ItemStack fragmentoAmarillo1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_AMARILLO1);
+        ItemStack esenciaAmarilla1 = MaterialesManager.getItem(IpMateriales.ESENCIA_AMARILLA1);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                fragmentoAmarillo1,   fragmentoAmarillo1,   fragmentoAmarillo1,
+                fragmentoAmarillo1,   fragmentoAmarillo1,   fragmentoAmarillo1,
+                fragmentoAmarillo1,   fragmentoAmarillo1,   fragmentoAmarillo1
+        ) ), esenciaAmarilla1, Rangos.CAMPESINO1 ) );
+
+        crafteos.add( new CrafteoShapeless( new LinkedList<>( List.of(
+                esenciaAmarilla1, catalejo
+        )), PicosManager.getDetectorBloques1() , Rangos.CAMPESINO1 ) );
 
 
     }
