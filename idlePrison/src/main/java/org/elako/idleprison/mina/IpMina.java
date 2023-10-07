@@ -31,7 +31,6 @@ public class IpMina {
         return (int) (Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);
     }
 
-
     public IpMina(String id, Material icono, Rangos permiso, int rate, Location spawn, HashMap<IpMateriales,Integer> materiales) {
         this.id =id ;
         this.icono = icono;

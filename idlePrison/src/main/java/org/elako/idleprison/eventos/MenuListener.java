@@ -157,7 +157,6 @@ public class MenuListener implements Listener {
         } else if (e.getCurrentItem().getType().equals(Material.BOOK)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
 
-            Inventory inventario = Crafteo.crearCraftGuide(p);
             p.openInventory(crafteoManager.CraftGuide(p));
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
@@ -267,6 +266,17 @@ public class MenuListener implements Listener {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
             p.openInventory(Crafteo.crearInventario(p));
         }*/
+    }
+
+    private void manejadorCrafteo(InventoryClickEvent e, Player p) {
+        e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
+        if (e.getCurrentItem() == null) return;
+
+       if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(crafteoManager.CraftGuide(p));
+        }
     }
 
     private void manejadorIdle(InventoryClickEvent e, Player p, int cantidad) {
@@ -458,7 +468,8 @@ public class MenuListener implements Listener {
 
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + "CraftGuide")) {
             manejadorCraftguide(e, p);
-
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.LIGHT_PURPLE + "Crafteo")) {
+            manejadorCrafteo(e, p);
         } else if (e.getView().getTitle().contains(ChatColor.BOLD + "" + ChatColor.GOLD + "Idle")) {
             if (e.getView().getTitle().contains("10")) manejadorIdle(e,p,10);
             else if (e.getView().getTitle().contains("64")) manejadorIdle(e,p,64);

@@ -379,13 +379,12 @@ public class MaterialesManager {
 
     public static ItemStack getItem(IpMateriales ipMateriales, int n){
         IpMaterial m = getIpMaterial(ipMateriales);
-        if(m.getItem(n) == null ) return null;
 
         return m.getItem(n);
     }
 
     public static ItemStack getItem(IpMateriales ipMateriales){
-        if(ipMateriales.equals(IpMateriales.AIRE)) return null;
+        if(ipMateriales.equals(IpMateriales.AIRE)) return new ItemStack(Material.BARRIER);
         return getItem(ipMateriales,1);
     }
 

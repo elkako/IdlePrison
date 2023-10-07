@@ -66,7 +66,7 @@ public class Crafteo implements CommandExecutor {
         picoAzul2.setItemMeta(picoMeta4);
 
         Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + "CraftGuide");
-        inventario.setItem(0, materialesManager.getItem(IpMateriales.TABLONES_QUEMADOS));
+        inventario.setItem(0, MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS));
         if (rangosManager.isPermitido(p.getName(), Rangos.CONDENADO3)) inventario.setItem(1, PicosManager.getPicoMadera());
         if (rangosManager.isPermitido(p.getName(), Rangos.CONDENADO2)) inventario.setItem(2, materialesManager.getItem(IpMateriales.PESCADO_BRASA));
         if (rangosManager.isPermitido(p.getName(), Rangos.CONDENADO2)) inventario.setItem(3, materialesManager.getItem(IpMateriales.ESENCIA_AZUL1));

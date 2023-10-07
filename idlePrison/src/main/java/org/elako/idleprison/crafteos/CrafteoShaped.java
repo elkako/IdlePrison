@@ -35,7 +35,7 @@ public class CrafteoShaped extends Crafteo {
             if (item.getType().equals(Material.BARRIER)) {
                 map.put(item,' ');
             } else {
-                receta.setIngredient(a,item.getType());
+                IdlePrison.imprimirConsola(a + " " + item.getType());
                 map.put(item,a);
                 a++;
             }
@@ -49,9 +49,13 @@ public class CrafteoShaped extends Crafteo {
             else if(n<=6) s2 += map.get(item);
             else s3 += map.get(item);
         }
+        IdlePrison.imprimirConsola("Crafteo creado:[" + s1 + "], [" + s2 + "], [" + s3 + "]");
 
         receta.shape(s1, s2,s3);
-        IdlePrison.imprimirConsola("Crafteo creado:[" + s1 + "], [" + s2 + "], [" + s3 + "]");
+
+        for (ItemStack item: array) {
+            receta.setIngredient(map.get(item) , item.getType());
+        }
 
         return List.of(receta);
     }

@@ -330,6 +330,10 @@ public final class IdlePrison extends JavaPlugin {
 
         //recetas
 
+        for ( Recipe r: crafteo.getCrafteos() ) {
+            getServer().addRecipe(r);
+        }
+
         // recetas infierno
         ShapelessRecipe tablonesInfiernoReceta = new ShapelessRecipe(MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS,7));
         tablonesInfiernoReceta.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.MADERA_INFIERNO)));

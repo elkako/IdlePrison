@@ -76,6 +76,7 @@ public class CrafteoEncantar extends Crafteo {
                 guia.add(lista.pop());
                 for (int i = 0; i < 5; i++) guia.add(vacio);
                 guia.add(lista.pop());
+                guia.add(vacio);
                 break;
             case 3:
                 for (int i = 0; i < 3; i++) guia.add(vacio);

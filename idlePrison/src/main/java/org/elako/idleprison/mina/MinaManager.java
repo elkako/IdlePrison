@@ -212,7 +212,7 @@ public class MinaManager {
         HashMap<IpMateriales, Integer> materiales = mina.getMateriales();
         for (IpMateriales m : materiales.keySet()) {
             ItemStack item = MaterialesManager.getItem(m);
-            if (item != null) materials.add(item.getType());
+            if (item.getType() != Material.BARRIER) materials.add(item.getType());
             else materials.add(Material.AIR);
             probs.add(materiales.get(m));
         }
