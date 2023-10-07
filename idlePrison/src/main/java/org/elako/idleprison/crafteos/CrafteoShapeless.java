@@ -38,6 +38,7 @@ public class CrafteoShapeless extends Crafteo {
         LinkedList<ItemStack> lista = getReceta();
         LinkedList<ItemStack> guia = getReceta();
         ItemStack vacio = new ItemStack(Material.BARRIER);
+        p.sendMessage("LISTASIZE" + lista.size());
         switch (lista.size()){
             case 1:
                 for (int i = 0; i < 4; i++) guia.add(vacio);
@@ -49,6 +50,7 @@ public class CrafteoShapeless extends Crafteo {
                 guia.add(lista.pop());
                 for (int i = 0; i < 5; i++) guia.add(vacio);
                 guia.add(lista.pop());
+                guia.add(vacio);
                 break;
             case 3:
                 for (int i = 0; i < 3; i++) guia.add(vacio);
@@ -59,6 +61,7 @@ public class CrafteoShapeless extends Crafteo {
                 for (int i = 0; i < 9; i++) guia.add(lista.pop());
                 break;
         }
-        return guiaCrafteoSimple(p, guia, new ItemStack(getResultado()));
+        p.sendMessage("GUIASIZE" + lista.size());
+        return guiaCrafteoSimple(p, new LinkedList<>(guia), new ItemStack(getResultado()));
     }
 }

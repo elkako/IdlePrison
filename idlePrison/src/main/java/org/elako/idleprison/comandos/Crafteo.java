@@ -545,16 +545,18 @@ public class Crafteo implements CommandExecutor {
 
         if (strings.length == 0){
             p.openInventory(crearInventario(p));
+            return true;
         } else if (strings.length == 1){
             if (strings[0].equals("craft")){
                 p.openWorkbench(null,true);
+                return true;
             } else if (strings[0].equals("craftguide")){
                 p.openInventory(Crafteo.crearCraftGuide(p));
+                return true;
             } else if (strings[0].equals("help")){
                 p.sendMessage("'/crafteo' para ver el menú general de crafteos");
                 p.sendMessage("'/crafteo craft' para abrir la mesa de crafteo");
                 p.sendMessage("'/crafteo craftguide' para abrir la guia de crafteos");
-
                 return true;
             }
         }

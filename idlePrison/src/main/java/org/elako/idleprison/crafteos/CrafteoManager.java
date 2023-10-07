@@ -35,6 +35,15 @@ public class CrafteoManager {
                 MaterialesManager.getItem(IpMateriales.TRIGO), MaterialesManager.getItem(IpMateriales.PAN) )
         ), new ItemStack(Material.MELON), Rangos.CONDENADO3 ) );
 
+        crafteos.add( new CrafteoShapeless( new LinkedList<>( List.of(
+                MaterialesManager.getItem(IpMateriales.TRIGO), MaterialesManager.getItem(IpMateriales.PAN)
+                , MaterialesManager.getItem(IpMateriales.PAN) )
+        ), new ItemStack(Material.RABBIT), Rangos.CONDENADO3 ) );
+
+        crafteos.add( new CrafteoShapeless( new LinkedList<>( List.of(
+                MaterialesManager.getItem(IpMateriales.TRIGO))
+        ), new ItemStack(Material.PAPER), Rangos.CONDENADO3 ) );
+
 
     }
 
