@@ -166,15 +166,13 @@ public class CrafteoManager {
     public LinkedList<Recipe> getCrafteos() {
         LinkedList<Recipe> recetas = new LinkedList<>();
         for (Crafteo c : crafteos) {
-            for (Recipe r :c.getCrafteo()) {
-                recetas.add( r );
-            }
+            recetas.addAll(c.getCrafteo());
         }
         return recetas;
     }
 
     public Inventory CraftGuide(Player p){
-        Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + "CraftGuide");
+        Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftGuide");
         int i = 0;
         for (Crafteo c: crafteos) {
             if (rangosManager.isPermitido(p.getName(), c.getPermiso())) inventario.setItem(i, c.getIcono());
@@ -182,8 +180,8 @@ public class CrafteoManager {
             i++;
         }
 
-        inventario.setItem(26, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", Arrays.asList(
-                ChatColor.WHITE + "Botón para volver al menú"  ) ));
+        inventario.setItem(26, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
+                ChatColor.WHITE + "Botón para volver al menú")));
 
         return inventario;
     }
