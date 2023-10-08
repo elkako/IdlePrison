@@ -31,7 +31,7 @@ public abstract class Crafteo {
     public abstract ItemStack getIcono();
 
 
-    public LinkedList<ItemStack> getReceta() { return receta; }
+    public LinkedList<ItemStack> getReceta() { return new LinkedList<>(receta); }
 
     public ItemStack getResultado() { return resultado; }
 
@@ -53,7 +53,7 @@ public abstract class Crafteo {
                 case 22:
                     ItemStack item = items.pop();
                     p.sendMessage(String.valueOf(item.getType()));
-                    if(!item.getType().equals(Material.BARRIER))inventario.setItem(i, item);
+                    if(!item.getType().equals(Material.BARRIER)) inventario.setItem(i, item);
                     break;
                 case 15:
                     inventario.setItem(i, resul);
@@ -72,6 +72,7 @@ public abstract class Crafteo {
                                              LinkedList<ItemStack> items2, ItemStack resul2){
         Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + "" + ChatColor.LIGHT_PURPLE + "Crafteo");
         for (int i=0;i<54;i++) {
+            p.sendMessage("i: " + i);
             switch (i){
                 case 2:
                 case 3:
@@ -91,8 +92,10 @@ public abstract class Crafteo {
                 case 50:
                 case 51:
                 case 52:
-                    if (i<27) inventario.setItem(i, items2.pop());
-                    else inventario.setItem(i, items.pop());
+                    ItemStack item;
+                    if (i<27) item = items.pop();
+                    else  item = items2.pop();
+                    if(!item.getType().equals(Material.BARRIER)) inventario.setItem(i, item);
                     break;
                 case 15:
                     inventario.setItem(i, resul);

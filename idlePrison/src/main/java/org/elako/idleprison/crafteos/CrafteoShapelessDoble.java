@@ -23,6 +23,8 @@ public class CrafteoShapelessDoble extends Crafteo {
     @Override
     public ItemStack getIcono() { return getResultado(); }
 
+    public LinkedList<ItemStack> getReceta2() { return new LinkedList<>(receta2); }
+
     @Override
     public List<Recipe> getCrafteo() {
         ShapelessRecipe r = new ShapelessRecipe(getResultado());
@@ -49,9 +51,9 @@ public class CrafteoShapelessDoble extends Crafteo {
     @Override
     public Inventory getGuide(Player p) {
         LinkedList<ItemStack> lista = getReceta();
-        LinkedList<ItemStack> guia = getReceta();
-        LinkedList<ItemStack> lista2 = getReceta();
-        LinkedList<ItemStack> guia2 = getReceta();
+        LinkedList<ItemStack> guia = new LinkedList<>();
+        LinkedList<ItemStack> lista2 = getReceta2();
+        LinkedList<ItemStack> guia2 = new LinkedList<>();
         ItemStack vacio = new ItemStack(Material.BARRIER);
 
         switch (lista.size()){
@@ -65,6 +67,7 @@ public class CrafteoShapelessDoble extends Crafteo {
                 guia.add(lista.pop());
                 for (int i = 0; i < 5; i++) guia.add(vacio);
                 guia.add(lista.pop());
+                guia2.add(vacio);
                 break;
             case 3:
                 for (int i = 0; i < 3; i++) guia.add(vacio);
@@ -87,6 +90,7 @@ public class CrafteoShapelessDoble extends Crafteo {
                 guia2.add(lista2.pop());
                 for (int i = 0; i < 5; i++) guia2.add(vacio);
                 guia2.add(lista2.pop());
+                guia2.add(vacio);
                 break;
             case 3:
                 for (int i = 0; i < 3; i++) guia2.add(vacio);
@@ -98,6 +102,7 @@ public class CrafteoShapelessDoble extends Crafteo {
                 break;
         }
 
+        p.sendMessage(guia.size() + " y " + guia2.size());
         return guiaCrafteoDoble(p, guia, getResultado(), guia2, resultado2);
     }
 }

@@ -63,7 +63,7 @@ public class CrafteoEncantar extends Crafteo {
     @Override
     public Inventory getGuide(Player p) {
         LinkedList<ItemStack> lista = getReceta();
-        LinkedList<ItemStack> guia = getReceta();
+        LinkedList<ItemStack> guia = new LinkedList<>();
         ItemStack vacio = new ItemStack(Material.BARRIER);
         switch (lista.size()){
             case 1:

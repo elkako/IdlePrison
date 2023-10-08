@@ -36,7 +36,7 @@ public class CrafteoShapeless extends Crafteo {
     @Override
     public Inventory getGuide(Player p) {
         LinkedList<ItemStack> lista = getReceta();
-        LinkedList<ItemStack> guia = getReceta();
+        LinkedList<ItemStack> guia = new LinkedList<>();
         ItemStack vacio = new ItemStack(Material.BARRIER);
         p.sendMessage("LISTASIZE" + lista.size());
         switch (lista.size()){

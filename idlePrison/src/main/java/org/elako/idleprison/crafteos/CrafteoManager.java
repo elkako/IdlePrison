@@ -13,7 +13,6 @@ import org.elako.idleprison.items.PicosManager;
 import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.RangosManager;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +23,8 @@ public class CrafteoManager {
     public CrafteoManager(RangosManager rangos) {
         rangosManager = rangos;
         ItemStack nulo = new ItemStack(Material.BARRIER);
+
+        // todo arreglar tablones quemados, picos, madera roble, lente
 
         ItemStack maderaInferCali = MaterialesManager.getItem(IpMateriales.MADERA_INFIERNO_CALIDAD);
         crafteos.add( new CrafteoShapelessDoble( new LinkedList<>( List.of(
@@ -175,7 +176,11 @@ public class CrafteoManager {
         Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftGuide");
         int i = 0;
         for (Crafteo c: crafteos) {
-            if (rangosManager.isPermitido(p.getName(), c.getPermiso())) inventario.setItem(i, c.getIcono());
+            if (rangosManager.isPermitido(p.getName(), c.getPermiso())) {
+                ItemStack icono = c.getIcono();
+                icono.setAmount(1);
+                inventario.setItem(i, icono);
+            }
             else break;
             i++;
         }
@@ -190,7 +195,7 @@ public class CrafteoManager {
         if (item.getType().equals(Material.RED_STAINED_GLASS_PANE))
             p.openInventory(org.elako.idleprison.comandos.Crafteo.crearInventario(p));
         for ( Crafteo c : crafteos ) {
-            if (item.equals(c.getResultado())) p.openInventory(c.getGuide(p));
+            if (item.getItemMeta().equals(c.getIcono().getItemMeta())) p.openInventory(c.getGuide(p));
         }
     }
 
