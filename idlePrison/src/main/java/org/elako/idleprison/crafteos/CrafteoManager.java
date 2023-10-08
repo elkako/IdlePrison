@@ -34,13 +34,12 @@ public class CrafteoManager {
             )), MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS,15)
         ) );
 
-        ItemStack picoMadera = PicosManager.getPicoMadera();
         ItemStack tablonesQ = MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS);
         crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
                 tablonesQ,   tablonesQ,   tablonesQ,
                 nulo,       tablonesQ,   nulo,
                 nulo,       tablonesQ,   nulo
-        ) ), picoMadera, Rangos.CONDENADO3 ) );
+        ) ), PicosManager.getPicoMadera(), Rangos.CONDENADO3 ) );
 
         crafteos.add( new CrafteoShapeless( new LinkedList<>( List.of(
                 MaterialesManager.getItem(IpMateriales.PESCADO_CRUDO),
@@ -55,7 +54,7 @@ public class CrafteoManager {
                 fragmentoAzul1,   fragmentoAzul1,   fragmentoAzul1
         ) ), esenciaAzul1, Rangos.CONDENADO2 ) );
 
-        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul1) ), picoMadera,
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul1) ), PicosManager.getPicoMadera(),
                 Rangos.CONDENADO2, Enchantment.DIG_SPEED, 1
         ) );
 
@@ -67,13 +66,12 @@ public class CrafteoManager {
             )), MaterialesManager.getItem(IpMateriales.TABLONES_ROBLE,17)
         ) );
 
-        ItemStack picoPiedra = PicosManager.getPicoPiedra();
         ItemStack roca = MaterialesManager.getItem(IpMateriales.ROCA);
         crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
                 roca,   roca,       roca,
-                roca,   picoMadera, roca,
+                roca,   PicosManager.getPicoMadera(), roca,
                 roca,   roca,       roca
-        ) ), picoPiedra, Rangos.SINTECHO2 ) );
+        ) ), PicosManager.getPicoPiedra(), Rangos.SINTECHO2 ) );
 
         ItemStack arena = MaterialesManager.getItem(IpMateriales.ARENA);
         ItemStack bloqueMagma = MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO);
@@ -97,7 +95,7 @@ public class CrafteoManager {
                 fragmentoRoja1,   fragmentoRoja1,   fragmentoRoja1
         ) ), esenciaRoja1, Rangos.SINTECHO1 ) );
 
-        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaRoja1) ), picoPiedra,
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaRoja1) ), PicosManager.getPicoPiedra(),
                 Rangos.SINTECHO1, Enchantment.LOOT_BONUS_BLOCKS, 1
         ) );
 
@@ -118,7 +116,7 @@ public class CrafteoManager {
                 fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1
         ) ), esenciaVerde1, Rangos.CAMPESINO3 ) );
 
-        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde1) ), picoMadera,
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde1) ), PicosManager.getPicoMadera(),
                 Rangos.CAMPESINO3, Enchantment.LOOT_BONUS_MOBS, 1
         ) );
 
@@ -130,7 +128,7 @@ public class CrafteoManager {
                 fragmentoAzul2,   fragmentoAzul2,   fragmentoAzul2
         ) ), esenciaAzul2, Rangos.CAMPESINO3 ) );
 
-        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul2) ), picoPiedra,
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul2) ), PicosManager.getPicoPiedra(),
                 Rangos.CAMPESINO3, Enchantment.DIG_SPEED, 2
         ) );
 
@@ -178,7 +176,7 @@ public class CrafteoManager {
         for (Crafteo c: crafteos) {
             if (rangosManager.isPermitido(p.getName(), c.getPermiso())) {
                 ItemStack icono = c.getIcono();
-                icono.setAmount(1);
+                if(icono.getAmount()>1) icono.setAmount(1);
                 inventario.setItem(i, icono);
             }
             else break;
@@ -195,7 +193,7 @@ public class CrafteoManager {
         if (item.getType().equals(Material.RED_STAINED_GLASS_PANE))
             p.openInventory(org.elako.idleprison.comandos.Crafteo.crearInventario(p));
         for ( Crafteo c : crafteos ) {
-            if (item.getItemMeta().equals(c.getIcono().getItemMeta())) p.openInventory(c.getGuide(p));
+            if(MaterialesManager.comparar(item, c.getIcono())) p.openInventory(c.getGuide(p));
         }
     }
 

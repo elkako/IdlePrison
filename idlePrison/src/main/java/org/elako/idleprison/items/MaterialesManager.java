@@ -391,6 +391,9 @@ public class MaterialesManager {
     public static boolean comparar(ItemStack item, IpMaterial ip){ // true == son iguales
         return ip.getMaterial().equals(item.getType());
     }
+    public static boolean comparar(ItemStack item1, ItemStack item2){ // true == son iguales
+        return item1.getItemMeta().equals(item2.getItemMeta());
+    }
 
     public static IpMaterial itemToMaterial(ItemStack itemStack) {
         for (IpMaterial m: materiales) {
