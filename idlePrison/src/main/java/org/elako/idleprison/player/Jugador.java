@@ -5,11 +5,10 @@ import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.NotaManager;
 import org.elako.idleprison.items.TipoNota;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Jugador {
-    private String jugador;
+    private final String jugador;
     private String permisos; //00 = nada, 01 = construir, 10 = comandos, 11 ambos
     private double dinero;
     private double diferenciaDinero=0;
@@ -17,7 +16,7 @@ public class Jugador {
     private final int rateOFFLINE = 120; //10 mins
     private int timeOffline = rateOFFLINE;
     private int duracionScoreboard = 0;
-    private LinkedList<Integer> idle = new LinkedList<>();
+    private final LinkedList<Integer> idle = new LinkedList<>();
     private double dineroRenacer;
     private double dineroRun;
     private int rama1;
@@ -26,13 +25,12 @@ public class Jugador {
     private double dineroAcumulado = 0;
     private String notas;
     private String notasRecibidas;
-    private String recompensas;
     private int itemsVendidos;
     private int bloquesRotos;
 
     public Jugador(String jugador, double dinero, double dineroRenacer, double dineroRun, Rangos rango, int idle1,
                int idle2, int idle3, int idle4, int idle5, int idle6, int treeskill1, int treeskill2, int treeskill3,
-               String permisos , String notas, String notasRecibidas, String recompensas, int itemsVendidos, int bloquesRotos) {
+               String permisos , String notas, String notasRecibidas, int itemsVendidos, int bloquesRotos) {
         this.jugador = jugador;
         this.dinero = dinero;
         this.dineroRun = dineroRun;
@@ -50,7 +48,6 @@ public class Jugador {
         this.permisos = permisos;
         this.notas = notas;
         this.notasRecibidas = notasRecibidas;
-        this.recompensas = recompensas;
         this.itemsVendidos = itemsVendidos;
         this.bloquesRotos = bloquesRotos;
 
@@ -103,10 +100,9 @@ public class Jugador {
     public boolean isPermisoConstructor(){ return permisos.charAt(0) == '1' ;}
     public boolean isPermisoComandos(){ return permisos.charAt(1) == '1' ;}
 
-    public boolean isNota(int i) { return notas.charAt(i-1) == '1'; }
+    public boolean isNotNota(int i) { return notas.charAt(i - 1) != '1'; }
     public boolean isNotaRecibida(int i) { return notasRecibidas.charAt(i-1) == '1'; }
-    public boolean isRecompensa(int i) { return recompensas.charAt(i-1) == '1'; }
-    
+
     public double addDineroAcum(double cantidad) {
         dineroAcumulado += cantidad;
         return dineroAcumulado;
@@ -136,9 +132,9 @@ public class Jugador {
 
         int nota1 = NotaManager.getNum(TipoNota.IDLE, 1);
         int nota2 = NotaManager.getNum(TipoNota.IDLE, 2);
-        if(!isNota(nota1))
+        if(isNotNota(nota1))
             if(total >= 1) NotaManager.getNota(getPlayer(),nota1);
-        if(!isNota(nota2))
+        if(isNotNota(nota2))
             if(total >= 10) NotaManager.getNota(getPlayer(),nota2);
 
     }
@@ -153,11 +149,11 @@ public class Jugador {
         int nota1 = NotaManager.getNum(TipoNota.DINERO, 1);
         int nota2 = NotaManager.getNum(TipoNota.DINERO, 2);
         int nota3 = NotaManager.getNum(TipoNota.DINERO, 3);
-        if(!isNota(nota1))
+        if(isNotNota(nota1))
             if(dinero >= 100) NotaManager.getNota(getPlayer(),nota1);
-        if(!isNota(nota2))
+        if(isNotNota(nota2))
             if(dinero >= 1000) NotaManager.getNota(getPlayer(),nota2);
-        if(!isNota(nota3))
+        if(isNotNota(nota3))
             if(dinero >= 10000) NotaManager.getNota(getPlayer(),nota3);
 
         this.dineroRun = dineroRun;
@@ -179,36 +175,27 @@ public class Jugador {
     public void setNotas(int i) {
         char[] lista = notas.toCharArray();
         lista[i-1] = '1';
-        String provisional = "";
-        for (char c:lista) provisional += c;
-        notas = provisional;
+        StringBuilder provisional = new StringBuilder();
+        for (char c:lista) provisional.append(c);
+        notas = provisional.toString();
         IdlePrison.getPlugin().escribirNotas(jugador, notas);
     }
 
     public void setNotasRecibidas(int i) {
         char[] lista = notasRecibidas.toCharArray();
         lista[i-1] = '1';
-        String provisional = "";
-        for (char c:lista) provisional += c;
-        notasRecibidas = provisional;
+        StringBuilder provisional = new StringBuilder();
+        for (char c:lista) provisional.append(c);
+        notasRecibidas = provisional.toString();
         IdlePrison.getPlugin().escribirNotasRecibidas(jugador, notasRecibidas);
-    }
-
-    public void setRecompensas(int i) {
-        char[] lista = recompensas.toCharArray();
-        lista[i-1] = '1';
-        String provisional = "";
-        for (char c:lista) provisional += c;
-        recompensas = provisional;
-        IdlePrison.getPlugin().escribirRecompensas(jugador, recompensas);
     }
 
     public void setItemsVendidos(int cant) {
         int nota1 = NotaManager.getNum(TipoNota.VENDER, 1);
         int nota2 = NotaManager.getNum(TipoNota.VENDER, 2);
-        if(!isNota(nota1))
+        if(isNotNota(nota1))
             if(cant >= 70) NotaManager.getNota(getPlayer(),nota1);
-        if(!isNota(nota2))
+        if(isNotNota(nota2))
             if(cant >= 700) NotaManager.getNota(getPlayer(),nota1);
 
         itemsVendidos = cant;
@@ -216,9 +203,9 @@ public class Jugador {
     public void setBloquesRotos(int n) {
         int nota1 = NotaManager.getNum(TipoNota.MINERO, 1);
         int nota2 = NotaManager.getNum(TipoNota.MINERO, 2);
-        if(!isNota(nota1))
+        if(isNotNota(nota1))
             if(n >= 30) NotaManager.getNota(getPlayer(),nota1);
-        if(!isNota(nota2))
+        if(isNotNota(nota2))
             if(n >= 300) NotaManager.getNota(getPlayer(),nota2);
 
         bloquesRotos = n;

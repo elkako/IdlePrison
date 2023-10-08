@@ -3,9 +3,9 @@ package org.elako.idleprison.mina;
 import org.bukkit.inventory.ItemStack;
 
 public class DropCuanti {
-    private ItemStack item;
-    private int min;
-    private int max;
+    private final ItemStack item;
+    private final int min;
+    private final int max;
 
     public DropCuanti(ItemStack item, int min, int max) {
         this.item = item;

@@ -41,7 +41,7 @@ public class ItemsEvent implements Listener {
         int menu = -1;
         for (int i = 0; i < p.getInventory().getSize(); i++) {
             ItemStack item = p.getInventory().getItem(i);
-            if(item != null) if(item.equals(PicosManager.getMenu())) menu = i;
+            if(item != null) if(item.equals(MaterialesManager.getItem(IpMateriales.MENU))) menu = i;
         }
         if (menu == -1)  return;
         if ( e.getNewSlot() != menu) return;
@@ -56,6 +56,7 @@ public class ItemsEvent implements Listener {
 
         if (!e.getAction().equals(Action.LEFT_CLICK_AIR) && !e.getAction().equals(Action.LEFT_CLICK_BLOCK)) return;
         if (!e.getMaterial().equals(Material.SPYGLASS)) return;
+        if(e.getItem() == null) return;
 
         int nivel = e.getItem().getEnchantmentLevel(Enchantment.CHANNELING);
 

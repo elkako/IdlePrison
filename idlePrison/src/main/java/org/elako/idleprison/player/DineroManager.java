@@ -1,14 +1,10 @@
 package org.elako.idleprison.player;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.items.IpMaterial;
-import org.elako.idleprison.items.MaterialesManager;
 
 import java.util.LinkedList;
-import java.util.List;
+
+import static java.lang.String.*;
 
 public class DineroManager {
     PlayerManager playerManager;
@@ -21,7 +17,7 @@ public class DineroManager {
         String money = Double.toString(dinero);
         char[] moneyArr = money.toCharArray();
         StringBuilder moneyFinal = new StringBuilder();
-        int cifras = Integer.parseInt(String.valueOf(moneyArr[moneyArr.length-1]));
+        int cifras = Integer.parseInt(valueOf(moneyArr[moneyArr.length-1]));
 
         if (10000000>dinero && dinero>=1000000){
             for (int i=0; i<4;i++) {
@@ -67,7 +63,7 @@ public class DineroManager {
             }
             moneyFinal.append("M ");
         } else{
-            int cifras2 = Integer.parseInt(String.valueOf(moneyArr[moneyArr.length-2])+String.valueOf(moneyArr[moneyArr.length-1]));
+            int cifras2 = Integer.parseInt(moneyArr[moneyArr.length - 2] + valueOf(moneyArr[moneyArr.length-1]));
             if (cifras2==10 || cifras2==11){
                 boolean e = false;
                 for (int i=0; i<cifras2-4;i++) {
@@ -83,7 +79,7 @@ public class DineroManager {
             }
         }
 
-        return String.valueOf(moneyFinal);
+        return valueOf(moneyFinal);
     }
 
     public void setMoney(String jugador, double money){
@@ -125,7 +121,7 @@ public class DineroManager {
         LinkedList<String> jugadores = new LinkedList<>(playerManager.getPlayers());
         p.sendMessage("Ranking de dinero:");
         int i = 1;
-        String message = "";
+        StringBuilder message = new StringBuilder();
         while (jugadores.size()>0){
             double n=0;
             String max = null;
@@ -135,18 +131,18 @@ public class DineroManager {
                     max = player;
                 }
             }
-            message += (i+ ": " + max + "-" + DineroManager.dineroToString(n) + "E, ");
+            message.append(i).append(": ").append(max).append("-").append(DineroManager.dineroToString(n)).append("E, ");
             jugadores.remove(max);
             if (i%3==0) {
-                message = message.substring(0,message.length()-2);
-                p.sendMessage(message);
-                message = "";
+                message = new StringBuilder(message.substring(0, message.length() - 2));
+                p.sendMessage(message.toString());
+                message = new StringBuilder();
             }
             i++;
         }
-        if(message != "") {
-            message = message.substring(0,message.length()-2);
-            p.sendMessage(message);
+        if(!message.toString().equals("")) {
+            message = new StringBuilder(message.substring(0, message.length() - 2));
+            p.sendMessage(message.toString());
         }
     }
 

@@ -6,8 +6,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
+import org.elako.idleprison.items.IpMateriales;
+import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.items.NotaManager;
-import org.elako.idleprison.items.PicosManager;
 import org.elako.idleprison.player.RangosManager;
 
 public class ItemDropEvent implements Listener {
@@ -24,6 +25,8 @@ public class ItemDropEvent implements Listener {
         if(!item.getType().equals(Material.PAPER)) return;
         int nota;
 
+        if(item.getItemMeta() == null) return;
+
         try {
             nota = Integer.parseInt(item.getItemMeta().getDisplayName().substring(9,10));
         } catch (NumberFormatException excepcion) {
@@ -35,7 +38,7 @@ public class ItemDropEvent implements Listener {
         NotaManager.sendMensajeRecompensa(p, nota);
 
         if(nota == 1) {
-            p.getInventory().setItem(8, PicosManager.getMenu());
+            p.getInventory().setItem(8, MaterialesManager.getItem(IpMateriales.MENU));
             rangosManager.setPlayer(p.getName(), "condenado4");
             NotaManager.getNota(p,2);
         }

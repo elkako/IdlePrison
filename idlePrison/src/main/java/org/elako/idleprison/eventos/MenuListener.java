@@ -3,7 +3,6 @@ package org.elako.idleprison.eventos;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,11 +10,11 @@ import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.crafteos.CrafteoManager;
+import org.elako.idleprison.items.IpMateriales;
+import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.items.VenderManager;
 import org.elako.idleprison.player.IdleManager;
 import org.elako.idleprison.comandos.*;
-import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.items.PicosManager;
 import org.elako.idleprison.player.DineroManager;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.TreeSkillManager;
@@ -23,13 +22,13 @@ import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.RangosManager;
 
 public class MenuListener implements Listener {
-    private TreeSkillManager treeSkillManager;
-    private MinaManager minaManager;
-    private RangosManager rangosManager;
-    private IdleManager idleManager;
-    private PlayerManager playerManager;
-    private CrafteoManager crafteoManager;
-    private VenderManager venderManager;
+    private final TreeSkillManager treeSkillManager;
+    private final MinaManager minaManager;
+    private final RangosManager rangosManager;
+    private final IdleManager idleManager;
+    private final PlayerManager playerManager;
+    private final CrafteoManager crafteoManager;
+    private final VenderManager venderManager;
 
     public MenuListener(TreeSkillManager treeskill, MinaManager mina, RangosManager rango, IdleManager idle,
                         PlayerManager player, VenderManager vender, CrafteoManager crafteo) {
@@ -44,7 +43,7 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
-        if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.GREEN + "Vender")) {
+        if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.GREEN) + "Vender")) {
             Player p = (Player) e.getPlayer();
             for (ItemStack i : e.getView().getTopInventory()) {
                 if (i == null) continue;
@@ -60,9 +59,9 @@ public class MenuListener implements Listener {
 
     private void manejadorMenu(InventoryClickEvent e, Player p) {
         e.setCancelled(true);         // No mover items
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
-            return;
-        }
+
+        if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
 
         if (e.getCurrentItem().getType().equals(Material.IRON_PICKAXE)) {
@@ -97,9 +96,8 @@ public class MenuListener implements Listener {
 
     private void manejadorMinas(InventoryClickEvent e, Player p) {
         e.setCancelled(true);         // No mover items
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
-            return;
-        }
+        if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
 
         if (e.getCurrentItem().getType().equals(Material.CALCITE)) {
@@ -146,9 +144,8 @@ public class MenuListener implements Listener {
 
     private void manejadorCraftear(InventoryClickEvent e, Player p) {
         e.setCancelled(true);         // No mover items
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
-            return;
-        }
+        if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
 
         if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
@@ -157,7 +154,7 @@ public class MenuListener implements Listener {
         } else if (e.getCurrentItem().getType().equals(Material.BOOK)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
 
-            p.openInventory(crafteoManager.CraftGuide(p));
+            p.openInventory(CrafteoManager.CraftGuide(p));
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
             p.openInventory(Idleprison.crearInventario(p));
@@ -166,125 +163,33 @@ public class MenuListener implements Listener {
 
     private void manejadorCraftguide(InventoryClickEvent e, Player p) {
         e.setCancelled(true);         // No mover items
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
-            return;
-        }
+        if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
 
         p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
         crafteoManager.interactuar(e.getCurrentItem(), p);
-
-        /*
-        if (e.getCurrentItem().getType().equals(Material.CRIMSON_PLANKS)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            Inventory inventario = Crafteo.guiaCrafteoTablonesInfierno(p);
-            p.openInventory(inventario);
-        }else if (e.getCurrentItem().getType().equals(Material.WOODEN_PICKAXE)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            if (e.getCurrentItem().getItemMeta().hasEnchant(Enchantment.DIG_SPEED)) {
-                Inventory inventario = Crafteo.guiaCrafteoPicoAzul1(p);
-                p.openInventory(inventario);
-            } else if (e.getCurrentItem().getItemMeta().hasEnchant(Enchantment.LOOT_BONUS_MOBS)) {
-                Inventory inventario = Crafteo.guiaCrafteoPicoVerde1(p);
-                p.openInventory(inventario);
-            } else {
-                Inventory inventario = Crafteo.guiaCrafteoPicoMadera(p);
-                p.openInventory(inventario);
-            }
-        } else if (e.getCurrentItem().getType().equals(Material.LIGHT_BLUE_TERRACOTTA)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoEsenciaAzul1(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.COOKED_COD)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoPescadoBrasa(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.STONE_PICKAXE)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            if (e.getCurrentItem().getItemMeta().hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
-                Inventory inventario = Crafteo.guiaCrafteoPicoRojo1(p);
-                p.openInventory(inventario);
-            } else if (e.getCurrentItem().getItemMeta().hasEnchant(Enchantment.DIG_SPEED)) {
-                Inventory inventario = Crafteo.guiaCrafteoPicoAzul2(p);
-                p.openInventory(inventario);
-            } else {
-                Inventory inventario = Crafteo.guiaCrafteoPicoPiedra(p);
-                p.openInventory(inventario);
-            }
-        } else if (e.getCurrentItem().getType().equals(Material.OAK_PLANKS)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoTablonesRoble(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.RED_TERRACOTTA)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoEsenciaRoja1(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.GRANITE)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoGranGranito(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.GLASS_PANE)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoLentes(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.SPYGLASS)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            if (e.getCurrentItem().getItemMeta().hasEnchants()) {
-                Inventory inventario = Crafteo.guiaCrafteoCatalejo1(p);
-                p.openInventory(inventario);
-            } else {
-                Inventory inventario = Crafteo.guiaCrafteoCatalejo(p);
-                p.openInventory(inventario);
-            }
-        } else if (e.getCurrentItem().getType().equals(Material.LIME_TERRACOTTA)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoEsenciaVerde1(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.LIGHT_BLUE_CONCRETE)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoEsenciaAzul2(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.BREAD)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoPan(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.YELLOW_TERRACOTTA)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-
-            Inventory inventario = Crafteo.guiaCrafteoEsenciaAmarilla1(p);
-            p.openInventory(inventario);
-        } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-            p.openInventory(Crafteo.crearInventario(p));
-        }*/
     }
 
     private void manejadorCrafteo(InventoryClickEvent e, Player p) {
         e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory() == null) return;
         if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
 
        if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-            p.openInventory(crafteoManager.CraftGuide(p));
+            p.openInventory(CrafteoManager.CraftGuide(p));
         }
     }
 
     private void manejadorIdle(InventoryClickEvent e, Player p, int cantidad) {
         e.setCancelled(true);         // No mover items
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
-            return;
-        }
+        if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
+        if (e.getCurrentItem().getItemMeta() == null) return;
+
 
         if (e.getCurrentItem().getType().equals(Material.LIME_CONCRETE)) {
             p.playSound(p.getLocation(),Sound.BLOCK_STONE_BUTTON_CLICK_ON,100,2);
@@ -362,9 +267,8 @@ public class MenuListener implements Listener {
     }
 
     private void manejadorVender(InventoryClickEvent e, Player p) {
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
-            return;
-        }
+        if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
 
         if (e.getClickedInventory().equals(e.getView().getTopInventory())) {
@@ -386,10 +290,10 @@ public class MenuListener implements Listener {
 
     private void manejadorTreeSkill(InventoryClickEvent e, Player p) {
         e.setCancelled(true);         // No mover items
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
-            return;
-        }
+        if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
+        if (e.getCurrentItem().getItemMeta() == null) return;
 
         if (e.getCurrentItem().getType().equals(Material.YELLOW_CONCRETE)) {
             if (treeSkillManager.getPuntosDisponibles(p.getName())>0){
@@ -460,25 +364,25 @@ public class MenuListener implements Listener {
         if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_RED) + "Menú")) {
             manejadorMenu(e,p);
 
-        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_GREEN + "Minas")) {
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_GREEN) + "Minas")) {
             manejadorMinas(e,p);
 
-        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + "Craftear")) {
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "Craftear")) {
             manejadorCraftear(e,p);
 
-        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + "CraftGuide")) {
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftGuide")) {
             manejadorCraftguide(e, p);
-        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.LIGHT_PURPLE + "Crafteo")) {
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.LIGHT_PURPLE) + "Crafteo")) {
             manejadorCrafteo(e, p);
-        } else if (e.getView().getTitle().contains(ChatColor.BOLD + "" + ChatColor.GOLD + "Idle")) {
+        } else if (e.getView().getTitle().contains(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle")) {
             if (e.getView().getTitle().contains("10")) manejadorIdle(e,p,10);
             else if (e.getView().getTitle().contains("64")) manejadorIdle(e,p,64);
             else manejadorIdle(e,p,1);
 
-        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.GREEN + "Vender")) {
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.GREEN) + "Vender")) {
             manejadorVender(e,p);
 
-        } else if (e.getView().getTitle().equals(ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "TreeSkill")) {
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_AQUA) + "TreeSkill")) {
             manejadorTreeSkill(e,p);
 
         }
@@ -487,6 +391,6 @@ public class MenuListener implements Listener {
 
     private boolean isMenu(ItemStack item) {
         if (item == null) return false;
-        return item.equals(PicosManager.getMenu());
+        return item.equals( MaterialesManager.getItem(IpMateriales.MENU) );
     }
 }

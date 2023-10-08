@@ -9,13 +9,12 @@ import org.elako.idleprison.player.Rangos;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 public class IpMaterial {
 
     private final Material material;
     private final String nombre;
-    private LinkedList<String> lore;
+    private final LinkedList<String> lore;
     private final double precio;
     private final Rangos permiso;
     private final IpMateriales ipMateriales;
@@ -24,7 +23,7 @@ public class IpMaterial {
         this.material = material;
         this.nombre = nombre;
         this.lore = new LinkedList<>(lore);
-        if (precio != -1) this.lore.add(ChatColor.GREEN + ""+ DineroManager.dineroToString(precio) + " E");
+        if (precio != -1) this.lore.add(ChatColor.GREEN + DineroManager.dineroToString(precio) + " E");
         this.precio = precio;
         this.permiso = permiso;
         this.ipMateriales=ipMateriales;
@@ -33,7 +32,8 @@ public class IpMaterial {
     public ItemStack getItem(int cantidad){
         ItemStack item = new ItemStack(material, cantidad);
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + nombre);
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.GRAY + String.valueOf(ChatColor.BOLD) + nombre);
         itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);
         return item;

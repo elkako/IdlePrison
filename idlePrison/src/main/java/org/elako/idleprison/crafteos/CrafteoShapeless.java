@@ -20,14 +20,14 @@ public class CrafteoShapeless extends Crafteo {
 
     @Override
     public List<Recipe> getCrafteo() {
-        ShapelessRecipe receta = new ShapelessRecipe(getResultado());
-        String s= "";
+        ShapelessRecipe receta = new ShapelessRecipe(IdlePrison.getCrafteoskey(), getResultado());
+        StringBuilder s= new StringBuilder();
 
         for (ItemStack item : getReceta()) {
           receta.addIngredient(item.getType());
-          s += item.getType() + ", ";
+          s.append(item.getType()).append(", ");
         }
-        s = s.substring(0,s.length()-2);
+        s = new StringBuilder(s.substring(0, s.length() - 2));
         IdlePrison.imprimirConsola("Crafteo creado:[" + s + "]");
 
         return List.of( receta );

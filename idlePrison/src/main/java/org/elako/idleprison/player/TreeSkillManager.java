@@ -5,20 +5,19 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.items.PicosManager;
+import org.elako.idleprison.items.IpMateriales;
+import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.mina.MinaManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class TreeSkillManager {
     private static PlayerManager playerManager;
-    private RangosManager rangosManager;
-    private MinaManager minaManager;
+    private final RangosManager rangosManager;
+    private final MinaManager minaManager;
 
     public TreeSkillManager(PlayerManager playerManager, RangosManager rangosManager, MinaManager minaManager) {
-        this.playerManager = playerManager;
+        TreeSkillManager.playerManager = playerManager;
         this.rangosManager = rangosManager;
         this.minaManager = minaManager;
     }
@@ -27,7 +26,6 @@ public class TreeSkillManager {
         String ps = p.getName();
         for (ItemStack i : p.getInventory().getContents()) {
             if (i == null) continue;
-            if (i.getData().equals(Material.SPYGLASS)) continue;
             i.setAmount(0);
         }
         int nivel = getNivelRenacer(ps);
@@ -44,8 +42,8 @@ public class TreeSkillManager {
         p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 70, 2);
         p.spawnParticle(Particle.DUST_COLOR_TRANSITION, p.getLocation(), 40, 1, 1, 1, new Particle.DustTransition(Color.BLUE, Color.RED, 3));
         p.sendMessage("Ahora eres nivel de renacer " + getNivelRenacer(ps) + " y has conseguido " + (getNivelRenacer(ps)-nivel) + " puntos de treeSkill" );
-        p.getInventory().addItem(PicosManager.getPicoMadera());
-        p.getInventory().setItem(8,PicosManager.getMenu());
+        p.getInventory().addItem(MaterialesManager.getItem(IpMateriales.PICO_MADERA));
+        p.getInventory().setItem(8,MaterialesManager.getItem(IpMateriales.MENU));
 
         LinkedList<String> scoreboard = new LinkedList<>();
         scoreboard.add(ChatColor.WHITE + "Ahora eres nivel de renacer " + getNivelRenacer(ps));

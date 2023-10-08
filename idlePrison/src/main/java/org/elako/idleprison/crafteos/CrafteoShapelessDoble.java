@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CrafteoShapelessDoble extends Crafteo {
-    private LinkedList<ItemStack> receta2;
-    private ItemStack resultado2;
+    private final LinkedList<ItemStack> receta2;
+    private final ItemStack resultado2;
 
     public CrafteoShapelessDoble(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso,
                                  LinkedList<ItemStack> receta2, ItemStack resultado2) {
@@ -27,22 +27,22 @@ public class CrafteoShapelessDoble extends Crafteo {
 
     @Override
     public List<Recipe> getCrafteo() {
-        ShapelessRecipe r = new ShapelessRecipe(getResultado());
-        ShapelessRecipe r2 = new ShapelessRecipe(resultado2);
-        String s= "";
+        ShapelessRecipe r = new ShapelessRecipe(IdlePrison.getCrafteoskey(), getResultado());
+        ShapelessRecipe r2 = new ShapelessRecipe(IdlePrison.getCrafteoskey(), resultado2);
+        StringBuilder s= new StringBuilder();
 
         for (ItemStack item : getReceta()) {
           r.addIngredient(item.getType());
-          s += item.getType() + ", ";
+          s.append(item.getType()).append(", ");
         }
-        s = s.substring(0,s.length()-2);
-        s += "],[";
+        s = new StringBuilder(s.substring(0, s.length() - 2));
+        s.append("],[");
 
         for (ItemStack item : receta2) {
             r2.addIngredient(item.getType());
-            s += item.getType() + ", ";
+            s.append(item.getType()).append(", ");
         }
-        s = s.substring(0,s.length()-2);
+        s = new StringBuilder(s.substring(0, s.length() - 2));
 
         IdlePrison.imprimirConsola("Crafteo creado:[" + s + "]");
         return List.of(r, r2);

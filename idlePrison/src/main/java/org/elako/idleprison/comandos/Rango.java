@@ -5,7 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.elako.idleprison.player.PlayerManager;
-import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.RangosManager;
 
 public class Rango implements CommandExecutor {
@@ -23,7 +22,7 @@ public class Rango implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
-        Boolean permiso = playerManager.isPermisoComandos(p.getName());
+        boolean permiso = playerManager.isPermisoComandos(p.getName());
 
         if ( strings.length > 2) {
             //no tiene uno o dos inputs el comando
@@ -67,7 +66,7 @@ public class Rango implements CommandExecutor {
                     mensajeError(p);
                     return false;
             }
-        } else if (strings.length == 2) {
+        } else {
             if(permiso){
                 if (strings[0].equals("set")) { // /rango set cantidad
                     rangoManager.setPlayer(p.getName(), strings[1]);
@@ -83,6 +82,5 @@ public class Rango implements CommandExecutor {
                 return false;
             }
         }
-        return false;
     }
 }

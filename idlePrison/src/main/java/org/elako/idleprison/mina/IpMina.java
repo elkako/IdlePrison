@@ -4,11 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.comandos.Idleprison;
-import org.elako.idleprison.items.IpMaterial;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.player.Rangos;
 
@@ -16,16 +12,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class IpMina {
-    private HashMap<IpMateriales,Integer> materiales;
-    private Rangos permiso;
-    private Material icono;
-    private int RATE ;
-    private LinkedList<Block> bloques = new LinkedList<>();
+    private final HashMap<IpMateriales,Integer> materiales;
+    private final Rangos permiso;
+    private final Material icono;
+    private final int RATE ;
+    private final LinkedList<Block> bloques = new LinkedList<>();
     private Location maxBloque;
     private Location minBloque;
     private int ticksLeft;
-    private Location spawn;
-    private String id;
+    private final Location spawn;
+    private final String id;
 
     public int generarNumeros(int MAX, int MIN) {
         return (int) (Math.floor(Math.random() * (MAX - MIN + 1)) + MIN);

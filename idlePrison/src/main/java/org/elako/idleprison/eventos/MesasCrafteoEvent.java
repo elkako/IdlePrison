@@ -12,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.items.PicosManager;
 import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.RangosManager;
 
@@ -30,6 +29,8 @@ public class MesasCrafteoEvent implements Listener {
             if (i != null) {
                 if(i.getType().equals(material)){
                     ItemMeta im = i.getItemMeta();
+
+                    assert im != null;
                     im.addEnchant(enchant,nivel,true);
                     p.playSound(p.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 100, 2);
                     return(im);
@@ -37,23 +38,6 @@ public class MesasCrafteoEvent implements Listener {
             }
         }
         return null;
-    }
-
-    public boolean crafteoCuantificado(CraftingInventory ci, int cantidad) {
-        for (ItemStack i : ci.getMatrix()) {
-            if (i != null) {
-                if (i.getAmount() < cantidad) {
-                    return true; // no hay suficientes materiales
-                }
-            }
-        }
-        for (ItemStack i: ci.getMatrix()) {
-            if (i != null) {
-                i.setAmount(i.getAmount() - cantidad); // restar la cantidad
-                i.setAmount(i.getAmount()+1);
-            }
-        }
-        return false;
     }
 
     @EventHandler
@@ -72,7 +56,7 @@ public class MesasCrafteoEvent implements Listener {
         } else if (ci.contains(Material.CRIMSON_PLANKS) && ci.contains(Material.STRIPPED_WARPED_STEM) ){
             cancelar = false;
 
-        } else if(ci.contains(Material.CRIMSON_PLANKS) && ci.contains(PicosManager.getPicoMadera()) && rangosManager.isPermitido(p.getName(),Rangos.CONDENADO3) ){ // pico humilde
+        } else if(ci.contains(Material.CRIMSON_PLANKS) && ci.contains(MaterialesManager.getItem(IpMateriales.PICO_MADERA)) && rangosManager.isPermitido(p.getName(),Rangos.CONDENADO3) ){ // pico humilde
             cancelar = false;
             p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 100, 2);
 
@@ -88,7 +72,7 @@ public class MesasCrafteoEvent implements Listener {
         } else if (ci.contains(Material.OAK_PLANKS) && ci.contains(MaterialesManager.getItem(IpMateriales.MADERA_ROBLE).getType()) && rangosManager.isPermitido(p.getName(),Rangos.SINTECHO2)){ //madera roble
             cancelar = false;
 
-        } else if (ci.contains(MaterialesManager.getItem(IpMateriales.ROCA).getType()) && ci.contains(PicosManager.getPicoPiedra()) && rangosManager.isPermitido(p.getName(),Rangos.SINTECHO2) ){ // pico resistente
+        } else if (ci.contains(MaterialesManager.getItem(IpMateriales.ROCA).getType()) && ci.contains(MaterialesManager.getItem(IpMateriales.PICO_PIEDRA)) && rangosManager.isPermitido(p.getName(),Rangos.SINTECHO2) ){ // pico resistente
             p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 100, 2);
             cancelar = false;
 
@@ -107,7 +91,7 @@ public class MesasCrafteoEvent implements Listener {
         } else if(ci.contains(Material.BREAD) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO2)){ // los de esencia amarilla
             cancelar = false;
 
-        } else if(ci.contains(PicosManager.getCatalejo().getType()) && ci.contains(Material.OAK_PLANKS) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO2)){ // catalejo
+        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.CATALEJO).getType()) && ci.contains(Material.OAK_PLANKS) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO2)){ // catalejo
             cancelar = false;
 
         } else if(ci.contains(MaterialesManager.getItem(IpMateriales.ESENCIA_AMARILLA1).getType()) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO1)){ // los de esencia amarilla

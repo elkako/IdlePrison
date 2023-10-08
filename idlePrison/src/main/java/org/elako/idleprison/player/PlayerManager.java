@@ -8,6 +8,7 @@ import org.elako.idleprison.items.NotaManager;
 import org.elako.idleprison.items.TipoNota;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class PlayerManager {
     LinkedList<Jugador> jugadores = new LinkedList<>();
@@ -42,23 +43,20 @@ public class PlayerManager {
         Rangos rangos = Rangos.valueOf(rango.toUpperCase());
         int nota1 = NotaManager.getNum(TipoNota.RANGO, 1);
         int nota2 = NotaManager.getNum(TipoNota.RANGO, 2);
-        if(!isNota(player, nota1))
+        if(isNotNota(player, nota1))
             if(rangos.equals(Rangos.CONDENADO3)) NotaManager.getNota(getPlayer(player).getPlayer(),nota1);
-        if(!isNota(player, nota2))
+        if(isNotNota(player, nota2))
             if(rangos.equals(Rangos.CAMPESINO1)) NotaManager.getNota(getPlayer(player).getPlayer(),nota2);
         // añadir nota salir infierno
         IdlePrison.getPlugin().escribirRango(player, rango);
         getPlayer(player).setRango(rangos);
     }
 
-    public boolean isNota(String player, int i){ return getPlayer(player).isNota(i); }
+    public boolean isNotNota(String player, int i){ return getPlayer(player).isNotNota(i); }
     public int getNotas(String player){ return getPlayer(player).getNotas(); }
     public void setNotas(String player, int nota){ getPlayer(player).setNotas(nota); }
     public boolean isNotaRecibidas(String player, int i){ return getPlayer(player).isNotaRecibida(i); }
     public void setNotasRecibidas(String player, int nota){ getPlayer(player).setNotasRecibidas(nota); }
-
-    public boolean isRecompensa(String player, int i){ return getPlayer(player).isRecompensa(i); }
-    public void setRecompensas(String player, int recompensa){ getPlayer(player).setRecompensas(recompensa); }
 
     public int getItemsVendidos(String player){ return getPlayer(player).getItemsVendidos(); }
     public void setItemsVendidos(String player, int cant){
@@ -95,7 +93,7 @@ public class PlayerManager {
 
     public void addDineroAcum(String player, double cantidad, boolean online){
         if(cantidad != 0) {
-            if(online) IdlePrison.getPlugin().getServer().getPlayer(player).sendMessage("dineroAcum == " + getPlayer(player).addDineroAcum(cantidad) + " [" + cantidad);
+            if(online) Objects.requireNonNull(IdlePrison.getPlugin().getServer().getPlayer(player)).sendMessage("dineroAcum == " + getPlayer(player).addDineroAcum(cantidad) + " [" + cantidad);
             else getPlayer(player).addDineroAcum(cantidad);
         }
     }
@@ -145,7 +143,6 @@ public class PlayerManager {
                 0,0 ,0 ,0, 0 , 0, "00",
                 "000000000000000000000000000000000000000000000000000000000000",
                 "000000000000000000000000000000000000000000000000000000000000",
-                "00000000000000000000",
                 0,0);
         IdlePrison.getPlugin().getServer().getConsoleSender().sendMessage(p + "[Personaje creado ew]");
 
@@ -153,19 +150,18 @@ public class PlayerManager {
         return true;
     }
 
-    public boolean addJugador(String p, double dinero, double dineroRenacer, double dineroRun , Rangos rango,
-                int idle1, int idle2, int idle3, int idle4, int idle5, int idle6, int treeskill1, int treeskill2,
-                int treeskill3, String permisos, String notas, String notasRecibidas, String recompensas, int itemsVendidos, int bloquesRotos){
+    public void addJugador(String p, double dinero, double dineroRenacer, double dineroRun , Rangos rango,
+                           int idle1, int idle2, int idle3, int idle4, int idle5, int idle6, int treeskill1, int treeskill2,
+                           int treeskill3, String permisos, String notas, String notasRecibidas, int itemsVendidos, int bloquesRotos){
 
         if (getPlayers().contains(p)){
-            return false;
+            return;
         }
 
         Jugador jugador = new Jugador(p, dinero, dineroRenacer, dineroRun, rango, idle1, idle2, idle3, idle4, idle5,
-                idle6, treeskill1, treeskill2, treeskill3, permisos, notas, notasRecibidas, recompensas, itemsVendidos, bloquesRotos);
+                idle6, treeskill1, treeskill2, treeskill3, permisos, notas, notasRecibidas, itemsVendidos, bloquesRotos);
         IdlePrison.getPlugin().getServer().getConsoleSender().sendMessage(p + "[Personaje cargado]");
         jugadores.add(jugador);
-        return true;
     }
 
     public void diferenciaDinero(String jugador, double money) {

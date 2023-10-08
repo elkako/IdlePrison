@@ -25,7 +25,7 @@ public class CrafteoShaped extends Crafteo {
 
     @Override
     public List<Recipe> getCrafteo() {
-        ShapedRecipe receta = new ShapedRecipe(getResultado());
+        ShapedRecipe receta = new ShapedRecipe(IdlePrison.getCrafteoskey(),getResultado());
 
         List<ItemStack> array = getReceta().stream().distinct().collect(Collectors.toList());
 
@@ -41,17 +41,17 @@ public class CrafteoShaped extends Crafteo {
             }
         }
 
-        String s1 = ""; String s2 = ""; String s3 = "";
+        StringBuilder s1 = new StringBuilder(); StringBuilder s2 = new StringBuilder(); StringBuilder s3 = new StringBuilder();
         int n = 0;
         for (ItemStack item :getReceta()) {
             n++;
-            if(n<=3) s1 += map.get(item);
-            else if(n<=6) s2 += map.get(item);
-            else s3 += map.get(item);
+            if(n<=3) s1.append(map.get(item));
+            else if(n<=6) s2.append(map.get(item));
+            else s3.append(map.get(item));
         }
         IdlePrison.imprimirConsola("Crafteo creado:[" + s1 + "], [" + s2 + "], [" + s3 + "]");
 
-        receta.shape(s1, s2,s3);
+        receta.shape(s1.toString(), s2.toString(), s3.toString());
 
         for (ItemStack item: array) {
             receta.setIngredient(map.get(item) , item.getType());

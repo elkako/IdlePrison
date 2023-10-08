@@ -18,7 +18,7 @@ public class BreakPutBlockEvent implements Listener {
     private final MinaManager bloquesPrison;
     private final DineroManager dineroManager;
     private final BloqueManager bloqueManager;
-    private PlayerManager playerManager;
+    private final PlayerManager playerManager;
 
     public BreakPutBlockEvent(MinaManager mina, DineroManager dinero, PlayerManager player, BloqueManager bloques) {
         bloquesPrison = mina;
@@ -120,11 +120,10 @@ public class BreakPutBlockEvent implements Listener {
         return devolver;
     }
 
-    public boolean isPrisonBlock(Block bloque){
+    public boolean isNotPrisonBlock(Block bloque){
         for (Block b: bloquesPrison.getBloques())
-            if (bloque.equals(b)) return true;
-
-        return false;
+            if (bloque.equals(b)) return false;
+        return true;
     }
 
     @EventHandler
@@ -145,7 +144,7 @@ public class BreakPutBlockEvent implements Listener {
 
         //IdlePrison.getPlugin().broadcast(Float.toString(bloque.getType().getHardness()));
 
-        if (!isPrisonBlock(bloque)) {
+        if (isNotPrisonBlock(bloque)) {
             if (!playerManager.isPermisoConstructor(p.getName())){
                 e.setCancelled(true);
                 p.sendMessage("Permiso denegado: porfavor vaya a la zona de mina");
@@ -167,7 +166,7 @@ public class BreakPutBlockEvent implements Listener {
             for (int i = 0; i < nivel*2; i++) {
                 Block bloque2 = getBloquesCercanos(bloque);
                 int n = 0;
-                while (!isPrisonBlock(bloque2)) { // para que no sea un bloque que no es de la mina
+                while (isNotPrisonBlock(bloque2)) { // para que no sea un bloque que no es de la mina
                     bloque2 = getBloquesCercanos(bloque);
                     n++;
                     if (n==20) break;
@@ -182,7 +181,7 @@ public class BreakPutBlockEvent implements Listener {
             for (int i = 0; i < nivel*2; i++) {
                 Block bloque2 = getBloquesCercanos2(bloque);
                 int n = 0;
-                while (!isPrisonBlock(bloque2)) { // para que no sea un bloque que no es de la mina
+                while (isNotPrisonBlock(bloque2)) { // para que no sea un bloque que no es de la mina
                     bloque2 = getBloquesCercanos2(bloque);
                     n++;
                     if (n==40) break;

@@ -4,8 +4,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.type.Leaves;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -21,7 +19,7 @@ import java.util.*;
 
 public class MinaManager {
     private static RangosManager rangosManager;
-    private static LinkedList<IpMina> ipMinas = new LinkedList<>();
+    private static final LinkedList<IpMina> ipMinas = new LinkedList<>();
 
     // añadir mina
 
@@ -189,8 +187,7 @@ public class MinaManager {
         if(a.getBlockY() < c.getBlockY()) return false;
         if(b.getBlockY() > c.getBlockY()) return false;
         if(a.getBlockZ() < c.getBlockZ()) return false;
-        if(b.getBlockZ() > c.getBlockZ()) return false;
-        return true;
+        return b.getBlockZ() <= c.getBlockZ();
     }
 
     public int generarNumeros(int MAX, int MIN) {
@@ -241,7 +238,7 @@ public class MinaManager {
     // crear icono
     public ItemStack crearObjeto(IpMina mina){
         LinkedList<String> lore = new LinkedList<>();
-        String linea = "Bloques: ";
+        StringBuilder linea = new StringBuilder("Bloques: ");
         String nombre;
         int i=0;
         String id = mina.getId();
@@ -255,14 +252,14 @@ public class MinaManager {
             else nombre = ipMaterial.getNombre().toLowerCase();
 
             if (i==3) {
-                lore.add(ChatColor.WHITE +linea);
-                linea = "";
+                lore.add(ChatColor.WHITE + linea.toString());
+                linea = new StringBuilder();
             }
             i++;
-            linea += nombre + ", ";
+            linea.append(nombre).append(", ");
         }
-        linea = linea.substring(0,linea.length()-2);
-        lore.add(ChatColor.WHITE + linea);
+        linea = new StringBuilder(linea.substring(0, linea.length() - 2));
+        lore.add(ChatColor.WHITE + linea.toString());
 
         return Idleprison.crearObjetoLore(mina.getIcono(), mina.getName() , Integer.parseInt(String.valueOf(id.charAt(id.length()-1))), lore );
     }

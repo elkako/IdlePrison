@@ -9,13 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class NotaManager {
-    private static DineroManager dineroManager;
-    private static PlayerManager playerManager;
-    private static LinkedList<Nota> notas = new LinkedList<>();
+    public static DineroManager dineroManager;
+    public static PlayerManager playerManager;
+    private static final LinkedList<Nota> notas = new LinkedList<>();
 
-    public NotaManager(DineroManager dineroManager, PlayerManager playerManager) {
-        this.dineroManager = dineroManager;
-        this.playerManager = playerManager;
+    public NotaManager() {
 
         //infierno1
         notas.add(new Nota( notas.size()+1, "Mira la descripción de la nota", List.of( //1
@@ -64,7 +62,7 @@ public class NotaManager {
         ),15, TipoNota.DINERO));
 
         notas.add(new Nota( notas.size()+1, "Empresario empedernido", List.of( //7
-                ChatColor.WHITE + ""
+                ChatColor.WHITE + "A"
         ),List.of(
                 ChatColor.WHITE + " Consigue 10 idles"
         ),20,TipoNota.IDLE));

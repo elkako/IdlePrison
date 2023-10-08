@@ -10,8 +10,8 @@ import org.elako.idleprison.player.Rangos;
 import java.util.List;
 
 public class IpFragmento extends IpMaterial {
-    private Enchantment enchant;
-    private int nivel;
+    private final Enchantment enchant;
+    private final int nivel;
 
     public IpFragmento(Material material, String nombre, List<String> lore, double precio, Rangos permiso, Enchantment ench, int nivel, IpMateriales ipMateriales) {
         super(material, nombre, lore, precio, permiso, ipMateriales);
@@ -27,12 +27,12 @@ public class IpFragmento extends IpMaterial {
     public ItemStack getItem(int cantidad){
         ItemStack item = super.getItem(cantidad);
         ItemMeta itemMeta = item.getItemMeta();
-        if (enchant.equals(Enchantment.DIG_SPEED)) itemMeta.setDisplayName(ChatColor.DARK_BLUE + "" + ChatColor.BOLD + getNombre());
-        else if (enchant.equals(Enchantment.LOOT_BONUS_BLOCKS)) itemMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + getNombre());
-        else if (enchant.equals(Enchantment.LOOT_BONUS_MOBS)) itemMeta.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + getNombre());
-        else if (enchant.equals(Enchantment.CHANNELING)) itemMeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + getNombre());
-        else if (enchant.equals(Enchantment.MULTISHOT)) itemMeta.setDisplayName(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + getNombre());
-
+        if(itemMeta == null) return item;
+        if (enchant.equals(Enchantment.DIG_SPEED)) itemMeta.setDisplayName(ChatColor.DARK_BLUE + String.valueOf(ChatColor.BOLD) + getNombre());
+        else if (enchant.equals(Enchantment.LOOT_BONUS_BLOCKS)) itemMeta.setDisplayName(ChatColor.DARK_RED + String.valueOf(ChatColor.BOLD) + getNombre());
+        else if (enchant.equals(Enchantment.LOOT_BONUS_MOBS)) itemMeta.setDisplayName(ChatColor.DARK_GREEN + String.valueOf(ChatColor.BOLD) + getNombre());
+        else if (enchant.equals(Enchantment.CHANNELING)) itemMeta.setDisplayName(ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + getNombre());
+        else if (enchant.equals(Enchantment.MULTISHOT)) itemMeta.setDisplayName(ChatColor.DARK_GRAY + String.valueOf(ChatColor.BOLD) + getNombre());
 
         itemMeta.addEnchant(enchant,nivel,true);
         item.setItemMeta(itemMeta);

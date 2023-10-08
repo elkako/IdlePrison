@@ -53,7 +53,7 @@ public class RangosManager {
 
     public void setPlayer(String jugador, String rango){
         if (rango == null) return;
-        if (!Rangos.contieneRango(rango)) return;
+        if (Rangos.contieneNotRango(rango)) return;
 
         playerManager.setRango(jugador,rango);
     }

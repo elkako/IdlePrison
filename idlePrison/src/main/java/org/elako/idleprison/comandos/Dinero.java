@@ -26,7 +26,7 @@ public class Dinero implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
-        Boolean permiso = playerManager.isPermisoComandos(p.getName());
+        boolean permiso = playerManager.isPermisoComandos(p.getName());
 
         if (strings.length > 3) {
             //no tiene un input el comando
@@ -38,9 +38,8 @@ public class Dinero implements CommandExecutor {
                 mensajeJugadorDesconocido(p,p.getName());
                 return false;
             }
-            String money = dineroManager.dineroToString(dineroManager.getDinero(p));
+            String money = DineroManager.dineroToString(dineroManager.getDinero(p));
             p.sendMessage("Tu dinero es de " + money + "E");
-            p.sendMessage(dineroManager.getDinero(p)+ "");
             return true;
         }
 
@@ -93,7 +92,7 @@ public class Dinero implements CommandExecutor {
 
         // admin command
         if (strings.length == 3){
-            Double money = Double.parseDouble(strings[2]);
+            double money = Double.parseDouble(strings[2]);
             switch (strings[0]) {
                 // /dinero set jugador cantidad, /dinero remove jugador cantidad, /dinero add jugador cantidad
                 case "set":

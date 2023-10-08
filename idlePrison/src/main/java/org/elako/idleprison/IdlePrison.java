@@ -26,18 +26,12 @@ public final class IdlePrison extends JavaPlugin {
     private static MinaManager mina;
     private static DineroManager dinero;
     private static RangosManager rango;
-    private static MaterialesManager materiales;
     private static TreeSkillManager treeskill;
     private static IdleManager idle;
-    private static BloqueManager bloque;
-    private static NotaManager nota;
-    private static VenderManager vender;
-    private static CrafteoManager crafteo;
     private static IdlePrison plugin;
+    private static int crafteoskey = 0;
 
-    public static IdlePrison getPlugin(){
-        return plugin;
-    }
+    public static IdlePrison getPlugin(){ return plugin; }
 
     public void insertarConfig(){
         File config = new File(this.getDataFolder(),"config.yml");
@@ -161,39 +155,14 @@ public final class IdlePrison extends JavaPlugin {
         saveConfig();
     }
 
-    private void addPicoRecetas(List<ItemStack> esencias) {
-        ShapelessRecipe picoRecetaW = new ShapelessRecipe(new ItemStack(Material.WOODEN_PICKAXE));
-        ShapelessRecipe picoRecetaS = new ShapelessRecipe(new ItemStack(Material.STONE_PICKAXE));
-        ShapelessRecipe picoRecetaI = new ShapelessRecipe(new ItemStack(Material.IRON_PICKAXE));
-        ShapelessRecipe picoRecetaD = new ShapelessRecipe(new ItemStack(Material.DIAMOND_PICKAXE));
-
-        for (ItemStack esencia: esencias) {
-            picoRecetaW.addIngredient(new RecipeChoice.ExactChoice(esencia));
-            picoRecetaS.addIngredient(new RecipeChoice.ExactChoice(esencia));
-            picoRecetaI.addIngredient(new RecipeChoice.ExactChoice(esencia));
-            picoRecetaD.addIngredient(new RecipeChoice.ExactChoice(esencia));
-        }
-
-        picoRecetaW.addIngredient(Material.WOODEN_PICKAXE);
-        getServer().addRecipe(picoRecetaW);
-
-        picoRecetaS.addIngredient(Material.STONE_PICKAXE);
-        getServer().addRecipe(picoRecetaS);
-
-        picoRecetaI.addIngredient(Material.IRON_PICKAXE);
-        getServer().addRecipe(picoRecetaI);
-
-        picoRecetaD.addIngredient(Material.DIAMOND_PICKAXE);
-        getServer().addRecipe(picoRecetaD);
-    }
-
     public static void scoreboardNotification(Player p, LinkedList<String> s, int segs) {
         playerManager.reloadTimeScoreDetector(p.getName(), segs);
         ScoreboardManager manager = getPlugin().getServer().getScoreboardManager();
+        assert manager != null;
         Scoreboard scoreboard = manager.getNewScoreboard();
-        Objective objetivo = scoreboard.registerNewObjective("miplugin","dummy");
+        Objective objetivo = scoreboard.registerNewObjective("miplugin","dummy","miplugin");
         objetivo.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objetivo.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + p.getName());
+        objetivo.setDisplayName(ChatColor.DARK_RED + String.valueOf(ChatColor.BOLD) + p.getName());
 
         for (int i = 0; i < s.size(); i++) {
             if (s.get(i).length() > 30){
@@ -218,10 +187,11 @@ public final class IdlePrison extends JavaPlugin {
 
     private void tickScoreboard(Player p) {
         ScoreboardManager manager = getServer().getScoreboardManager();
+        assert manager != null;
         Scoreboard scoreboard = manager.getNewScoreboard();
-        Objective objetivo = scoreboard.registerNewObjective("miplugin","dummy");
+        Objective objetivo = scoreboard.registerNewObjective("miplugin","dummy", "miplugin");
         objetivo.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objetivo.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + p.getName());
+        objetivo.setDisplayName(ChatColor.DARK_RED + String.valueOf(ChatColor.BOLD) + p.getName());
 
         Rangos r = rango.getPlayer(p);
         double diferencia = playerManager.getDiferenciaDinero(p.getName());
@@ -241,29 +211,30 @@ public final class IdlePrison extends JavaPlugin {
         playerManager.reiniciarDiferenciaDinero(p.getName());
 
         List<String> lineas;
+        String s = ChatColor.WHITE + String.valueOf(sr.toUpperCase().charAt(0)) + sr.substring(1).toLowerCase();
         if (rango.isPermitido(p.getName(),Rangos.CAMPESINO1) || treeskill.getDineroRenacer(p.getName()) > 0 ) {
              lineas = Arrays.asList(
-                    ChatColor.WHITE + "" + ChatColor.BOLD + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero + "E",
-                    ChatColor.WHITE + "" + ChatColor.BOLD + "Rango: ",
-                    ChatColor.WHITE + "" + sr.toUpperCase().charAt(0) + sr.substring(1).toLowerCase() ,
+                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero + "E",
+                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Rango: ",
+                     s,
                     ChatColor.WHITE + "Siguiente: " + rango.siguienteRango(p.getName()).toLowerCase() ,
                     ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender) + "E",
-                    ChatColor.WHITE + "" + ChatColor.BOLD + "Acumulado en idle: ",
+                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Acumulado en idle: ",
                     ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())) + "E",
                     ChatColor.WHITE + "Tiempo: " + IdleManager.tiempoToString(playerManager.getPlayer(p.getName()).getTimeTotal()),
-                    ChatColor.WHITE + "" + ChatColor.BOLD + "Renacer: ",
+                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Renacer: ",
                     ChatColor.WHITE + "Nivel: "+ treeskill.getNivelRenacer(p.getName()),
                     ChatColor.WHITE + "Nivel tras renacer: "+ treeskill.getNivelTotal(p.getName()),
                     ChatColor.WHITE + "Siguiente nivel: " + DineroManager.dineroToString( treeskill.ascenderRestos( treeskill.getDineroTotal(p.getName()) ) ) + " E"
             );
         } else
             lineas = Arrays.asList(
-                ChatColor.WHITE + "" + ChatColor.BOLD + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero + "E",
-                ChatColor.WHITE + "" + ChatColor.BOLD + "Rango: ",
-                ChatColor.WHITE + "" + sr.toUpperCase().charAt(0) + sr.substring(1).toLowerCase() ,
+                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero + "E",
+                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Rango: ",
+                    s,
                 ChatColor.WHITE + "Siguiente: " + rango.siguienteRango(p.getName()).toLowerCase() ,
                 ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender) + "E",
-                ChatColor.WHITE + "" + ChatColor.BOLD + "Acumulado en idle: ",
+                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Acumulado en idle: ",
                 ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())) + "E",
                 ChatColor.WHITE + "Tiempo: " + IdleManager.tiempoToString(playerManager.getPlayer(p.getName()).getTimeTotal())
 
@@ -284,6 +255,11 @@ public final class IdlePrison extends JavaPlugin {
         if (speed > 0) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,60,speed-1 ) );
     }
 
+    public static NamespacedKey getCrafteoskey(){
+        crafteoskey++;
+        return new NamespacedKey(getPlugin(), "craft"+crafteoskey);
+    }
+
     @Override
     public void onEnable() {
 
@@ -291,151 +267,50 @@ public final class IdlePrison extends JavaPlugin {
         plugin = this;
         playerManager = new PlayerManager();
         dinero = new DineroManager(playerManager);
-        nota = new NotaManager(dinero,playerManager);
         rango = new RangosManager(dinero,playerManager);
-        vender = new VenderManager(dinero, rango,playerManager);
-        materiales = new MaterialesManager(rango);
-        bloque = new BloqueManager();
+        VenderManager vender = new VenderManager(dinero, rango, playerManager);
+        BloqueManager bloque = new BloqueManager();
         idle = new IdleManager(dinero,playerManager);
         mina = new MinaManager(rango);
         treeskill = new TreeSkillManager(playerManager,rango,mina);
-        crafteo = new CrafteoManager(rango);
+        CrafteoManager crafteo = new CrafteoManager(rango);
+
+        NotaManager.dineroManager = dinero;
+        NotaManager.playerManager = playerManager;
+        MaterialesManager.rango = rango;
 
         insertarConfig();
 
         //eventos
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new BreakPutBlockEvent(mina,dinero,playerManager,bloque),this);
+        pm.registerEvents(new BreakPutBlockEvent(mina,dinero,playerManager, bloque),this);
         pm.registerEvents(new BlockDropEvent(mina), this);
         pm.registerEvents(new MesasCrafteoEvent(rango),this);
         pm.registerEvents(new JoinPlayerEvent(rango,dinero, playerManager),this);
         pm.registerEvents(new MenuListener(treeskill,mina,rango, idle, playerManager, vender, crafteo),this);
         pm.registerEvents(new DeathPlayerEvent(vender,dinero), this);
-        pm.registerEvents(new ItemsEvent(mina,bloque),this);
+        pm.registerEvents(new ItemsEvent(mina, bloque),this);
         pm.registerEvents(new ComerEvent(rango),this);
         pm.registerEvents(new ItemDropEvent(rango),this);
         pm.registerEvents(new InteractPlayerEvent(playerManager, rango, vender),this);
 
         //comandos
-        getCommand("idleprison").setExecutor(new Idleprison(rango,dinero,playerManager,treeskill,mina));
-        getCommand("ipcrear").setExecutor(new Ipcrear(mina, playerManager));
-        getCommand("rango").setExecutor(new Rango(rango, playerManager));
-        getCommand("dinero").setExecutor(new Dinero(dinero, playerManager));
-        getCommand("mina").setExecutor(new Mina(mina,rango));
-        getCommand("vender").setExecutor(new Vender(vender));
-        getCommand("treeskill").setExecutor(new TreeSkill(treeskill,rango, playerManager));
-        getCommand("crafteo").setExecutor(new Crafteo(materiales,rango));
-        getCommand("idle").setExecutor(new Idle(playerManager,rango,idle));
-        getCommand("renacer").setExecutor(new Renacer(treeskill,playerManager,rango));
+        Objects.requireNonNull(getCommand("idleprison")).setExecutor(new Idleprison(rango,dinero,playerManager,treeskill,mina));
+        Objects.requireNonNull(getCommand("ipcrear")).setExecutor(new Ipcrear(mina, playerManager));
+        Objects.requireNonNull(getCommand("rango")).setExecutor(new Rango(rango, playerManager));
+        Objects.requireNonNull(getCommand("dinero")).setExecutor(new Dinero(dinero, playerManager));
+        Objects.requireNonNull(getCommand("mina")).setExecutor(new Mina(mina,rango));
+        Objects.requireNonNull(getCommand("vender")).setExecutor(new Vender(vender));
+        Objects.requireNonNull(getCommand("treeskill")).setExecutor(new TreeSkill(treeskill,rango, playerManager));
+        Objects.requireNonNull(getCommand("crafteo")).setExecutor(new Crafteo());
+        Objects.requireNonNull(getCommand("idle")).setExecutor(new Idle(playerManager,rango,idle));
+        Objects.requireNonNull(getCommand("renacer")).setExecutor(new Renacer(treeskill,playerManager,rango));
 
         //recetas
 
         for ( Recipe r: crafteo.getCrafteos() ) {
             getServer().addRecipe(r);
         }
-
-        // recetas infierno
-        ShapelessRecipe tablonesInfiernoReceta = new ShapelessRecipe(MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS,7));
-        tablonesInfiernoReceta.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.MADERA_INFIERNO)));
-        getServer().addRecipe(tablonesInfiernoReceta);
-
-        ShapelessRecipe tablonesInfierno2Receta = new ShapelessRecipe(MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS,15));
-        tablonesInfierno2Receta.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.MADERA_INFIERNO_CALIDAD)));
-        getServer().addRecipe(tablonesInfierno2Receta);
-
-        ShapedRecipe picoReceta = new ShapedRecipe(PicosManager.getPicoMadera());
-        picoReceta.shape("SSS" , " S " , " S ");
-        picoReceta.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS)));
-        getServer().addRecipe(picoReceta);
-
-        ShapelessRecipe pescadoBrasaReceta = new ShapelessRecipe(MaterialesManager.getItem(IpMateriales.PESCADO_BRASA));
-        pescadoBrasaReceta.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.PESCADO_CRUDO)));
-        pescadoBrasaReceta.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS)));
-        getServer().addRecipe(pescadoBrasaReceta);
-
-        ShapedRecipe esenciaAzul1 = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL1));
-        esenciaAzul1.shape("SSS" , "SSS" , "SSS");
-        esenciaAzul1.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.FRAGMENTO_AZUL1)));
-        getServer().addRecipe(esenciaAzul1);
-
-        addPicoRecetas(Arrays.asList( MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL1)) );
-
-        // recetas afueras
-        ShapedRecipe picoPiedraReceta = new ShapedRecipe(PicosManager.getPicoPiedra());
-        picoPiedraReceta.shape("SSS" , "STS" , "SSS");
-        picoPiedraReceta.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.ROCA,1)));
-        picoPiedraReceta.setIngredient('T', new RecipeChoice.ExactChoice(PicosManager.getPicoMadera()));
-        getServer().addRecipe(picoPiedraReceta);
-
-        ShapedRecipe lente1 = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.LENTE));
-        lente1.shape("SSS" , "TSR" , "SSS");
-        lente1.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.ARENA)));
-        lente1.setIngredient('T', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.MADERA_INFIERNO_CALIDAD)));
-        lente1.setIngredient('R', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO)));
-        getServer().addRecipe(lente1);
-
-        ShapedRecipe lente2 = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.LENTE));
-        lente2.shape("SSS" , "TSR" , "SSS");
-        lente2.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.ARENA)));
-        lente2.setIngredient('T', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.MADERA_ROBLE)));
-        lente2.setIngredient('R', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO)));
-        getServer().addRecipe(lente2);
-
-        ShapedRecipe catalejo = new ShapedRecipe(PicosManager.getCatalejo());
-        catalejo.shape("  S" , "TTS" , "   ");
-        catalejo.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.LENTE)));
-        catalejo.setIngredient('T', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.TABLONES_ROBLE)));
-        getServer().addRecipe(catalejo);
-
-        ShapelessRecipe tablonesRobleReceta = new ShapelessRecipe(MaterialesManager.getItem(IpMateriales.TABLONES_ROBLE,5));
-        tablonesRobleReceta.addIngredient( new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.MADERA_ROBLE)));
-        getServer().addRecipe(tablonesRobleReceta);
-
-        ShapelessRecipe tablonesRobleReceta2 = new ShapelessRecipe(MaterialesManager.getItem(IpMateriales.TABLONES_ROBLE,17));
-        tablonesRobleReceta2.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.MADERA_ROBLE,3)));
-        getServer().addRecipe(tablonesRobleReceta2);
-
-        ShapedRecipe esenciaRoja1 = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.ESENCIA_ROJA1));
-        esenciaRoja1.shape("SSS" , "SSS" , "SSS");
-        esenciaRoja1.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.FRAGMENTO_ROJO1)));
-        getServer().addRecipe(esenciaRoja1);
-
-        addPicoRecetas(Arrays.asList( MaterialesManager.getItem(IpMateriales.FRAGMENTO_ROJO1) ) );
-
-        ShapedRecipe granGranito = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.GRAN_GRANITO));
-        granGranito.shape("SSS" , "SSS" , "SSS");
-        granGranito.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.GRANITO)));
-        getServer().addRecipe(granGranito);
-
-        ShapedRecipe esenciaVerde1 = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.ESENCIA_VERDE1));
-        esenciaVerde1.shape("SSS" , "SSS" , "SSS");
-        esenciaVerde1.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.FRAGMENTO_VERDE1)));
-        getServer().addRecipe(esenciaVerde1);
-
-        addPicoRecetas(Arrays.asList( MaterialesManager.getItem(IpMateriales.ESENCIA_VERDE1) ) );
-
-        ShapedRecipe esenciaAzul2 = new ShapedRecipe( MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL2) );
-        esenciaAzul2.shape("SSS" , "SSS" , "SSS");
-        esenciaAzul2.setIngredient('S', new RecipeChoice.ExactChoice( MaterialesManager.getItem(IpMateriales.FRAGMENTO_AZUL2) ));
-        getServer().addRecipe(esenciaAzul2);
-
-        addPicoRecetas(Arrays.asList( MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL2) ) ) ;
-
-        ShapedRecipe panReceta = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.PAN,2));
-        panReceta.shape("   " , "SSS" , " T ");
-        panReceta.setIngredient('S', new RecipeChoice.ExactChoice( MaterialesManager.getItem(IpMateriales.TRIGO) ));
-        panReceta.setIngredient('T', new RecipeChoice.ExactChoice( MaterialesManager.getItem(IpMateriales.TABLONES_ROBLE) ));
-        getServer().addRecipe(panReceta);
-
-        ShapedRecipe esenciaAmarilla1 = new ShapedRecipe(MaterialesManager.getItem(IpMateriales.ESENCIA_AMARILLA1));
-        esenciaAmarilla1.shape("SSS" , "SSS" , "SSS");
-        esenciaAmarilla1.setIngredient('S', new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.FRAGMENTO_AMARILLO1)));
-        getServer().addRecipe(esenciaAmarilla1);
-
-        ShapelessRecipe detectorBloques = new ShapelessRecipe(new ItemStack(PicosManager.getDetectorBloques1()));
-        detectorBloques.addIngredient(new RecipeChoice.ExactChoice(MaterialesManager.getItem(IpMateriales.ESENCIA_AMARILLA1)));
-        detectorBloques.addIngredient(new RecipeChoice.ExactChoice(PicosManager.getCatalejo()));
-        getServer().addRecipe(detectorBloques);
 
         //cargar minas
        ConfigurationSection sec = getConfig().getConfigurationSection("Minas");
@@ -487,16 +362,16 @@ public final class IdlePrison extends JavaPlugin {
                     String permisos = getConfig().getString("Players." + key + ".permisos");
                     String notas = getConfig().getString("Players." + key + ".notas");
                     String notasRecibidas = getConfig().getString("Players." + key + ".notas");
-                    String recompensas = getConfig().getString("Players." + key + ".recompensas");
 
                     int itemsVendidos = getConfig().getInt("Players." + key + ".itemsVendidos");
                     int bloquesRotos = getConfig().getInt("Players." + key + ".bloquesRotos");
 
-                    if (!Rangos.contieneRango(rangoJugador)) return;
+                    if (Rangos.contieneNotRango(rangoJugador)) return;
 
+                    assert rangoJugador != null;
                     playerManager.addJugador(key, dineroJugador, dineroRenacer, dineroRun, Rangos.valueOf(rangoJugador.
                             toUpperCase()), idle1, idle2, idle3, idle4, idle5, idle6, treeskill1, treeskill2, treeskill3,
-                            permisos, notas, notasRecibidas, recompensas, itemsVendidos, bloquesRotos);
+                            permisos, notas, notasRecibidas, itemsVendidos, bloquesRotos);
                 }
             }
         }

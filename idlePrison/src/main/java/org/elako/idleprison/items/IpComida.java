@@ -2,7 +2,6 @@ package org.elako.idleprison.items;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -30,7 +29,9 @@ public class IpComida extends IpMaterial {
     public ItemStack getItem(int cantidad){
         ItemStack item = super.getItem(cantidad);
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + getNombre());
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.GOLD + String.valueOf(ChatColor.BOLD) + getNombre());
 
         item.setItemMeta(itemMeta);
         return item;

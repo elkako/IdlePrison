@@ -14,7 +14,7 @@ import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.RangosManager;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class Mina implements CommandExecutor {
     private static MinaManager minaManager;
@@ -32,7 +32,7 @@ public class Mina implements CommandExecutor {
         if (rangosManager.isPermitido(p.getName(), Rangos.MINERO3)) size = 27;
 
 
-        Inventory inventario = Bukkit.createInventory(p, size, ChatColor.BOLD + "" + ChatColor.DARK_GREEN + "Minas");
+        Inventory inventario = Bukkit.createInventory(p, size, ChatColor.BOLD + String.valueOf(ChatColor.DARK_GREEN) + "Minas");
         int contador = 0;
 
         for (IpMina mina : minaManager.getMinas()) {
@@ -43,8 +43,8 @@ public class Mina implements CommandExecutor {
             contador++;
         }
 
-        inventario.setItem(size-1, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", Arrays.asList(
-                ChatColor.WHITE + "Botón para volver al menú"  ) ));
+        inventario.setItem(size-1, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
+                ChatColor.WHITE + "Botón para volver al menú")));
 
         return inventario;
     }
@@ -73,7 +73,7 @@ public class Mina implements CommandExecutor {
                 minaManager.tpMina(p, strings[0]);
                 return true;
             }
-        } else if (strings.length == 2) {
+        } else {
             if(strings[0].equals("nombre")){
                 p.setDisplayName(strings[1]);
                 return true;

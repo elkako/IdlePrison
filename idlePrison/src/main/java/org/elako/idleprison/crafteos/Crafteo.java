@@ -14,8 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Crafteo {
-    private LinkedList<ItemStack> receta;
-    private ItemStack resultado;
+    private final LinkedList<ItemStack> receta;
+    private final ItemStack resultado;
     private Rangos permiso;
 
     public Crafteo(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
@@ -39,7 +39,7 @@ public abstract class Crafteo {
     public void setPermiso(Rangos permiso) { this.permiso = permiso; }
 
     public static Inventory guiaCrafteoSimple(Player p, LinkedList<ItemStack> items, ItemStack resul){
-        Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + "" + ChatColor.LIGHT_PURPLE + "Crafteo");
+        Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + String.valueOf(ChatColor.LIGHT_PURPLE) + "Crafteo");
         for (int i=0;i<27;i++) {
             switch (i){
                 case 2:
@@ -70,7 +70,7 @@ public abstract class Crafteo {
 
     public static Inventory guiaCrafteoDoble(Player p, LinkedList<ItemStack> items, ItemStack resul,
                                              LinkedList<ItemStack> items2, ItemStack resul2){
-        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + "" + ChatColor.LIGHT_PURPLE + "Crafteo");
+        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.LIGHT_PURPLE) + "Crafteo");
         for (int i=0;i<54;i++) {
             p.sendMessage("i: " + i);
             switch (i){

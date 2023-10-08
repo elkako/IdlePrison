@@ -9,8 +9,6 @@ import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.RangosManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
-import java.util.ArrayList;
-
 public class VenderManager {
     DineroManager dineroManager;
     RangosManager rangosManager;
@@ -48,6 +46,7 @@ public class VenderManager {
                 if (i == null) continue;
                 if (i.getItemMeta() == null) continue;
 
+                assert itemMeta != null;
                 if (itemMeta.getAsString().equals(i.getItemMeta().getAsString())) {
                     cantidad += i.getAmount();
                     i.setAmount(0);

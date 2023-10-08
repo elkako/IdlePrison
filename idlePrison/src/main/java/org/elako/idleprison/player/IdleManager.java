@@ -3,20 +3,21 @@ package org.elako.idleprison.player;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.Idle;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.items.NotaManager;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class IdleManager {
-    private int RATE = 60;
+    private final int RATE = 60;
     private int ticksLeft = RATE;
 
-    private DineroManager dineroManager;
-    private PlayerManager playerManager;
+    private final DineroManager dineroManager;
+    private final PlayerManager playerManager;
 
 
     public IdleManager(DineroManager dinero, PlayerManager player) {
@@ -25,7 +26,7 @@ public class IdleManager {
     }
 
     public static String tiempoToString(int segundos){
-        String devolver = new String();
+        String devolver = "";
         int min = segundos/60;
         if (min>0){
             devolver += min;
@@ -52,13 +53,16 @@ public class IdleManager {
             int n = needMaterial(idle, p, materiales2.indexOf(i));
             i.setAmount(0);
             for (ItemStack i2 : materiales) {
-                if(i.getItemMeta().equals(i2.getItemMeta())) {
+                if(Objects.equals(i.getItemMeta(), i2.getItemMeta())) {
                     i.setAmount(i.getAmount()+i2.getAmount());
                 }
             }
 
-            if (i.getAmount()<=n) devolver.add(ChatColor.WHITE + "-" + i.getAmount() + " " +  i.getItemMeta().getDisplayName().substring(4));
-            else devolver.add(ChatColor.WHITE + "-" + i.getAmount() + "/" + n + " " +  i.getItemMeta().getDisplayName().substring(4) );
+            ItemMeta im = i.getItemMeta();
+            if (im == null) return devolver;
+
+            if (i.getAmount()<=n) devolver.add(ChatColor.WHITE + "-" + i.getAmount() + " " +  im.getDisplayName().substring(4));
+            else devolver.add(ChatColor.WHITE + "-" + i.getAmount() + "/" + n + " " +  im.getDisplayName().substring(4) );
         }
         devolver.add("");
 
@@ -137,7 +141,7 @@ public class IdleManager {
 
         ItemStack i = devolver.get(pos);
 
-        for (ItemStack i2 : IdlePrison.getPlugin().getServer().getPlayer(jugador).getInventory().getContents()) {
+        for (ItemStack i2 : Objects.requireNonNull(IdlePrison.getPlugin().getServer().getPlayer(jugador)).getInventory().getContents()) {
             if(i2 != null) {
                 if( i2.getType().equals(i.getType()) ){
                     n += i2.getAmount();
@@ -152,7 +156,7 @@ public class IdleManager {
 
         for (ItemStack i1 : devolver ){
             int n = i1.getAmount();
-            for (ItemStack i2 : IdlePrison.getPlugin().getServer().getPlayer(jugador).getInventory().getContents()) {
+            for (ItemStack i2 : Objects.requireNonNull(IdlePrison.getPlugin().getServer().getPlayer(jugador)).getInventory().getContents()) {
                 if(i2 != null &&  n != 0) {
                     if( i2.getType().equals(i1.getType()) ){
                         if(n >= i2.getAmount()){
@@ -174,7 +178,7 @@ public class IdleManager {
 
         for (ItemStack i1 : devolver ){
             int n = i1.getAmount();
-            for (ItemStack i2 : IdlePrison.getPlugin().getServer().getPlayer(jugador).getInventory().getContents()) {
+            for (ItemStack i2 : Objects.requireNonNull(IdlePrison.getPlugin().getServer().getPlayer(jugador)).getInventory().getContents()) {
                 if(i2 != null) {
                     if( i2.getType().equals(i1.getType()) ){
                         n = n - i2.getAmount();
@@ -190,7 +194,7 @@ public class IdleManager {
         switch (idle){  //return 10+5*Math.pow(2,playerManager.getIdle1(jugador));
             case 1:
                 if (nivel == 1) return 10;
-                return formulaDinero(1, nivel-1)+nivel*1;
+                return formulaDinero(1, nivel-1)+ nivel;
             case 2:
                 if (nivel == 1) return 50;
                 return formulaDinero(2, nivel-1)+nivel*3;
@@ -235,7 +239,7 @@ public class IdleManager {
     }
 
     public void recogerDinero(Player p){
-        Double acum = playerManager.recogerDineroAcum(p.getName());
+        double acum = playerManager.recogerDineroAcum(p.getName());
         dineroManager.addMoney(p.getName(),acum);
         p.sendMessage("Has recogido " + DineroManager.dineroToString(acum) + " de idle");
         playerManager.reloadTimeOffline(p.getName());
@@ -314,9 +318,7 @@ public class IdleManager {
                 // actualizar menú idle
                 if(player == null) continue;
 
-                if (player.getOpenInventory() == null) continue;
-
-                if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "" + ChatColor.GOLD + "Idle")){
+                if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle")){
                     player.openInventory(Idle.crearInventario(player,1));
                 }
 

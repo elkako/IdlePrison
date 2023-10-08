@@ -9,7 +9,6 @@ import org.bukkit.inventory.*;
 import org.elako.idleprison.comandos.Idleprison;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.items.PicosManager;
 import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.RangosManager;
 
@@ -17,14 +16,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CrafteoManager {
-    RangosManager rangosManager;
-    LinkedList<Crafteo> crafteos = new LinkedList<>();
+    private static RangosManager rangosManager;
+    private static final LinkedList<Crafteo> crafteos = new LinkedList<>();
 
     public CrafteoManager(RangosManager rangos) {
         rangosManager = rangos;
         ItemStack nulo = new ItemStack(Material.BARRIER);
-
-        // todo arreglar tablones quemados, picos, madera roble, lente
 
         ItemStack maderaInferCali = MaterialesManager.getItem(IpMateriales.MADERA_INFIERNO_CALIDAD);
         crafteos.add( new CrafteoShapelessDoble( new LinkedList<>( List.of(
@@ -39,7 +36,7 @@ public class CrafteoManager {
                 tablonesQ,   tablonesQ,   tablonesQ,
                 nulo,       tablonesQ,   nulo,
                 nulo,       tablonesQ,   nulo
-        ) ), PicosManager.getPicoMadera(), Rangos.CONDENADO3 ) );
+        ) ), MaterialesManager.getItem(IpMateriales.PICO_MADERA), Rangos.CONDENADO3 ) );
 
         crafteos.add( new CrafteoShapeless( new LinkedList<>( List.of(
                 MaterialesManager.getItem(IpMateriales.PESCADO_CRUDO),
@@ -54,7 +51,7 @@ public class CrafteoManager {
                 fragmentoAzul1,   fragmentoAzul1,   fragmentoAzul1
         ) ), esenciaAzul1, Rangos.CONDENADO2 ) );
 
-        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul1) ), PicosManager.getPicoMadera(),
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul1) ), MaterialesManager.getItem(IpMateriales.PICO_MADERA),
                 Rangos.CONDENADO2, Enchantment.DIG_SPEED, 1
         ) );
 
@@ -69,9 +66,9 @@ public class CrafteoManager {
         ItemStack roca = MaterialesManager.getItem(IpMateriales.ROCA);
         crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
                 roca,   roca,       roca,
-                roca,   PicosManager.getPicoMadera(), roca,
+                roca,   MaterialesManager.getItem(IpMateriales.PICO_MADERA), roca,
                 roca,   roca,       roca
-        ) ), PicosManager.getPicoPiedra(), Rangos.SINTECHO2 ) );
+        ) ), MaterialesManager.getItem(IpMateriales.PICO_PIEDRA), Rangos.SINTECHO2 ) );
 
         ItemStack arena = MaterialesManager.getItem(IpMateriales.ARENA);
         ItemStack bloqueMagma = MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO);
@@ -95,7 +92,7 @@ public class CrafteoManager {
                 fragmentoRoja1,   fragmentoRoja1,   fragmentoRoja1
         ) ), esenciaRoja1, Rangos.SINTECHO1 ) );
 
-        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaRoja1) ), PicosManager.getPicoPiedra(),
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaRoja1) ), MaterialesManager.getItem(IpMateriales.PICO_PIEDRA),
                 Rangos.SINTECHO1, Enchantment.LOOT_BONUS_BLOCKS, 1
         ) );
 
@@ -116,7 +113,7 @@ public class CrafteoManager {
                 fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1
         ) ), esenciaVerde1, Rangos.CAMPESINO3 ) );
 
-        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde1) ), PicosManager.getPicoMadera(),
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde1) ), MaterialesManager.getItem(IpMateriales.PICO_MADERA),
                 Rangos.CAMPESINO3, Enchantment.LOOT_BONUS_MOBS, 1
         ) );
 
@@ -128,7 +125,7 @@ public class CrafteoManager {
                 fragmentoAzul2,   fragmentoAzul2,   fragmentoAzul2
         ) ), esenciaAzul2, Rangos.CAMPESINO3 ) );
 
-        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul2) ), PicosManager.getPicoPiedra(),
+        crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaAzul2) ), MaterialesManager.getItem(IpMateriales.PICO_PIEDRA),
                 Rangos.CAMPESINO3, Enchantment.DIG_SPEED, 2
         ) );
 
@@ -140,7 +137,7 @@ public class CrafteoManager {
                 nulo,   tablones,   nulo
         ) ), MaterialesManager.getItem(IpMateriales.PAN,2), Rangos.CAMPESINO2 ) );
 
-        ItemStack catalejo = PicosManager.getCatalejo();
+        ItemStack catalejo = MaterialesManager.getItem(IpMateriales.CATALEJO);
         crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
                 nulo,       nulo,       lente,
                 tablones,   tablones,  lente,
@@ -157,7 +154,7 @@ public class CrafteoManager {
 
         crafteos.add( new CrafteoShapeless( new LinkedList<>( List.of(
                 esenciaAmarilla1, catalejo
-        )), PicosManager.getDetectorBloques1() , Rangos.CAMPESINO1 ) );
+        )), MaterialesManager.getItem(IpMateriales.DETECTOR1), Rangos.CAMPESINO1 ) );
 
 
     }
@@ -170,7 +167,7 @@ public class CrafteoManager {
         return recetas;
     }
 
-    public Inventory CraftGuide(Player p){
+    public static Inventory CraftGuide(Player p){
         Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftGuide");
         int i = 0;
         for (Crafteo c: crafteos) {

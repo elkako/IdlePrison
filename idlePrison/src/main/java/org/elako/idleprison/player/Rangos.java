@@ -5,10 +5,10 @@ public enum Rangos{
     MINERO3, MINERO2, MINERO1;
 
 
-    public static boolean contieneRango(String rango){
+    public static boolean contieneNotRango(String rango){
         for (Rangos r: Rangos.values()) {
-            if(r.toString().equals(rango.toUpperCase())) return true;
+            if(r.toString().equals(rango.toUpperCase())) return false;
         }
-        return false;
+        return true;
     }
 }

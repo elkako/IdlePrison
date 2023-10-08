@@ -13,8 +13,8 @@ import org.elako.idleprison.player.RangosManager;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
-import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 public class TreeSkill implements CommandExecutor {
     static TreeSkillManager treeSkillManager;
@@ -44,7 +44,7 @@ public class TreeSkill implements CommandExecutor {
     }
 
     public static Inventory crearInventario(Player p) {
-        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "TreeSkill");
+        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.DARK_AQUA) + "TreeSkill");
         // tamaños inventarios: 9 18 27 36 45 54
         int lvlTrab = playerManager.getTreeSkill(1,p.getName());
         int lvlEario = playerManager.getTreeSkill(2,p.getName());
@@ -53,67 +53,67 @@ public class TreeSkill implements CommandExecutor {
         for (int i=0;i<54;i++) {
             switch (i){
                 case 0:
-                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.GOLDEN_PICKAXE,ChatColor.WHITE + "Trabajador", Arrays.asList(
-                            ChatColor.WHITE + "" + lvlTrab + " puntos invertidos en esta rama"
+                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.GOLDEN_PICKAXE,ChatColor.WHITE + "Trabajador", List.of(
+                            ChatColor.WHITE + String.valueOf(lvlTrab) + " puntos invertidos en esta rama"
                     )));
                     break;
                 case 18:
-                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.RAW_GOLD,ChatColor.WHITE + "Empresario", Arrays.asList(
-                            ChatColor.WHITE + "" + lvlEario + " puntos invertidos en esta rama"
+                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.RAW_GOLD,ChatColor.WHITE + "Empresario", List.of(
+                            ChatColor.WHITE + String.valueOf(lvlEario) + " puntos invertidos en esta rama"
                     )));
                     break;
                 case 36:
-                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.GOLDEN_BOOTS,ChatColor.WHITE + "Emprendedor", Arrays.asList(
-                            ChatColor.WHITE + "" + lvlEdor + " puntos invertidos en esta rama"
+                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.GOLDEN_BOOTS,ChatColor.WHITE + "Emprendedor", List.of(
+                            ChatColor.WHITE + String.valueOf(lvlEdor) + " puntos invertidos en esta rama"
                     )));
                     break;
                 case 2:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlTrab, 0, "Trebol de 4 hojas", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "Al romper un bloque +50% chance cada drop" )) ));
+                            List.of(ChatColor.WHITE + "Al romper un bloque +50% chance cada drop")) ));
                     break;
                 case 20:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlEario, 0, "Curso de marketing online", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "+25% de dinero al vender items" )) ));
+                            List.of( ChatColor.WHITE + "+25% de dinero al vender items" )) ));
                     break;
                 case 38:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlEdor, 0, "Stonks", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "+25% a cualquier ingreso de idle" )) ));
+                            List.of( ChatColor.WHITE + "+25% a cualquier ingreso de idle" )) ));
                     break;
                 case 4:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlTrab, 1, "El ascendido", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "-20% de dinero para ascender de rango" )) ));
+                            List.of( ChatColor.WHITE + "-20% de dinero para ascender de rango" )) ));
                     break;
                 case 22:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlEario, 1, "Rebajas", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "-20% precio al comprar en idle" )) ));
+                            List.of( ChatColor.WHITE + "-20% precio al comprar en idle" )) ));
                     break;
                 case 40:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlEdor, 1, "Ingresos pasivos", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "+5 minutos de inactividad en idle" )) ));
+                            List.of( ChatColor.WHITE + "+5 minutos de inactividad en idle" )) ));
                     break;
                 case 6:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlTrab, 2, "Constitución ancha", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "Te añade 5 corazones más de vida" )) ));
+                            List.of( ChatColor.WHITE + "Te añade 5 corazones más de vida" )) ));
                     break;
                 case 24:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlEario, 2, "Minero adolescente", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "Los niños mineros dan x2 de ingresos" )) ));
+                            List.of( ChatColor.WHITE + "Los niños mineros dan x2 de ingresos" )) ));
                     break;
                 case 42:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlEdor, 2, "Ahorrador", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "Al renacer recibes 100 E" )) ));
+                            List.of( ChatColor.WHITE + "Al renacer recibes 100 E" )) ));
                     break;
                 case 8:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlTrab, 3, "Haste I", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "Te da el efecto de Prisa 1 continuamente" )) ));
+                            List.of( ChatColor.WHITE + "Te da el efecto de Prisa 1 continuamente" )) ));
                     break;
                 case 26:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlEario, 3, "Regeneration I", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "Te da el efecto de Regeneración 1 continuamente" )) ));
+                            List.of( ChatColor.WHITE + "Te da el efecto de Regeneración 1 continuamente" )) ));
                     break;
                 case 44:
                     inventario.setItem(i, botonTreeSkill(p.getName(), lvlEdor, 3, "Speed I", new LinkedList<>(
-                            Arrays.asList( ChatColor.WHITE + "Te da el efecto de Velocidad 1 continuamente" )) ));
+                            List.of( ChatColor.WHITE + "Te da el efecto de Velocidad 1 continuamente" )) ));
                     break;
                 case 45:
                     inventario.setItem(i, Idleprison.crearObjeto(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR"));

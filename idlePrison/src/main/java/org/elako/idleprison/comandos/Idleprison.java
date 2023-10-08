@@ -11,10 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.elako.idleprison.items.IpMaterial;
-import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.items.NotaManager;
-import org.elako.idleprison.items.PicosManager;
+import org.elako.idleprison.items.*;
 import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.IdleManager;
 import org.elako.idleprison.player.DineroManager;
@@ -31,9 +28,10 @@ public class Idleprison implements CommandExecutor {
     private static DineroManager dineroManager;
     private static PlayerManager playerManager;
     private static TreeSkillManager treeSkillManager;
-    private MinaManager minaManager;
+    private final MinaManager minaManager;
 
-    public Idleprison(RangosManager rango, DineroManager dinero, PlayerManager player, TreeSkillManager treeSkill, MinaManager mina) {
+    public Idleprison(RangosManager rango, DineroManager dinero, PlayerManager player, TreeSkillManager treeSkill,
+                      MinaManager mina) {
         playerManager = player;
         dineroManager = dinero;
         rangoManager = rango;
@@ -44,6 +42,7 @@ public class Idleprison implements CommandExecutor {
     public static ItemStack crearObjetoLore(Material material, String nombre, int amount, List<String> lore) {
         ItemStack item = new ItemStack(material,amount);
         ItemMeta itemMeta = item.getItemMeta();
+        if(itemMeta == null) return item;
         itemMeta.setDisplayName(nombre);
         itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);
@@ -56,6 +55,7 @@ public class Idleprison implements CommandExecutor {
     public static ItemStack crearObjeto(Material material, String nombre, int amount) {
         ItemStack item = new ItemStack(material,amount);
         ItemMeta itemMeta = item.getItemMeta();
+        if(itemMeta == null) return item;
         itemMeta.setDisplayName(nombre);
         item.setItemMeta(itemMeta);
         return item;
@@ -67,7 +67,7 @@ public class Idleprison implements CommandExecutor {
 
     public static Inventory crearInventario(Player p) {
         // tamaños inventarios: 9 18 27 36 45 54
-        Inventory inventario = Bukkit.createInventory(p, 45, ChatColor.BOLD + "" + ChatColor.DARK_RED + "Menú");
+        Inventory inventario = Bukkit.createInventory(p, 45, ChatColor.BOLD + String.valueOf(ChatColor.DARK_RED) + "Menú");
 
         Rangos rango = rangoManager.getPlayer(p);
         double dineroP = dineroManager.getDinero(p);
@@ -98,8 +98,8 @@ public class Idleprison implements CommandExecutor {
                 ChatColor.WHITE + "Clickea para ver una guía de todas ",
                 ChatColor.WHITE + "las recetas que tienes disponibles" ) ));
         if (rangoManager.isPermitido(p.getName(),Rangos.CAMPESINO1) || treeSkillManager.getDineroRenacer(p.getName()) > 0 ){
-            inventario.setItem(28, crearObjetoLore(Material.GOLD_INGOT, ChatColor.GOLD + "Vender", Arrays.asList(
-                    ChatColor.WHITE + "Haz click aquí para vender objetos" )  ));
+            inventario.setItem(28, crearObjetoLore(Material.GOLD_INGOT, ChatColor.GOLD + "Vender", List.of(
+                    ChatColor.WHITE + "Haz click aquí para vender objetos")));
             inventario.setItem(30, crearObjetoLore(Material.COAL_ORE, ChatColor.GOLD + "Minas", Arrays.asList(
                     ChatColor.WHITE + "Haz click aquí para ir al menú de",
                     ChatColor.WHITE + "teletransporte de las minas" )  ));
@@ -115,8 +115,8 @@ public class Idleprison implements CommandExecutor {
                     ChatColor.WHITE + "Te queda: " + DineroManager.dineroToString( treeSkillManager.ascenderRestos( treeSkillManager.getDineroTotal(p.getName()) ) ) + " E"   ,
                     ChatColor.WHITE + "Has conseguido: " + DineroManager.dineroToString( treeSkillManager.getDineroRun(p.getName()) ) +  " E" ) ));
         } else {
-            inventario.setItem(30, crearObjetoLore(Material.GOLD_INGOT, ChatColor.GOLD + "Vender", Arrays.asList(
-                    ChatColor.WHITE + "Haz click aquí para vender objetos" )  ));
+            inventario.setItem(30, crearObjetoLore(Material.GOLD_INGOT, ChatColor.GOLD + "Vender", List.of(
+                    ChatColor.WHITE + "Haz click aquí para vender objetos")));
             inventario.setItem(32, crearObjetoLore(Material.COAL_ORE, ChatColor.GOLD + "Minas", Arrays.asList(
                     ChatColor.WHITE + "Haz click aquí para ir al menú de",
                     ChatColor.WHITE + "teletransporte de las minas" )  ));
@@ -129,14 +129,13 @@ public class Idleprison implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
-        Boolean permiso = playerManager.isPermisoComandos(p.getName());
+        boolean permiso = playerManager.isPermisoComandos(p.getName());
 
-        if ( strings.length > 3 && strings.length == 2 ) {
+        if ( strings.length > 3) {
             //no tiene un input el comando
             p.sendMessage("Error, pon '/ip help' para ver el uso correcto");
             return false;
         }
-
 
         if (strings.length == 0) {
             if(!rangoManager.isPermitido(p.getName(), Rangos.CONDENADO4)) return false;
@@ -159,8 +158,8 @@ public class Idleprison implements CommandExecutor {
                 playerManager.reloadTimeOffline(p.getName());
                 playerManager.setDineroRenacer(p.getName(), 0);
                 playerManager.setDineroRun(p.getName(), 0);
-                p.getInventory().addItem(PicosManager.getPicoMadera());
-                p.getInventory().setItem(8, PicosManager.getMenu());
+                p.getInventory().addItem(MaterialesManager.getItem(IpMateriales.PICO_MADERA));
+                p.getInventory().setItem(8, MaterialesManager.getItem(IpMateriales.MENU));
                 for (int i = 1; i <= 3; i++) {
                     playerManager.setTreeSkill(i, p.getName(), 0);
                 }
@@ -186,7 +185,7 @@ public class Idleprison implements CommandExecutor {
                 return true;
             } else if (strings[0].equals("materiales")  && permiso) {
                 // tamaños inventarios: 9 18 27 36 45 54
-                Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + "" + ChatColor.DARK_AQUA + "-=(materiales)=-");
+                Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.DARK_AQUA) + "-=(materiales)=-");
                 if (strings[1].equals("1")){
 
                     int i = 0;
@@ -212,9 +211,11 @@ public class Idleprison implements CommandExecutor {
                 p.openInventory(inventario);
                 return true;
             }
-        } else if (strings.length == 3) {
+        } else {
             if (strings[0].equals("encantar") && permiso) {
                 ItemMeta im = p.getInventory().getItemInMainHand().getItemMeta();
+
+                assert im != null;
                 switch (strings[1].toLowerCase()) {
                     case "azul":
                         im.addEnchant(Enchantment.DIG_SPEED, Integer.parseInt(strings[2]), true);

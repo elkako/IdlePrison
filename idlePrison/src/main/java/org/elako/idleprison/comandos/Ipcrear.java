@@ -11,7 +11,7 @@ import org.elako.idleprison.player.PlayerManager;
 
 public class Ipcrear implements CommandExecutor {
     private final MinaManager minaMg;
-    private PlayerManager playerManager;
+    private final PlayerManager playerManager;
     private Location previa1 = null;
     private Location previa2 = null;
 

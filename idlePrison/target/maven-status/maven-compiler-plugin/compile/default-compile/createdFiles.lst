@@ -13,11 +13,12 @@ org\elako\idleprison\comandos\Vender.class
 org\elako\idleprison\crafteos\CrafteoShapelessDoble.class
 org\elako\idleprison\comandos\Mina.class
 org\elako\idleprison\comandos\Renacer.class
+org\elako\idleprison\items\IpHerramienta.class
 org\elako\idleprison\comandos\Rango.class
 org\elako\idleprison\items\Nota.class
 org\elako\idleprison\crafteos\CrafteoEncantar.class
 org\elako\idleprison\player\RangosManager.class
-org\elako\idleprison\items\PicosManager.class
+org\elako\idleprison\items\IpHerramienta$Crear.class
 org\elako\idleprison\mina\BloqueManager.class
 org\elako\idleprison\mina\DropProb.class
 org\elako\idleprison\player\IdleManager.class

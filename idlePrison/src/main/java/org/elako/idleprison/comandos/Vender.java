@@ -8,11 +8,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.items.VenderManager;
-import org.elako.idleprison.player.DineroManager;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class Vender implements CommandExecutor {
     VenderManager venderManager;
@@ -23,7 +21,7 @@ public class Vender implements CommandExecutor {
 
     public static Inventory crearInventario(Player p) {
         // tamaños inventarios: 9 18 27 36 45 54
-        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + "" + ChatColor.GREEN + "Vender");
+        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.GREEN) + "Vender");
         for (int i = 7; i < 27 ;i=i+8) {         //7,8,16,17,25,26
             inventario.setItem(i, Idleprison.crearObjeto(Material.BLACK_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
             i++;
@@ -35,10 +33,10 @@ public class Vender implements CommandExecutor {
             if (i != 35) inventario.setItem(i, Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
         }
 
-        inventario.setItem(35, Idleprison.crearObjetoLore(Material.LIME_STAINED_GLASS_PANE,ChatColor.WHITE + "Vender", Arrays.asList(
+        inventario.setItem(35, Idleprison.crearObjetoLore(Material.LIME_STAINED_GLASS_PANE,ChatColor.WHITE + "Vender", List.of(
                 ChatColor.WHITE + "Botón para vender objetos",
                 ChatColor.WHITE + "Arrastra todo lo que quieras vender") ));
-        inventario.setItem(53, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", Arrays.asList(
+        inventario.setItem(53, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
                 ChatColor.WHITE + "Botón para volver al menú"  ) ));
         return inventario;
     }
@@ -56,7 +54,7 @@ public class Vender implements CommandExecutor {
             Inventory inventario = crearInventario(p);
             p.openInventory(inventario);
             return  true;
-        }else if (strings.length == 1){
+        }else {
             switch (strings[0]) {
                 case "hand":   // /vender hand
                     venderManager.venderObjeto(p.getInventory().getItemInMainHand(), p.getInventory().getContents(), p);

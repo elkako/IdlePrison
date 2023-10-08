@@ -13,8 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CrafteoEncantar extends Crafteo {
-    private Enchantment encanti;
-    private int nivel;
+    private final Enchantment encanti;
+    private final int nivel;
 
     public CrafteoEncantar(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso, Enchantment encanti, int nivel) {
         super(receta, resultado, permiso);
@@ -27,6 +27,8 @@ public class CrafteoEncantar extends Crafteo {
         ItemStack item = getResultado();
         ItemMeta meta = item.getItemMeta();
 
+        assert meta != null;
+
         if(encanti.equals(Enchantment.DIG_SPEED)) meta.setDisplayName(ChatColor.WHITE + "Pico destructor ["+ nivel + "]");
         else if(encanti.equals(Enchantment.LOOT_BONUS_BLOCKS)) meta.setDisplayName(ChatColor.WHITE + "Pico vivo ["+ nivel + "]");
         else if(encanti.equals(Enchantment.LOOT_BONUS_MOBS)) meta.setDisplayName(ChatColor.WHITE + "Pico capitalista ["+ nivel + "]");
@@ -38,10 +40,10 @@ public class CrafteoEncantar extends Crafteo {
 
     @Override
     public List<Recipe> getCrafteo() {
-        ShapelessRecipe recetaW = new ShapelessRecipe(new ItemStack(Material.WOODEN_PICKAXE));
-        ShapelessRecipe recetaS = new ShapelessRecipe(new ItemStack(Material.STONE_PICKAXE));
-        ShapelessRecipe recetaI = new ShapelessRecipe(new ItemStack(Material.IRON_PICKAXE));
-        ShapelessRecipe recetaD = new ShapelessRecipe(new ItemStack(Material.DIAMOND_PICKAXE));
+        ShapelessRecipe recetaW = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.WOODEN_PICKAXE));
+        ShapelessRecipe recetaS = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.STONE_PICKAXE));
+        ShapelessRecipe recetaI = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.IRON_PICKAXE));
+        ShapelessRecipe recetaD = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.DIAMOND_PICKAXE));
 
         for (ItemStack esencia: getReceta()) {
             recetaW.addIngredient(new RecipeChoice.ExactChoice(esencia));

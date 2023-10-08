@@ -30,13 +30,13 @@ public class Nota {
     public ItemStack crearObjeto(){
         ItemStack item = new ItemStack(Material.PAPER);
         ItemMeta itemMeta = item.getItemMeta();
-        Objects.requireNonNull(itemMeta).setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Nota " + numero +
+        Objects.requireNonNull(itemMeta).setDisplayName(ChatColor.GREEN + String.valueOf(ChatColor.BOLD) + "Nota " + numero +
                 ": " + nombre);
 
         LinkedList<String> lore = new LinkedList<>(consejo);
         lore.add(ChatColor.GRAY + "Se consigue: ");
         lore.addAll(conseguido);
-        lore.add(ChatColor.YELLOW + "" + ChatColor.ITALIC + "[Dropea la nota para reclamar]");
+        lore.add(ChatColor.YELLOW + String.valueOf(ChatColor.ITALIC) + "[Dropea la nota para reclamar]");
 
 
         itemMeta.setLore(lore);
@@ -48,5 +48,4 @@ public class Nota {
     public double getRecompensa() { return recompensa; }
     public int getNumero() { return numero; }
     public TipoNota getTipo() { return tipo; }
-    public String getNombre() { return nombre; }
 }
