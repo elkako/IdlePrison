@@ -7,7 +7,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.elako.idleprison.player.Rangos;
-import org.elako.idleprison.player.RangosManager;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -17,10 +16,7 @@ import java.util.Objects;
 import static org.bukkit.ChatColor.*;
 
 public class MaterialesManager {
-    public static RangosManager rango;
     private static final LinkedList<IpMaterial> materiales = new LinkedList<>();
-
-
 
     public MaterialesManager() {
         //infierno 1,2,3,4
@@ -441,7 +437,7 @@ public class MaterialesManager {
         else if(p.getHealth()<p.getHealthScale()) p.setHealth(p.getHealthScale());//cantidad = medio corazon
     }
 
-    public static LinkedList<IpMaterial> getMateriales() {
+    public LinkedList<IpMaterial> getMateriales() {
         return materiales;
     }
 

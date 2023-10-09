@@ -28,10 +28,12 @@ public class Idleprison implements CommandExecutor {
     private static DineroManager dineroManager;
     private static PlayerManager playerManager;
     private static TreeSkillManager treeSkillManager;
+    private final MaterialesManager materialesManager;
     private final MinaManager minaManager;
 
     public Idleprison(RangosManager rango, DineroManager dinero, PlayerManager player, TreeSkillManager treeSkill,
-                      MinaManager mina) {
+                      MinaManager mina, MaterialesManager materiales) {
+        materialesManager = materiales;
         playerManager = player;
         dineroManager = dinero;
         rangoManager = rango;
@@ -189,7 +191,7 @@ public class Idleprison implements CommandExecutor {
                 if (strings[1].equals("1")){
 
                     int i = 0;
-                    for (IpMaterial m : MaterialesManager.getMateriales()) {
+                    for (IpMaterial m : materialesManager.getMateriales()) {
                         inventario.setItem(i,m.getItem(1));
                         i++;
                         if (i == 54) break;
@@ -197,7 +199,7 @@ public class Idleprison implements CommandExecutor {
                 } else {
                     int j = 0;
                     int i = 0;
-                    for (IpMaterial m : MaterialesManager.getMateriales()) {
+                    for (IpMaterial m : materialesManager.getMateriales()) {
                         if (j<54) j++;
                         else {
                             inventario.setItem(i,m.getItem(1));

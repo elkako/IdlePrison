@@ -36,7 +36,6 @@ public abstract class Crafteo {
     public ItemStack getResultado() { return resultado; }
 
     public Rangos getPermiso() { return permiso; }
-    public void setPermiso(Rangos permiso) { this.permiso = permiso; }
 
     public static Inventory guiaCrafteoSimple(Player p, LinkedList<ItemStack> items, ItemStack resul){
         Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + String.valueOf(ChatColor.LIGHT_PURPLE) + "Crafteo");

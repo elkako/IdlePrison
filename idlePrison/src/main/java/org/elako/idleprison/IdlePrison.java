@@ -268,16 +268,15 @@ public final class IdlePrison extends JavaPlugin {
         playerManager = new PlayerManager();
         dinero = new DineroManager(playerManager);
         rango = new RangosManager(dinero,playerManager);
+        MaterialesManager materiales = new MaterialesManager();
         VenderManager vender = new VenderManager(dinero, rango, playerManager);
+        NotaManager nota = new NotaManager(dinero, playerManager);
         BloqueManager bloque = new BloqueManager();
         idle = new IdleManager(dinero,playerManager);
         mina = new MinaManager(rango);
         treeskill = new TreeSkillManager(playerManager,rango,mina);
         CrafteoManager crafteo = new CrafteoManager(rango);
 
-        NotaManager.dineroManager = dinero;
-        NotaManager.playerManager = playerManager;
-        MaterialesManager.rango = rango;
 
         insertarConfig();
 
@@ -285,7 +284,7 @@ public final class IdlePrison extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new BreakPutBlockEvent(mina,dinero,playerManager, bloque),this);
         pm.registerEvents(new BlockDropEvent(mina), this);
-        pm.registerEvents(new MesasCrafteoEvent(rango),this);
+        pm.registerEvents(new MesasCrafteoEvent(rango,crafteo),this);
         pm.registerEvents(new JoinPlayerEvent(rango,dinero, playerManager),this);
         pm.registerEvents(new MenuListener(treeskill,mina,rango, idle, playerManager, vender, crafteo),this);
         pm.registerEvents(new DeathPlayerEvent(vender,dinero), this);
@@ -295,7 +294,7 @@ public final class IdlePrison extends JavaPlugin {
         pm.registerEvents(new InteractPlayerEvent(playerManager, rango, vender),this);
 
         //comandos
-        Objects.requireNonNull(getCommand("idleprison")).setExecutor(new Idleprison(rango,dinero,playerManager,treeskill,mina));
+        Objects.requireNonNull(getCommand("idleprison")).setExecutor(new Idleprison(rango,dinero,playerManager,treeskill,mina, materiales));
         Objects.requireNonNull(getCommand("ipcrear")).setExecutor(new Ipcrear(mina, playerManager));
         Objects.requireNonNull(getCommand("rango")).setExecutor(new Rango(rango, playerManager));
         Objects.requireNonNull(getCommand("dinero")).setExecutor(new Dinero(dinero, playerManager));

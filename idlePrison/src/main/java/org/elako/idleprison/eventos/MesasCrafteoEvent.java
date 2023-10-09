@@ -9,7 +9,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.elako.idleprison.crafteos.Crafteo;
+import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.player.Rangos;
@@ -20,8 +23,11 @@ import java.util.LinkedList;
 
 public class MesasCrafteoEvent implements Listener {
     RangosManager rangosManager;
-    public MesasCrafteoEvent(RangosManager rangos) {
+    CrafteoManager crafteoManager;
+
+    public MesasCrafteoEvent(RangosManager rangos, CrafteoManager crafteo) {
         rangosManager = rangos;
+        crafteoManager = crafteo;
     }
 
     public ItemMeta encantarArma(Material material, ItemStack[] matrix, Enchantment enchant, int nivel, Player p){
@@ -50,53 +56,9 @@ public class MesasCrafteoEvent implements Listener {
 
         //tablones quemados puedes desde nivel 1
 
-        if (ci.contains(Material.CRIMSON_PLANKS) && ci.contains(Material.STRIPPED_CRIMSON_STEM ) ){
-            cancelar = false;
-
-        } else if (ci.contains(Material.CRIMSON_PLANKS) && ci.contains(Material.STRIPPED_WARPED_STEM) ){
-            cancelar = false;
-
-        } else if(ci.contains(Material.CRIMSON_PLANKS) && ci.contains(MaterialesManager.getItem(IpMateriales.PICO_MADERA)) && rangosManager.isPermitido(p.getName(),Rangos.CONDENADO3) ){ // pico humilde
-            cancelar = false;
-            p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 100, 2);
-
-        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.PESCADO_CRUDO).getType()) && rangosManager.isPermitido(p.getName(),Rangos.CONDENADO2)){ // pescado a la brasa
-            cancelar = false;
-
-        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL1).getType()) && rangosManager.isPermitido(p.getName(),Rangos.CONDENADO2)){ // los de esencia azul
-            cancelar = false;
-
-        } else if (ci.contains(MaterialesManager.getItem(IpMateriales.LENTE).getType()) && ci.contains(MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO).getType()) && rangosManager.isPermitido(p.getName(),Rangos.SINTECHO2)) { // lente
-            cancelar = false;
-
-        } else if (ci.contains(Material.OAK_PLANKS) && ci.contains(MaterialesManager.getItem(IpMateriales.MADERA_ROBLE).getType()) && rangosManager.isPermitido(p.getName(),Rangos.SINTECHO2)){ //madera roble
-            cancelar = false;
-
-        } else if (ci.contains(MaterialesManager.getItem(IpMateriales.ROCA).getType()) && ci.contains(MaterialesManager.getItem(IpMateriales.PICO_PIEDRA)) && rangosManager.isPermitido(p.getName(),Rangos.SINTECHO2) ){ // pico resistente
-            p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 100, 2);
-            cancelar = false;
-
-        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.ESENCIA_ROJA1).getType()) && rangosManager.isPermitido(p.getName(),Rangos.SINTECHO1)){ // los de esencia roja
-            cancelar = false;
-
-        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.GRAN_GRANITO).getType()) && rangosManager.isPermitido(p.getName(),Rangos.SINTECHO1)){ // gran granito
-            cancelar = false;
-
-        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.ESENCIA_VERDE1).getType()) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO3)){ // los de esencia verde
-            cancelar = false;
-
-        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL2).getType()) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO3)){ // los de esencia azul 2
-            cancelar = false;
-
-        } else if(ci.contains(Material.BREAD) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO2)){ // los de esencia amarilla
-            cancelar = false;
-
-        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.CATALEJO).getType()) && ci.contains(Material.OAK_PLANKS) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO2)){ // catalejo
-            cancelar = false;
-
-        } else if(ci.contains(MaterialesManager.getItem(IpMateriales.ESENCIA_AMARILLA1).getType()) && rangosManager.isPermitido(p.getName(),Rangos.CAMPESINO1)){ // los de esencia amarilla
-            cancelar = false;
-
+        Crafteo crafteo = crafteoManager.getCrafteo(ci.getResult());
+        if (crafteo != null) {
+            cancelar = !rangosManager.isPermitido(p.getName(), crafteo.getPermiso());
         }
 
         LinkedList<Material> picos = new LinkedList<>();

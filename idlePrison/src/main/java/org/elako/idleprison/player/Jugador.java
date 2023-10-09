@@ -212,7 +212,7 @@ public class Jugador {
     }
 
     public void diferenciaDinero(double money) {
-        diferenciaDinero = money;
+        diferenciaDinero += money;
     }
     public double getDiferenciaDinero() {return diferenciaDinero;}
     public void reiniciarDiferenciaDinero() { diferenciaDinero = 0;}

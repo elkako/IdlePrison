@@ -194,4 +194,12 @@ public class CrafteoManager {
         }
     }
 
+    public Crafteo getCrafteo(ItemStack itemStack){
+        for ( Crafteo c : crafteos ) {
+            if(MaterialesManager.comparar(itemStack,c.getResultado())) return c;
+        }
+
+        return null;
+    }
+
 }
