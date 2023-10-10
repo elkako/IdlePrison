@@ -1,0 +1,15 @@
+TO-DO prison
+añadir armaduras
+mejorar dar notas con inventario lleno
+idle menú automatico
+programar timeskip
+poner each rango as a class
+equilibrar nuevas minas
+quitar excepcion al ejecutar comandos al no poner un numero o string donde va un numero o string
+
+testear nuevo idle
+crear mapas nuevos y reforzar viejos con schematic
+
+sacar a todos los players dentro de la mina al reiniciarla
+
+implementar regalo por terminar parkour (idle de regalo o esencia)
