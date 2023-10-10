@@ -19,19 +19,19 @@ public class DineroManager {
         StringBuilder moneyFinal = new StringBuilder();
         int cifras = Integer.parseInt(valueOf(moneyArr[moneyArr.length-1]));
 
-        if (10000000>dinero && dinero>=1000000){
+        if (10000000>dinero && dinero>=1000000){ // 1M
             for (int i=0; i<4;i++) {
                 if (i == money.indexOf(".")-6) moneyFinal.append(",");
                 moneyFinal.append(moneyArr[i]);
             }
-            moneyFinal.append("M "); // arreglar
-        } else if (1000000>dinero && dinero >= 1000) {
+            moneyFinal.append("M");
+        } else if (1000000>dinero && dinero >= 1000) { // 100.000, 10.000, 1.000
             for (int i=0; i<money.indexOf(".");i++) {
                 if (i == money.indexOf(".")-3) moneyFinal.append(".");
                 moneyFinal.append(moneyArr[i]);
             }
         }
-        else if (dinero<1000) {
+        else if (dinero<1000) {   // 100, 10,1
             for (int i=0; i<6;i++) {
                 if (money.length()<=i) break;
 
@@ -39,8 +39,6 @@ public class DineroManager {
                 else moneyFinal.append(moneyArr[i]);
             }
 
-            //IdlePrison.getPlugin().getServer().getConsoleSender().sendMessage("dineroXX:"+money);
-            //IdlePrison.getPlugin().getServer().getConsoleSender().sendMessage("dineroYY:"+moneyFinal);
             for (int i=moneyFinal.length()-1; i>0;i--) {
                 if (moneyFinal.charAt(i) == '0') moneyFinal.deleteCharAt(i);
                 else if (moneyFinal.charAt(i) == ',') {
@@ -49,7 +47,7 @@ public class DineroManager {
                 } else break;
             }
 
-        } else if (cifras==7 || cifras==8 || cifras==9){
+        } else if (cifras==7 || cifras==8 || cifras==9){ //100M 10M
             boolean e = false;
             for (int i=0; i<6;i++) {
                 if (i==cifras-7 && cifras == 9) moneyFinal.append(".");
@@ -61,7 +59,7 @@ public class DineroManager {
                 }else if(moneyArr[i] != '.')
                     moneyFinal.append(moneyArr[i]);
             }
-            moneyFinal.append("M ");
+            moneyFinal.append("M");
         } else{
             int cifras2 = Integer.parseInt(moneyArr[moneyArr.length - 2] + valueOf(moneyArr[moneyArr.length-1]));
             if (cifras2==10 || cifras2==11){
@@ -75,9 +73,10 @@ public class DineroManager {
                     }else if(moneyArr[i] != '.')
                         moneyFinal.append(moneyArr[i]);
                 }
-                moneyFinal.append("M ");
+                moneyFinal.append("M");
             }
         }
+        moneyFinal.append("E");
 
         return valueOf(moneyFinal);
     }
@@ -131,7 +130,7 @@ public class DineroManager {
                     max = player;
                 }
             }
-            message.append(i).append(": ").append(max).append("-").append(DineroManager.dineroToString(n)).append("E, ");
+            message.append(i).append(": ").append(max).append("-").append(DineroManager.dineroToString(n));
             jugadores.remove(max);
             if (i%3==0) {
                 message = new StringBuilder(message.substring(0, message.length() - 2));

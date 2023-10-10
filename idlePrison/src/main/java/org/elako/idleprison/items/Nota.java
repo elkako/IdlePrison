@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.elako.idleprison.player.DineroManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +37,8 @@ public class Nota {
         LinkedList<String> lore = new LinkedList<>(consejo);
         lore.add(ChatColor.GRAY + "Se consigue: ");
         lore.addAll(conseguido);
-        lore.add(ChatColor.YELLOW + String.valueOf(ChatColor.ITALIC) + "[Dropea la nota para reclamar]");
+        lore.add(ChatColor.YELLOW + String.valueOf(ChatColor.ITALIC) + "[Dropea la nota para reclamar " +
+                DineroManager.dineroToString(recompensa) + "]");
 
 
         itemMeta.setLore(lore);

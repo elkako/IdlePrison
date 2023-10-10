@@ -214,28 +214,30 @@ public final class IdlePrison extends JavaPlugin {
         String s = ChatColor.WHITE + String.valueOf(sr.toUpperCase().charAt(0)) + sr.substring(1).toLowerCase();
         if (rango.isPermitido(p.getName(),Rangos.CAMPESINO1) || treeskill.getDineroRenacer(p.getName()) > 0 ) {
              lineas = Arrays.asList(
-                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero + "E",
+                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero,
                     ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Rango: ",
                      s,
                     ChatColor.WHITE + "Siguiente: " + rango.siguienteRango(p.getName()).toLowerCase() ,
-                    ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender) + "E",
+                    ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender),
                     ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Acumulado en idle: ",
-                    ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())) + "E",
+                    ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())),
                     ChatColor.WHITE + "Tiempo: " + IdleManager.tiempoToString(playerManager.getPlayer(p.getName()).getTimeTotal()),
                     ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Renacer: ",
                     ChatColor.WHITE + "Nivel: "+ treeskill.getNivelRenacer(p.getName()),
                     ChatColor.WHITE + "Nivel tras renacer: "+ treeskill.getNivelTotal(p.getName()),
-                    ChatColor.WHITE + "Siguiente nivel: " + DineroManager.dineroToString( treeskill.ascenderRestos( treeskill.getDineroTotal(p.getName()) ) ) + " E"
+                    ChatColor.WHITE + "Siguiente nivel: " + DineroManager.dineroToString( treeskill.ascenderRestos( treeskill.getDineroTotal(p.getName()) ) )
+
+
             );
         } else
             lineas = Arrays.asList(
-                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero + "E",
+                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero,
                 ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Rango: ",
                     s,
                 ChatColor.WHITE + "Siguiente: " + rango.siguienteRango(p.getName()).toLowerCase() ,
-                ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender) + "E",
+                ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender),
                 ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Acumulado en idle: ",
-                ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())) + "E",
+                ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())),
                 ChatColor.WHITE + "Tiempo: " + IdleManager.tiempoToString(playerManager.getPlayer(p.getName()).getTimeTotal())
 
         );

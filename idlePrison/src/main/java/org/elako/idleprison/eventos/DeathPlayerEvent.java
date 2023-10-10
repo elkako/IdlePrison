@@ -27,7 +27,7 @@ public class DeathPlayerEvent implements Listener {
         Player p = e.getPlayer();
         double dinero = 0;
 
-        p.sendMessage("Has vendido al 30% por morir: ");
+        p.sendMessage("Has perdido al morir: ");
 
         for (ItemStack i : e.getPlayer().getInventory().getContents()) {
             if (i == null) continue;
@@ -36,13 +36,11 @@ public class DeathPlayerEvent implements Listener {
             precio += precio*((double) TreeSkillManager.getDineroVender(p.getName()) /100)  ;
             if (precio > 0) {
                 int cantidad = generarNumeros(i.getAmount(), 0);
-                p.sendMessage(i.getItemMeta().getDisplayName()+ " " + cantidad );
+                p.sendMessage("-" + i.getItemMeta().getDisplayName()+ " " + cantidad );
                 dinero += cantidad * precio;
                 i.setAmount(i.getAmount()-cantidad);
             }
         }
-        dineroManager.addMoney(p.getName(), dinero*0.3);
-        p.sendMessage("Te han dado " + DineroManager.dineroToString(dinero * 0.3) + "E");
         p.sendMessage("Hubieras ganado vendiendolo " + DineroManager.dineroToString(dinero) );
 
 

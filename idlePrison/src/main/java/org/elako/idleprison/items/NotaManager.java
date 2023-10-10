@@ -48,13 +48,13 @@ public class NotaManager {
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota"
         ),List.of(
                 ChatColor.WHITE + " Encuentra el secreto de la zona infierno1"
-        ),30, TipoNota.SECRETO));
+        ),20, TipoNota.SECRETO));
 
         notas.add(new Nota( notas.size()+1, "Minero empedernido", List.of( //5
                 ChatColor.WHITE + "Las minas se regeneran cada 5 minutos aproximádamente"
         ),List.of(
                 ChatColor.WHITE + " Rompe 30 bloques"
-        ),20, TipoNota.MINERO));
+        ),10, TipoNota.MINERO));
 
         notas.add(new Nota( notas.size()+1, "Mendigo", List.of( //6
                 ChatColor.WHITE + "Invierte ese dinero sabiamente,",
@@ -225,7 +225,7 @@ public class NotaManager {
         double dinero = notas.get(n-1).getRecompensa();
         dineroManager.addMoney(p.getName(),dinero);
         p.sendMessage("Has conseguido " + DineroManager.dineroToString(dinero)
-                + "E por reclamar la nota");
+                + " por reclamar la nota");
 
         playerManager.setNotas(p.getName(), n);
         p.sendMessage( numNotas(p.getName()) + "/" + notas.size() + " notas reclamadas");

@@ -61,17 +61,17 @@ public class Idle implements CommandExecutor {
 
                     if (idleManager.isTen(player,1)) {
                         lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,1,cantidad)) +
-                                "E cada 10 segs" + ChatColor.YELLOW + " x50%" );
+                                " cada 10 segs" + ChatColor.YELLOW + " x50%" );
                         lore.add( ChatColor.WHITE + " (" + DineroManager.dineroToString(idleManager.minaDinero(player, 1,cantidad)/10) +
-                                " E/S)" + ChatColor.YELLOW + " x50%" );
+                                "/S)" + ChatColor.YELLOW + " x50%" );
                     }
                     else {
                         lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,1,cantidad)) +
-                                "E cada 10 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 1,cantidad)/10) + " E/S)");
+                                " cada 10 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 1,cantidad)/10) + "/S)");
                     }
 
-                    lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,1)) + " E cada 10 segs" );
-                    lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,1)/10) + " E/S)" );
+                    lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,1)) + " cada 10 segs" );
+                    lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,1)/10) + "/S)" );
 
                     if (idleManager.isComprable(player,1,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
                             Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " niño minero", lore ));
@@ -98,16 +98,16 @@ public class Idle implements CommandExecutor {
                         lore.addAll( idleManager.loreToStrings(2,player,cantidad) );
                         if (idleManager.isTen(player,2)) {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,2,cantidad)) +
-                                    "E cada 20 segs" + ChatColor.YELLOW + " x50%" );
+                                    " cada 20 segs" + ChatColor.YELLOW + " x50%" );
                             lore.add( ChatColor.WHITE + " (" + DineroManager.dineroToString(idleManager.minaDinero(player, 2,cantidad)/20) +
-                                    " E/S)" + ChatColor.YELLOW + " x50%" );
+                                    "/S)" + ChatColor.YELLOW + " x50%" );
                         }
                         else {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,2,cantidad)) +
-                                    "E cada 20 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 2,cantidad)/20) + " E/S)");
+                                    " cada 20 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 2,cantidad)/20) + " /S)");
                         }
-                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,2)) + " E cada 20 segs" );
-                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,2)/20) + " E/S)" );
+                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,2)) + " cada 20 segs" );
+                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,2)/20) + " /S)" );
 
                         if (idleManager.isComprable(player,2,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
                                 Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " minero experimentado", lore ));
@@ -137,16 +137,16 @@ public class Idle implements CommandExecutor {
                         lore.addAll( idleManager.loreToStrings(3,player,cantidad) );
                         if (idleManager.isTen(player,3)) {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,3,cantidad)) +
-                                    "E cada 25 segs" + ChatColor.YELLOW + " x50%" );
+                                    " cada 25 segs" + ChatColor.YELLOW + " x50%" );
                             lore.add( ChatColor.WHITE + " (" + DineroManager.dineroToString(idleManager.minaDinero(player, 3,cantidad)/25) +
-                                    " E/S)" + ChatColor.YELLOW + " x50%" );
+                                    "/S)" + ChatColor.YELLOW + " x50%" );
                         }
                         else {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,3,cantidad)) +
-                                    "E cada 25 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 3,cantidad)/25) + " E/S)");
+                                    " cada 25 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 3,cantidad)/25) + "/S)");
                         }
-                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,3)) + " E cada 25 segs" );
-                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,3)/25) + " E/S)" );
+                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,3)) + " cada 25 segs" );
+                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,3)/25) + "/S)" );
 
                         if (idleManager.isComprable(player,3,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
                                 Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " yacimiento de calcita", lore ));
@@ -195,16 +195,16 @@ public class Idle implements CommandExecutor {
                         lore.addAll( idleManager.loreToStrings(4,player,cantidad) );
                         if (idleManager.isTen(player,4)) {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,4,cantidad)) +
-                                    "E cada 15 segs" + ChatColor.YELLOW + " x50%" );
+                                    " cada 15 segs" + ChatColor.YELLOW + " x50%" );
                             lore.add( ChatColor.WHITE + " (" + DineroManager.dineroToString(idleManager.minaDinero(player, 4,cantidad)/15) +
-                                    " E/S)" + ChatColor.YELLOW + " x50%" );
+                                    "/S)" + ChatColor.YELLOW + " x50%" );
                         }
                         else {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,4,cantidad)) +
-                                    "E cada 15 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 4,cantidad)/15) + " E/S)");
+                                    " cada 15 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 4,cantidad)/15) + "/S)");
                         }
-                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,4)) + " E cada 15 segs" );
-                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,4)/15) + " E/S)" );
+                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,4)) + " cada 15 segs" );
+                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,4)/15) + "/S)" );
 
                         if (idleManager.isComprable(player,4,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
                                 Material.LIME_CONCRETE, ChatColor.GREEN + "Comprar x" + cantidad + " cueva de granito", lore ));
@@ -238,16 +238,16 @@ public class Idle implements CommandExecutor {
                         lore.addAll( idleManager.loreToStrings(5,player,cantidad) );
                         if (idleManager.isTen(player,5)) {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,5,cantidad)) +
-                                    "E cada 30 segs" + ChatColor.YELLOW + " x50%" );
+                                    " cada 30 segs" + ChatColor.YELLOW + " x50%" );
                             lore.add( ChatColor.WHITE + " (" + DineroManager.dineroToString(idleManager.minaDinero(player, 5,cantidad)/30) +
-                                    " E/S)" + ChatColor.YELLOW + " x50%" );
+                                    "/S)" + ChatColor.YELLOW + " x50%" );
                         }
                         else {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,5,cantidad)) +
-                                    "E cada 30 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 5,cantidad)/30) + " E/S)");
+                                    " cada 30 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 5,cantidad)/30) + "/S)");
                         }
-                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,5)) + " E cada 30 segs" );
-                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,5)/30) + " E/S)" );
+                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,5)) + " cada 30 segs" );
+                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,5)/30) + "/S)" );
 
                         if (idleManager.isComprable(player,5,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
                                 Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " piramide de arenisca", lore ));
@@ -281,16 +281,16 @@ public class Idle implements CommandExecutor {
                         lore.addAll( idleManager.loreToStrings(6,player,cantidad) );
                         if (idleManager.isTen(player,6)) {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,6,cantidad)) +
-                                    "E cada 35 segs" + ChatColor.YELLOW + " x50%" );
+                                    " cada 35 segs" + ChatColor.YELLOW + " x50%" );
                             lore.add( ChatColor.WHITE + " (" + DineroManager.dineroToString(idleManager.minaDinero(player, 6,cantidad)/35) +
-                                    " E/S)" + ChatColor.YELLOW + " x50%" );
+                                    "/S)" + ChatColor.YELLOW + " x50%" );
                         }
                         else {
                             lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(idleManager.minaDinero(player,6,cantidad)) +
-                                    "E cada 35 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 6,cantidad)/35) + " E/S)");
+                                    " cada 35 segs (" + DineroManager.dineroToString(idleManager.minaDinero(player, 6,cantidad)/35) + " /S)");
                         }
-                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,6)) + " E cada 35 segs" );
-                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,6)/35) + " E/S)" );
+                        lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,6)) + " cada 35 segs" );
+                        lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,6)/35) + "/S)" );
 
                         if (idleManager.isComprable(player,6,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
                                 Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " mina de carbón", lore ));

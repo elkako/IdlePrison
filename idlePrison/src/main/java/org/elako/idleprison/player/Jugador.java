@@ -144,7 +144,10 @@ public class Jugador {
         idle.set(i-1, cantidad);
     }
 
-    public void setDineroRenacer(double dineroRenacer) { this.dineroRenacer = dineroRenacer; }
+    public void setDineroRenacer(double dineroRenacer) {
+        notasRecibidas = notas; // al renacer puedo poner que las notas recibidas son las reclamadas ya que si no ha sido reclamada se pierde
+        this.dineroRenacer = dineroRenacer;
+    }
     public void setDineroRun(double dineroRun) {
         int nota1 = NotaManager.getNum(TipoNota.DINERO, 1);
         int nota2 = NotaManager.getNum(TipoNota.DINERO, 2);

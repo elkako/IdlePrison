@@ -23,7 +23,7 @@ public class IpMaterial {
         this.material = material;
         this.nombre = nombre;
         this.lore = new LinkedList<>(lore);
-        if (precio != -1) this.lore.add(ChatColor.GREEN + DineroManager.dineroToString(precio) + " E");
+        if (precio != -1) this.lore.add(ChatColor.GREEN + DineroManager.dineroToString(precio));
         this.precio = precio;
         this.permiso = permiso;
         this.ipMateriales=ipMateriales;

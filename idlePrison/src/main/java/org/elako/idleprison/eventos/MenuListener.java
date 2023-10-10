@@ -197,7 +197,7 @@ public class MenuListener implements Listener {
                 idleManager.comprarMaterial(1,p.getName(),cantidad);
                 double dinero = idleManager.comprar(p,1, cantidad);
                 if (dinero != 0) {
-                    p.sendMessage("Comprado por: " + DineroManager.dineroToString(dinero) + "E, 1 alga seca y " +
+                    p.sendMessage("Comprado por: " + DineroManager.dineroToString(dinero) + ", 1 alga seca y " +
                             (playerManager.getIdle(1,p.getName())) + " polvo de hueso" );
                     p.openInventory(Idle.crearInventario(p,cantidad));
                 }

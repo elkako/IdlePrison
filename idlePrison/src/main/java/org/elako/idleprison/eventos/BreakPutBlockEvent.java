@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.mina.BloqueManager;
@@ -136,6 +137,11 @@ public class BreakPutBlockEvent implements Listener {
             p.sendMessage("Permiso denegado: no pongas cosas");
         }
 
+    }
+
+    @EventHandler
+    public void onDecay(LeavesDecayEvent e) {
+        e.setCancelled(true);
     }
 
     @EventHandler

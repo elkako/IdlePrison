@@ -78,19 +78,19 @@ public class Idleprison implements CommandExecutor {
         inventario.setItem(10, crearObjetoLore(Material.PLAYER_HEAD, ChatColor.RED + "Éstadisticas", Arrays.asList(
                 ChatColor.WHITE + "Nivel de renacer: " + treeSkillManager.getNivelRenacer(p.getName()),
                 ChatColor.WHITE + "Rango: " + rango.toString().toLowerCase(),
-                ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(dineroP)  ) ));
+                ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(dineroP)  +"laCoins" ) ));
         if (dineroAscender>dineroP)
             inventario.setItem(12, crearObjetoLore(Material.IRON_PICKAXE, ChatColor.RED + "Rankup",Arrays.asList(
                     ChatColor.WHITE + "Haz click aquí para subir de rango",
                     ChatColor.WHITE +  "Siguiente rango: " + rangoManager.siguienteRango(p.getName()).toLowerCase(),
                     ChatColor.WHITE + "Dinero necesario: " + DineroManager.dineroToString(dineroAscender)
-                            + "E, te falta: "  + DineroManager.dineroToString(dineroAscender-dineroP) + "E") ));
+                            + ", te falta: "  + DineroManager.dineroToString(dineroAscender-dineroP)) ));
         else
             inventario.setItem(12, crearObjetoLore(Material.IRON_PICKAXE, ChatColor.RED + "Rankup",Arrays.asList(
                     ChatColor.WHITE + "Haz click aquí para subir de rango",
                     ChatColor.WHITE +  "Siguiente rango: " + rangoManager.siguienteRango(p.getName()).toLowerCase(),
                     ChatColor.WHITE + "Dinero necesario: " + DineroManager.dineroToString(dineroAscender)
-                            + "E, te sobra: "  + DineroManager.dineroToString(dineroP-dineroAscender) + "E") ));
+                            + ", te sobra: "  + DineroManager.dineroToString(dineroP-dineroAscender)) ));
         inventario.setItem(14, crearObjetoLore(Material.CHEST, ChatColor.RED + "Idle", Arrays.asList(
                 ChatColor.WHITE + "Clickea para ir al menu idle y coneguir dinero ",
                 ChatColor.WHITE + "Dinero acumulado: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())),
@@ -113,9 +113,9 @@ public class Idleprison implements CommandExecutor {
                     ChatColor.WHITE + "tantos puntos para treeskill como nivel tengas" ,
                     ChatColor.WHITE + "Nivel actual: "+ treeSkillManager.getNivelRenacer(p.getName()) ,
                     ChatColor.WHITE + "Te quedarás en nivel: "+ treeSkillManager.getNivelTotal(p.getName()),
-                    ChatColor.WHITE + "Dinero para siguiente: " + DineroManager.dineroToString( treeSkillManager.dineroPaAscender( treeSkillManager.getDineroTotal(p.getName()) ) ) + " E" ,
-                    ChatColor.WHITE + "Te queda: " + DineroManager.dineroToString( treeSkillManager.ascenderRestos( treeSkillManager.getDineroTotal(p.getName()) ) ) + " E"   ,
-                    ChatColor.WHITE + "Has conseguido: " + DineroManager.dineroToString( treeSkillManager.getDineroRun(p.getName()) ) +  " E" ) ));
+                    ChatColor.WHITE + "Dinero para siguiente: " + DineroManager.dineroToString( treeSkillManager.dineroPaAscender( treeSkillManager.getDineroTotal(p.getName()) ) ) ,
+                    ChatColor.WHITE + "Te queda: " + DineroManager.dineroToString( treeSkillManager.ascenderRestos( treeSkillManager.getDineroTotal(p.getName()) ) )   ,
+                    ChatColor.WHITE + "Has conseguido: " + DineroManager.dineroToString( treeSkillManager.getDineroRun(p.getName()) ) ) ));
         } else {
             inventario.setItem(30, crearObjetoLore(Material.GOLD_INGOT, ChatColor.GOLD + "Vender", List.of(
                     ChatColor.WHITE + "Haz click aquí para vender objetos")));

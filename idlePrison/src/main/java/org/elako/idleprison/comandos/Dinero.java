@@ -39,7 +39,7 @@ public class Dinero implements CommandExecutor {
                 return false;
             }
             String money = DineroManager.dineroToString(dineroManager.getDinero(p));
-            p.sendMessage("Tu dinero es de " + money + "E");
+            p.sendMessage("Tu dinero es de " + money + "laCoins");
             return true;
         }
 
@@ -98,7 +98,7 @@ public class Dinero implements CommandExecutor {
                 case "set":
                     if(permiso){
                         if (dineroManager.isSetMoney(strings[1], money)) {
-                            p.sendMessage("Establecido el dinero de " + strings[1] + " a " + DineroManager.dineroToString(money) + "E con éxito");
+                            p.sendMessage("Establecido el dinero de " + strings[1] + " a " + DineroManager.dineroToString(money) + " con éxito");
                             return true;
                         } else {
                             mensajeJugadorDesconocido(p, strings[1]);
@@ -124,7 +124,7 @@ public class Dinero implements CommandExecutor {
                 case "add":
                     if(permiso){
                         if (dineroManager.addMoney(strings[1], money)) {
-                            p.sendMessage("Áñadido " + DineroManager.dineroToString(money) + "E a " + strings[1] + " con éxito");
+                            p.sendMessage("Áñadido " + DineroManager.dineroToString(money) + " a " + strings[1] + " con éxito");
                             return true;
                         } else {
                             mensajeJugadorDesconocido(p, strings[1]);
@@ -137,7 +137,7 @@ public class Dinero implements CommandExecutor {
                 case "remove":
                     if(permiso){
                         if (dineroManager.removeMoney(strings[1], money)) {
-                            p.sendMessage("Eliminado " + DineroManager.dineroToString(money) + "E a " + strings[1] + " con éxito");
+                            p.sendMessage("Eliminado " + DineroManager.dineroToString(money) + " a " + strings[1] + " con éxito");
                             return true;
                         } else {
                             mensajeJugadorDesconocido(p, strings[1]);

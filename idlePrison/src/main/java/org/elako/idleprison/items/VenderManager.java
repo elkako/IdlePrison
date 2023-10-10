@@ -55,7 +55,7 @@ public class VenderManager {
             double dinero = cantidad * precio;
             playerManager.setItemsVendidos(p.getName(), playerManager.getItemsVendidos(p.getName())+cantidad);
             dineroManager.addMoney(p.getName(), dinero);
-            p.sendMessage(cantidad + " items vendidos por " + DineroManager.dineroToString(dinero) + "E");
+            p.sendMessage(cantidad + " items vendidos por " + DineroManager.dineroToString(dinero) );
         }
     }
 
@@ -76,7 +76,7 @@ public class VenderManager {
         }
         playerManager.setItemsVendidos(p.getName(), playerManager.getItemsVendidos(p.getName())+cantidad);
         dineroManager.addMoney(p.getName(), dinero);
-        p.sendMessage(cantidad + " items vendidos por " + DineroManager.dineroToString(dinero) + "E");
+        p.sendMessage(cantidad + " items vendidos por " + DineroManager.dineroToString(dinero) );
     }
 
 }
