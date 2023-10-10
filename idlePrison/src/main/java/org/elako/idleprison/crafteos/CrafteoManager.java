@@ -156,7 +156,6 @@ public class CrafteoManager {
                 esenciaAmarilla1, catalejo
         )), MaterialesManager.getItem(IpMateriales.DETECTOR1), Rangos.CAMPESINO1 ) );
 
-
     }
 
     public LinkedList<Recipe> getCrafteos() {
@@ -196,10 +195,28 @@ public class CrafteoManager {
 
     public Crafteo getCrafteo(ItemStack itemStack){
         for ( Crafteo c : crafteos ) {
-            if(MaterialesManager.comparar(itemStack,c.getResultado())) return c;
+            if(c.getClass() != CrafteoEncantar.class)
+                    if(MaterialesManager.comparar(itemStack,c.getResultado())) return c;
         }
 
         return null;
     }
+
+    public CrafteoEncantar getEncantar(ItemStack[] matrix) {
+        CrafteoEncantar devolver = null;
+        for (ItemStack i:matrix) {
+            if(i.getItemMeta().getDisplayName().contains("Esencia")){
+                for (Crafteo c:crafteos) {
+                    if(c.getClass() == CrafteoEncantar.class){
+                        CrafteoEncantar ce = (CrafteoEncantar) c;
+                        if (ce.isCrafteoEcantado(i.getEnchantments()))
+                            devolver = ce;
+                    }
+                }
+            }
+        }
+        return devolver;
+    }
+
 
 }

@@ -3,6 +3,7 @@ package org.elako.idleprison.crafteos;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,6 +12,7 @@ import org.elako.idleprison.player.Rangos;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class CrafteoEncantar extends Crafteo {
     private final Enchantment encanti;
@@ -90,6 +92,17 @@ public class CrafteoEncantar extends Crafteo {
                 break;
         }
         return guiaCrafteoSimple(p, guia, getResultado());
+    }
+
+    public boolean isCrafteoEcantado(Map<Enchantment,Integer> map){
+        return  map.get(encanti)==nivel;
+    }
+
+    public ItemStack encantar(ItemStack item){
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.addEnchant(encanti,nivel,true);
+        item.setItemMeta(itemMeta);
+        return item;
     }
 
 }

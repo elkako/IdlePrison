@@ -277,7 +277,6 @@ public final class IdlePrison extends JavaPlugin {
         treeskill = new TreeSkillManager(playerManager,rango,mina);
         CrafteoManager crafteo = new CrafteoManager(rango);
 
-
         insertarConfig();
 
         //eventos
