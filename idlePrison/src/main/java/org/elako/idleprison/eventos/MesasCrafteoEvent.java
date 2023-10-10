@@ -9,18 +9,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.crafteos.Crafteo;
 import org.elako.idleprison.crafteos.CrafteoEncantar;
 import org.elako.idleprison.crafteos.CrafteoManager;
-import org.elako.idleprison.items.IpMateriales;
-import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.RangosManager;
-
-import java.util.LinkedList;
-import java.util.List;
 
 
 public class MesasCrafteoEvent implements Listener {
@@ -63,17 +56,20 @@ public class MesasCrafteoEvent implements Listener {
             cancelar = !rangosManager.isPermitido(p.getName(), crafteo.getPermiso());
         }
 
-        CrafteoEncantar crafteoEn = crafteoManager.getEncantar(ci.getMatrix());
+        CrafteoEncantar crafteoEn = null;
+
+        if (cancelar) crafteoEn = crafteoManager.getEncantar(ci.getMatrix());
         if (crafteoEn != null) {
             cancelar = !rangosManager.isPermitido(p.getName(), crafteoEn.getPermiso());
             for (ItemStack i:ci.getMatrix()) {
+                if(i == null ) continue;
+                if(i.getItemMeta() == null ) continue;
                 if(i.getItemMeta().getDisplayName().contains("Pico")){
-                    ci.setResult(crafteoEn.encantar(ci.getResult()));
+                    ci.setResult(crafteoEn.encantar(i.clone()));
+                    p.playSound(p.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 100, 2);
                 }
             }
         }
-
-
 
         if (cancelar) ci.getResult().setAmount(0);
     }

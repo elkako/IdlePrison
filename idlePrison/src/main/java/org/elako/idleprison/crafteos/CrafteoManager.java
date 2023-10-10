@@ -205,6 +205,9 @@ public class CrafteoManager {
     public CrafteoEncantar getEncantar(ItemStack[] matrix) {
         CrafteoEncantar devolver = null;
         for (ItemStack i:matrix) {
+            if(i == null ) continue;
+            if(i.getItemMeta() == null ) continue;
+
             if(i.getItemMeta().getDisplayName().contains("Esencia")){
                 for (Crafteo c:crafteos) {
                     if(c.getClass() == CrafteoEncantar.class){

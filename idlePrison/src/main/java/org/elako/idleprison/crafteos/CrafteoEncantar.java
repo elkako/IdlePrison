@@ -95,7 +95,8 @@ public class CrafteoEncantar extends Crafteo {
     }
 
     public boolean isCrafteoEcantado(Map<Enchantment,Integer> map){
-        return  map.get(encanti)==nivel;
+        if (map.get(encanti) == null) return false;
+        return map.get(encanti)==nivel;
     }
 
     public ItemStack encantar(ItemStack item){

@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
+import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.mina.BloqueManager;
 import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.DineroManager;
@@ -142,6 +143,7 @@ public class BreakPutBlockEvent implements Listener {
         Player p = e.getPlayer();
         Block bloque = e.getBlock();
 
+        if (bloque.getType().equals(Material.SPRUCE_LEAVES)) IdlePrison.broadcast("SPRUCE");
         //IdlePrison.getPlugin().broadcast(Float.toString(bloque.getType().getHardness()));
 
         if (isNotPrisonBlock(bloque)) {
