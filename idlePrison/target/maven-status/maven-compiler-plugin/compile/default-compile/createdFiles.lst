@@ -28,6 +28,7 @@ org\elako\idleprison\player\Rangos.class
 org\elako\idleprison\comandos\Ipcrear.class
 org\elako\idleprison\player\PlayerManager.class
 org\elako\idleprison\comandos\Crafteo.class
+org\elako\idleprison\items\IpArmadura.class
 org\elako\idleprison\items\VenderManager.class
 org\elako\idleprison\items\IpComida.class
 org\elako\idleprison\comandos\Idle.class

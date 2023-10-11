@@ -2,10 +2,7 @@ package org.elako.idleprison.items;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.elako.idleprison.player.Rangos;
 
 import java.util.Arrays;
@@ -52,10 +49,9 @@ public class MaterialesManager {
                 WHITE + "Trozo desprendido de una calcita"),
                 0.75, Rangos.CONDENADO4, IpMateriales.POLVO_HUESO));
 
-        materiales.add(new IpComida(Material.DRIED_KELP, "Alga seca", Arrays.asList( // Alga
-                WHITE + "No destaca por su sabor",
-                WHITE + "Al comer: " +  RED + "+1/2" + WHITE + " corazón"),
-                0.5, Rangos.CONDENADO4, IpMateriales.ALGA, ( p -> curar(p,1) ) ));
+        materiales.add(new IpComida(Material.DRIED_KELP, "Alga seca", List.of( // Alga
+                WHITE + "No destaca por su sabor"),
+                0.5, Rangos.CONDENADO4, IpMateriales.ALGA, 0.5, 0 ));
 
         materiales.add(new IpMaterial(Material.DRIED_KELP_BLOCK, "Bloque de algas secas", List.of(), // Alga
                 0.5, Rangos.CONDENADO4, IpMateriales.ALGA_BLOQUE ));
@@ -80,12 +76,9 @@ public class MaterialesManager {
                 WHITE + " similar al del magma"),
                 6, Rangos.CONDENADO2, IpMateriales.BLOQUE_MAGMATICO));
 
-        materiales.add(new IpComida(Material.GLOW_BERRIES, "Baya luminosa", Arrays.asList( // Baya luminosa
-                WHITE + "Una fruta que desprende una luz constante",
-                WHITE + "Al comer: "+ YELLOW +"+10"+ WHITE +" corazones amarillos"),
-                6, Rangos.CONDENADO2, IpMateriales.BAYA_LUMINOSA, ( p -> {
-                     p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,1200,4)); // 10 corazones amarillos
-            }  ) ));
+        materiales.add(new IpComida(Material.GLOW_BERRIES, "Baya luminosa", List.of( // Baya luminosa
+                WHITE + "Una fruta que desprende una luz constante"),
+                6, Rangos.CONDENADO2, IpMateriales.BAYA_LUMINOSA, 0,10 ));
 
         materiales.add(new IpMaterial(Material.ICE, "Hielo cristalizado", List.of( // hielo cristalizado
                 WHITE + "Está muy frío y puede contener peces"),
@@ -99,25 +92,17 @@ public class MaterialesManager {
                 WHITE + "Esencia mágica utilizada para mejorar picos"),
                50, Rangos.CONDENADO2, Enchantment.DIG_SPEED, 1, IpMateriales.ESENCIA_AZUL1));
 
-        materiales.add(new IpComida(Material.COD, "Pescado crudo", Arrays.asList( // Pescado crudo
-                WHITE + "Se puede comer pero estaría mejor cocinado",
-                WHITE + "Al comer: "+  RED +"+1 "+ WHITE +"vida"),
-                3, Rangos.CONDENADO2, IpMateriales.PESCADO_CRUDO, ( p -> curar(p,2) ) ));
+        materiales.add(new IpComida(Material.COD, "Pescado crudo", List.of( // Pescado crudo
+                WHITE + "Se puede comer pero estaría mejor cocinado"),
+                3, Rangos.CONDENADO2, IpMateriales.PESCADO_CRUDO, 1,0 ));
 
-        materiales.add(new IpComida(Material.COOKED_COD, "Pescado a la brasa", Arrays.asList( // Pescado brasa
-                WHITE + "Te recupera las fuerzas solo de olerlo",
-                WHITE + "Al comer: "+ RED + "+2"+ WHITE +" vida y"+ YELLOW +" +4"+ WHITE +" vida amarilla"),
-                6, Rangos.CONDENADO2, IpMateriales.PESCADO_BRASA, ( p -> {
-                    p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,600,1)); // 4 corazones amarillos
-                    curar(p,4);
-                }  ) ));
+        materiales.add(new IpComida(Material.COOKED_COD, "Pescado a la brasa", List.of( // Pescado brasa
+                WHITE + "Te recupera las fuerzas solo de olerlo"),
+                6, Rangos.CONDENADO2, IpMateriales.PESCADO_BRASA, 4, 2 ));
 
-        materiales.add(new IpComida(Material.PUFFERFISH, "Pez globo", Arrays.asList( // Pez globo
-                WHITE + "Un pez mofletudo raro de encontrar",
-                WHITE + "Al comer: sienta "+ DARK_GREEN +"mal"),
-                14, Rangos.CONDENADO2, IpMateriales.PEZ_GLOBO, ( p ->
-                    p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,900,2))
-                ) ));
+        materiales.add(new IpComida(Material.PUFFERFISH, "Pez globo", List.of( // Pez globo
+                WHITE + "Un pez mofletudo raro de encontrar"),
+                14, Rangos.CONDENADO2, IpMateriales.PEZ_GLOBO, -1, 6));
 
         //Infierno 4
         materiales.add(new IpMaterial(Material.TUFF, "Restos de basura", Arrays.asList( // restos de basura
@@ -132,15 +117,13 @@ public class MaterialesManager {
                 WHITE + "Tiene un olor... peculiar"),
                 5, Rangos.CONDENADO1, IpMateriales.PODREDUMBRE));
 
-        materiales.add(new IpComida(Material.CHICKEN, "Restos de comida", Arrays.asList( // restos comida1
-                WHITE + "Lo que es basura para unos es oro para otros",
-                WHITE + "Al comer: "+ RED+"+1,5"+ WHITE +" vida"),
-                6, Rangos.CONDENADO1, IpMateriales.RESTOS_COMIDA1, ( p -> curar(p,3) ) ));
+        materiales.add(new IpComida(Material.CHICKEN, "Restos de comida", List.of( // restos comida1
+                WHITE + "Lo que es basura para unos es oro para otros"),
+                6, Rangos.CONDENADO1, IpMateriales.RESTOS_COMIDA1, 1.5, 0));
 
-        materiales.add(new IpComida(Material.RABBIT, "Restos de comida", Arrays.asList( // restos comida2
-                WHITE + "Lo que es basura para unos es oro para otros",
-                WHITE + "Al comer: "+ RED+"+1,5"+ WHITE +" vida"),
-                7, Rangos.CONDENADO1, IpMateriales.RESTOS_COMIDA2, ( p -> curar(p,3) ) ));
+        materiales.add(new IpComida(Material.RABBIT, "Restos de comida", List.of( // restos comida2
+                WHITE + "Lo que es basura para unos es oro para otros"),
+                7, Rangos.CONDENADO1, IpMateriales.RESTOS_COMIDA2, 1.5, 0 ));
 
         //Afueras 1,2,3,4
         materiales.add(new IpMaterial(Material.STRIPPED_OAK_LOG, "Madera de roble", List.of( // Madera de roble
@@ -182,10 +165,9 @@ public class MaterialesManager {
                 WHITE + " construir herramientas"),
                 -1, Rangos.SINTECHO2, IpMateriales.LENTE));
 
-        materiales.add(new IpComida(Material.MELON_SLICE, "Rodaja de sandía", Arrays.asList( // Sandía rodaja
-                WHITE + "Entra muy bien en verano",
-                WHITE + "Al comer: "+ RED + "+1"+ WHITE +" vida"),
-                7, Rangos.SINTECHO2, IpMateriales.RODAJA_SANDIA, ( p -> curar(p,2) ) ));
+        materiales.add(new IpComida(Material.MELON_SLICE, "Rodaja de sandía", List.of( // Sandía rodaja
+                WHITE + "Entra muy bien en verano"),
+                7, Rangos.SINTECHO2, IpMateriales.RODAJA_SANDIA,1, 0 ));
 
         materiales.add(new IpMaterial(Material.MELON, "Sandía", List.of(), // sandia
                 0.5, Rangos.SINTECHO2, IpMateriales.SANDIA ));
@@ -249,13 +231,9 @@ public class MaterialesManager {
                 WHITE + "Todo un manjar (si fueras una vaca)"),
                 15, Rangos.CAMPESINO2, IpMateriales.TRIGO));
 
-        materiales.add(new IpComida(Material.BREAD, "Pan de chapata", Arrays.asList( // pan
-                WHITE + "Recien horneado y calentito",
-                WHITE + "Al comer: "+ RED+"+3"+ WHITE +" vida y "+ YELLOW +"+6"+ WHITE +" vida amarilla"),
-                37, Rangos.CONDENADO2, IpMateriales.PAN, ( p -> {
-                    p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,900,2)); // 6 corazones amarillos
-                    curar(p,6);
-        }  ) ));
+        materiales.add(new IpComida(Material.BREAD, "Pan de chapata", List.of( // pan
+                WHITE + "Recien horneado y calentito"),
+                37, Rangos.CONDENADO2, IpMateriales.PAN,3,6  ));
 
         //Afueras4
         materiales.add(new IpMaterial(Material.COBBLESTONE_SLAB, "Mini roca", Arrays.asList( // Mini roca
@@ -294,15 +272,11 @@ public class MaterialesManager {
         materiales.add(new IpComida(Material.SALMON, "Salmon crudo", Arrays.asList( // Pescado crudo
                 WHITE + "Se puede comer pero estaría mejor cocinado",
                 WHITE + "Al comer: "+ RED +"+2"+ WHITE +" vida"),
-                20, Rangos.MINERO3, IpMateriales.SALMON_CRUDO, ( p -> curar(p,4) ) ));
+                20, Rangos.MINERO3, IpMateriales.SALMON_CRUDO, 2,0 ));
 
-        materiales.add(new IpComida(Material.COOKED_SALMON, "Salmon ahumado", Arrays.asList( // Pescado brasa
-                WHITE + "Huele mal pero tiene nutrientes",
-                WHITE + "Al comer: "+ RED + "+4"+ WHITE +" vida y "+ YELLOW +"+6"+ WHITE +" vida amarilla"),
-                40, Rangos.MINERO3, IpMateriales.SALMON_AHUMADO, ( p -> {
-                    p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,900,2)); // 6 corazones amarillos
-                    curar(p,8);
-        }  ) ));
+        materiales.add(new IpComida(Material.COOKED_SALMON, "Salmon ahumado", List.of( // Pescado brasa
+                WHITE + "Huele mal pero tiene nutrientes"),
+                40, Rangos.MINERO3, IpMateriales.SALMON_AHUMADO, 4, 8));
 
         materiales.add(new IpMaterial(Material.IRON_ORE, "Mena de hierro", List.of(
                 WHITE + "Se puede fundir para conseguir hierro",
@@ -321,10 +295,9 @@ public class MaterialesManager {
                 WHITE + "Mineral negro que arde con facilidad"),
                 40, Rangos.MINERO3, IpMateriales.HOJAS));
 
-        materiales.add(new IpComida(Material.APPLE, "Manzana", Arrays.asList( // manzana
-                WHITE + "No te la comas si te lo pide una serpiente",
-                WHITE + "Al comer: "+ RED+"+4"+ WHITE +" vida"),
-                75, Rangos.MINERO3, IpMateriales.MANZANA, ( p -> curar(p,8) ) ));
+        materiales.add(new IpComida(Material.APPLE, "Manzana", List.of( // manzana
+                WHITE + "No te la comas si te lo pide una serpiente"),
+                75, Rangos.MINERO3, IpMateriales.MANZANA, 4,0 ));
 
         materiales.add(new IpMaterial(Material.DIORITE_SLAB, "Diorita", Arrays.asList( // Granito
                 WHITE + "Roca de color blanco por recibir el intenso",
@@ -430,11 +403,6 @@ public class MaterialesManager {
             if (comparar(itemStack,m)) return m;
         }
         return materiales.getFirst();
-    }
-
-    private void curar(Player p,int cantidad) {
-        if(p.getHealth()+cantidad<p.getHealthScale()) p.setHealth(p.getHealth()+cantidad);
-        else if(p.getHealth()<p.getHealthScale()) p.setHealth(p.getHealthScale());//cantidad = medio corazon
     }
 
     public LinkedList<IpMaterial> getMateriales() {
