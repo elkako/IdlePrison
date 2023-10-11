@@ -33,6 +33,15 @@ public class IpComida extends IpMaterial {
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.GOLD + String.valueOf(ChatColor.BOLD) + getNombre());
 
+
+        List<String> lore = itemMeta.getLore() ;
+
+        lore.add(lore.size()-2, ChatColor.WHITE + "Efectos:");
+        //if (regeneracion == 0) lore.add(lore.size()-2, ChatColor.WHITE + "-Vida máx: +" + vida);
+        //else lore.add(lore.size()-2, ChatColor.WHITE + "-Regeneración: " + regeneracion);
+
+        lore.add(lore.size()-2, ChatColor.WHITE + "-Vida máx: +");
+
         item.setItemMeta(itemMeta);
         return item;
     }
