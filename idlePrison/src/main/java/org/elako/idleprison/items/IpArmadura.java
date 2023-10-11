@@ -28,6 +28,7 @@ public class IpArmadura extends IpMaterial {
 
         List<String> lore = itemMeta.getLore() ;
 
+        assert lore != null;
         lore.add(lore.size()-2, ChatColor.WHITE + "Efectos:");
         if (regeneracion == 0)lore.add(lore.size()-2, ChatColor.WHITE + "-Vida máx: +" + vida);
         else lore.add(lore.size()-2, ChatColor.WHITE + "-Regeneración: " + regeneracion);
@@ -35,4 +36,8 @@ public class IpArmadura extends IpMaterial {
         item.setItemMeta(itemMeta);
         return item;
     }
+
+    public int getVida() { return vida; }
+
+    public int getRegeneracion() { return regeneracion; }
 }
