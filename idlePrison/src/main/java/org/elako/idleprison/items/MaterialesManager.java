@@ -4,6 +4,7 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.player.Rangos;
 
 import java.util.Arrays;
@@ -417,13 +418,18 @@ public class MaterialesManager {
     }
 
     public static boolean comparar(ItemStack item, IpMaterial ip){ // true == son iguales
+        if (item == null) return false;
         return ip.getMaterial().equals(item.getType());
     }
     public static boolean comparar(ItemStack item1, ItemStack item2){ // true == son iguales
-        return Objects.requireNonNull(item1.getItemMeta()).equals(item2.getItemMeta());
+        if(item1 == null && item2 == null) return true;
+        if(item1 == null || item2 == null) return false;
+        if(item1.getItemMeta() == null || item2.getItemMeta() == null) return false;
+        return item1.getItemMeta().equals(item2.getItemMeta());
     }
 
     public static IpMaterial itemToMaterial(ItemStack itemStack) {
+        if (itemStack == null) return materiales.getFirst();
         for (IpMaterial m: materiales) {
             if(m.getClass().equals(IpFragmento.class)){
                 IpFragmento fragmento = (IpFragmento) m;
@@ -437,6 +443,19 @@ public class MaterialesManager {
 
     public LinkedList<IpMaterial> getMateriales() {
         return materiales;
+    }
+
+    public int getVidaMax(ItemStack[] armor){
+        int vida = 0;
+        for (ItemStack i :armor) {
+            IpMaterial ipMaterial = itemToMaterial(i);
+            if(ipMaterial == null) continue;
+            if(ipMaterial.getClass().equals(IpArmadura.class) || ipMaterial.getClass().equals(IpArmaduraColor.class)){
+                IpArmadura armadura = (IpArmadura) ipMaterial;
+                vida += armadura.getVida();
+            }
+        }
+        return vida;
     }
 
 

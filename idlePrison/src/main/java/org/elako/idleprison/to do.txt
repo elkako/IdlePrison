@@ -1,7 +1,9 @@
 TO-DO prison
 añadir armaduras
+rework treeskill
 mejorar dar notas con inventario lleno
 idle menú automatico
+treeskill automatico?
 programar timeskip
 poner each rango as a class
 equilibrar nuevas minas
@@ -11,3 +13,7 @@ testear nuevo idle
 crear mapas nuevos y reforzar viejos con schematic
 
 sacar a todos los players dentro de la mina al reiniciarla
+
+
+Posibles efectos armaduras:
+slow_falling, hunger, inivisibility, fire_resistance, saturation y glowing

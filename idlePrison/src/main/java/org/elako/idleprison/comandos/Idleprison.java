@@ -178,7 +178,6 @@ public class Idleprison implements CommandExecutor {
                 }
                 if (p.hasPermission("op")) p.sendMessage("'/ip setperm nm' para ver cambiar los permisos de un jugador" +
                         " el n es el permiso de constructor y el segundo de comandos ");
-
                 return true;
             }
         }else if (strings.length == 2) {
@@ -207,9 +206,7 @@ public class Idleprison implements CommandExecutor {
                             if (i == 54) break;
                         }
                     }
-
                 }
-
                 p.openInventory(inventario);
                 return true;
             }

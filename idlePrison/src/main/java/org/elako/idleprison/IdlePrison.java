@@ -27,6 +27,7 @@ public final class IdlePrison extends JavaPlugin {
     private static DineroManager dinero;
     private static RangosManager rango;
     private static TreeSkillManager treeskill;
+    private static MaterialesManager materiales;
     private static IdleManager idle;
     private static IdlePrison plugin;
     private static int crafteoskey = 0;
@@ -248,6 +249,10 @@ public final class IdlePrison extends JavaPlugin {
         p.setScoreboard(scoreboard);
     }
 
+    private double getVida(Player p){
+        return 20.0 + materiales.getVidaMax(p.getInventory().getArmorContents());
+    }
+
     private void tickEffect(Player p) {
         int haste = TreeSkillManager.getHaste(p.getName());
         int regen = TreeSkillManager.getRegeneration(p.getName());
@@ -255,6 +260,8 @@ public final class IdlePrison extends JavaPlugin {
         if (haste > 0) p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING,60, haste-1) );
         if (regen > 0) p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,60,regen-1 ) );
         if (speed > 0) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,60,speed-1 ) );
+        p.sendMessage(p.getHealthScale() + " E " +  getVida(p));
+        if(p.getHealthScale() != getVida(p)) p.setHealthScale(getVida(p));
     }
 
     public static NamespacedKey getCrafteoskey(){
@@ -270,7 +277,7 @@ public final class IdlePrison extends JavaPlugin {
         playerManager = new PlayerManager();
         dinero = new DineroManager(playerManager);
         rango = new RangosManager(dinero,playerManager);
-        MaterialesManager materiales = new MaterialesManager();
+        materiales = new MaterialesManager();
         VenderManager vender = new VenderManager(dinero, rango, playerManager);
         NotaManager nota = new NotaManager(dinero, playerManager);
         BloqueManager bloque = new BloqueManager();
