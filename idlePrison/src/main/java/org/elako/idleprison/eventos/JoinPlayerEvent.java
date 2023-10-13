@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.items.NotaManager;
+import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.DineroManager;

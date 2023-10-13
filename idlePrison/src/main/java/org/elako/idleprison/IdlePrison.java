@@ -13,6 +13,7 @@ import org.elako.idleprison.comandos.*;
 import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.eventos.*;
 import org.elako.idleprison.items.*;
+import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.mina.BloqueManager;
 import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.*;
@@ -31,6 +32,7 @@ public final class IdlePrison extends JavaPlugin {
     private static IdleManager idle;
     private static IdlePrison plugin;
     private static int crafteoskey = 0;
+    private int setContador = 10;
 
     public static IdlePrison getPlugin(){ return plugin; }
 
@@ -260,8 +262,15 @@ public final class IdlePrison extends JavaPlugin {
         if (haste > 0) p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING,60, haste-1) );
         if (regen > 0) p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,60,regen-1 ) );
         if (speed > 0) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,60,speed-1 ) );
-        p.sendMessage(p.getHealthScale() + " E " +  getVida(p));
         if(p.getHealthScale() != getVida(p)) p.setHealthScale(getVida(p));
+        setContador--;
+        if(setContador <= 0) {
+            PotionEffect efecto = materiales.getEfecto(p.getInventory().getArmorContents());
+            if(efecto != null){
+                p.addPotionEffect( efecto );
+                setContador = 10;
+            }
+        }
     }
 
     public static NamespacedKey getCrafteoskey(){

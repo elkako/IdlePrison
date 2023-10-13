@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.items.NotaManager;
+import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.player.RangosManager;
 
 public class ItemDropEvent implements Listener {

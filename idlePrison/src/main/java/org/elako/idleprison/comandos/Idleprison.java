@@ -12,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.items.*;
+import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.IdleManager;
 import org.elako.idleprison.player.DineroManager;

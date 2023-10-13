@@ -1,5 +1,6 @@
 TO-DO prison
 añadir armaduras
+arreglar crafteo de fragmentos
 rework treeskill
 mejorar dar notas con inventario lleno
 idle menú automatico

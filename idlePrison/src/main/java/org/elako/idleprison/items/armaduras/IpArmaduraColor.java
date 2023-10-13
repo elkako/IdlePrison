@@ -1,11 +1,12 @@
-package org.elako.idleprison.items;
+package org.elako.idleprison.items.armaduras;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.potion.PotionEffect;
+import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.player.Rangos;
 
 import java.util.List;
@@ -15,11 +16,10 @@ public class IpArmaduraColor extends IpArmadura {
     // colores RGB https://htmlcolorcodes.com/es/
 
     public IpArmaduraColor(Material material, String nombre, List<String> lore, Rangos permiso, IpMateriales ipMateriales,
-                           int vida, int regeneracion, Color color) {
-        super(material, nombre, lore, permiso, ipMateriales, vida, regeneracion);
+                           int vida, SetsArmadura setArmadura ,Color color) {
+        super(material, nombre, lore, permiso, ipMateriales, vida, setArmadura);
         this.color = color;
     }
-
 
     @Override
     public ItemStack getItem(int cantidad){
@@ -34,4 +34,5 @@ public class IpArmaduraColor extends IpArmadura {
         return item;
     }
 
+    public Color getColor() { return color; }
 }

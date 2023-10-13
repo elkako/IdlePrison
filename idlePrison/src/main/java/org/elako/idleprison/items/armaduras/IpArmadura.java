@@ -1,22 +1,25 @@
-package org.elako.idleprison.items;
+package org.elako.idleprison.items.armaduras;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.elako.idleprison.IdlePrison;
+import org.elako.idleprison.items.IpMaterial;
+import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.player.Rangos;
 
 import java.util.List;
 
 public class IpArmadura extends IpMaterial {
     private final int vida;
-    private final int regeneracion;
+    private final SetsArmadura setArmadura;
 
     public IpArmadura(Material material, String nombre, List<String> lore, Rangos permiso, IpMateriales ipMateriales,
-                      int vida, int regeneracion) {
+                      int vida, SetsArmadura setArmadura) {
         super(material, nombre, lore, -1, permiso, ipMateriales);
         this.vida = vida;
-        this.regeneracion = regeneracion;
+        this.setArmadura = setArmadura;
     }
 
     @Override
@@ -30,8 +33,8 @@ public class IpArmadura extends IpMaterial {
 
         assert lore != null;
         lore.add(lore.size()-1, ChatColor.WHITE + "Efectos:");
-        lore.add(lore.size()-1, ChatColor.WHITE + "-Vida máx: +" + vida);
-        if (regeneracion != 0) lore.add(lore.size()-1, ChatColor.WHITE + "-Regeneración: " + regeneracion);
+        lore.add(lore.size()-1, ChatColor.WHITE + "-Vida máx: +" + vida/2.0 );
+        IdlePrison.broadcast(String.valueOf(vida/2.0));
 
         itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);
@@ -40,5 +43,5 @@ public class IpArmadura extends IpMaterial {
 
     public int getVida() { return vida; }
 
-    public int getRegeneracion() { return regeneracion; }
+    public SetsArmadura getSetArmadura() { return setArmadura; }
 }

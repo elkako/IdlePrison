@@ -4,13 +4,17 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.potion.PotionEffect;
 import org.elako.idleprison.IdlePrison;
+import org.elako.idleprison.items.armaduras.IpArmadura;
+import org.elako.idleprison.items.armaduras.IpArmaduraColor;
+import org.elako.idleprison.items.armaduras.SetsArmadura;
 import org.elako.idleprison.player.Rangos;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 import static org.bukkit.ChatColor.*;
 
@@ -133,27 +137,27 @@ public class MaterialesManager {
                 7, Rangos.CONDENADO1, IpMateriales.RESTOS_COMIDA2, 1.5, 0 ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco elemental", List.of( // casco elemental
-                WHITE + "Contiene el poder del hielo",
-                        WHITE + "se puede utilizar para crear armaduras"),
-                Rangos.CONDENADO2, IpMateriales.CASCO_ELEMENTAL,1,0,
+                WHITE + "Contiene el poder del hielo armadura básica",
+                WHITE + "Set elemental" ),
+                Rangos.CONDENADO2, IpMateriales.CASCO_ELEMENTAL,1, SetsArmadura.ELEMENTAL,
                 Color.fromRGB(159,251,255) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera elemental", List.of( // casco elemental
-                WHITE + "Contiene el poder del fuego",
-                        WHITE + "se puede utilizar para crear armaduras"),
-                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,1,0,
+                WHITE + "Contiene el poder del fuego armadura básica",
+                WHITE + "Set elemental" ),
+                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,1, SetsArmadura.ELEMENTAL,
                 Color.fromRGB(210,57,33) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones elementales", List.of( // casco elemental
-                WHITE + "Contiene el poder del hielo",
-                        WHITE + "se puede utilizar para crear armaduras"),
-                Rangos.CONDENADO2, IpMateriales.PANTALONES_ELEMENTALES,1,0,
+                WHITE + "Contiene el poder del hielo armadura básica",
+                WHITE + "Set elemental" ),
+                Rangos.CONDENADO2, IpMateriales.PANTALONES_ELEMENTALES,1, SetsArmadura.ELEMENTAL,
                 Color.fromRGB(159,251,255) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas elementales", List.of( // casco elemental
-                WHITE + "Contiene el poder del fuego",
-                WHITE + " utilizar para crear armaduras"),
-                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,1,0,
+                WHITE + "Contiene el poder del fuego armadura básica",
+                WHITE + "Set elemental" ),
+                Rangos.CONDENADO2, IpMateriales.BOTAS_ELEMENTALES,1, SetsArmadura.ELEMENTAL,
                 Color.fromRGB(210,57,33) ));
 
         //Afueras 1,2,3,4
@@ -202,6 +206,30 @@ public class MaterialesManager {
 
         materiales.add(new IpMaterial(Material.MELON, "Sandía", List.of(), // sandia
                 0.5, Rangos.SINTECHO2, IpMateriales.SANDIA ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco sandia", List.of( // casco SANDIA
+                WHITE + "Contiene el poder del hielo armadura básica",
+                WHITE + "Set sandía" ),
+                Rangos.SINTECHO2, IpMateriales.CASCO_SANDIA,1, SetsArmadura.SANDIA,
+                Color.fromRGB(235,48,116) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera sandia", List.of( // casco SANDIA
+                WHITE + "Contiene el poder del fuego armadura básica",
+                WHITE + "Set sandía" ),
+                Rangos.SINTECHO2, IpMateriales.PECHERA_SANDIA,2, SetsArmadura.SANDIA,
+                Color.fromRGB(235,48,116) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones sandia", List.of( // casco SANDIA
+                WHITE + "Contiene el poder del hielo armadura básica",
+                WHITE + "Set sandía" ),
+                Rangos.SINTECHO2, IpMateriales.PANTALONES_SANDIA,2, SetsArmadura.SANDIA,
+                Color.fromRGB(235,48,116) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas sandia", List.of( // casco SANDIA
+                WHITE + "Contiene el poder del fuego armadura básica",
+                WHITE + "Set sandía" ),
+                Rangos.SINTECHO2, IpMateriales.BOTAS_SANDIA,1, SetsArmadura.SANDIA,
+                Color.fromRGB(235,48,116) ));
 
         //Afueras 2
         materiales.add(new IpFragmento(Material.RED_DYE, "Fragmento de esencia vida [1]", List.of( // fragmento rojo 1
@@ -431,12 +459,11 @@ public class MaterialesManager {
     public static IpMaterial itemToMaterial(ItemStack itemStack) {
         if (itemStack == null) return materiales.getFirst();
         for (IpMaterial m: materiales) {
-            if(m.getClass().equals(IpFragmento.class)){
+            if(m.getClass().equals(IpFragmento.class)) {
                 IpFragmento fragmento = (IpFragmento) m;
-                if (fragmento.getNivel() != itemStack.getEnchantmentLevel(fragmento.getEnchant()))
-                    continue;
+                if (fragmento.getNivel() != itemStack.getEnchantmentLevel(fragmento.getEnchant()))  continue;
             }
-            if (comparar(itemStack,m)) return m;
+            if (itemStack.getItemMeta().equals(m.getItem(1).getItemMeta())) return m;
         }
         return materiales.getFirst();
     }
@@ -456,6 +483,24 @@ public class MaterialesManager {
             }
         }
         return vida;
+    }
+
+    public PotionEffect getEfecto(ItemStack[] armor){
+        SetsArmadura set = null;
+        for (ItemStack i :armor) {
+            if (i == null) return null;
+            IpMaterial ipMaterial = itemToMaterial(i);
+            if(ipMaterial == null) return null;
+            if(ipMaterial.getClass().equals(IpArmadura.class) || ipMaterial.getClass().equals(IpArmaduraColor.class)){
+                IpArmadura armadura = (IpArmadura) ipMaterial;
+                if(armadura.getSetArmadura() == null) return null;
+                if (set != armadura.getSetArmadura() && set != null) return null;
+                set = armadura.getSetArmadura();
+            }
+        }
+        if(set == null) return null;
+        IdlePrison.broadcast(set.name());
+        return set.getEfecto();
     }
 
 
