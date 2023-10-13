@@ -11,5 +11,3 @@ testear nuevo idle
 crear mapas nuevos y reforzar viejos con schematic
 
 sacar a todos los players dentro de la mina al reiniciarla
-
-implementar regalo por terminar parkour (idle de regalo o esencia)

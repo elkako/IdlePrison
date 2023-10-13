@@ -9,6 +9,7 @@ org\elako\idleprison\comandos\TreeSkill.class
 org\elako\idleprison\mina\IpBloque$Morir.class
 org\elako\idleprison\eventos\MesasCrafteoEvent.class
 org\elako\idleprison\eventos\ComerEvent.class
+org\elako\idleprison\items\IpArmaduraColor.class
 org\elako\idleprison\comandos\Vender.class
 org\elako\idleprison\crafteos\CrafteoShapelessDoble.class
 org\elako\idleprison\comandos\Mina.class
@@ -49,4 +50,3 @@ org\elako\idleprison\player\TreeSkillManager.class
 org\elako\idleprison\comandos\Idleprison.class
 org\elako\idleprison\eventos\BreakPutBlockEvent.class
 org\elako\idleprison\eventos\JoinPlayerEvent.class
-org\elako\idleprison\items\IpComida$Comer.class

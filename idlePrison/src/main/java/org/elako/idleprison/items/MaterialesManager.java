@@ -1,5 +1,6 @@
 package org.elako.idleprison.items;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -104,6 +105,11 @@ public class MaterialesManager {
                 WHITE + "Un pez mofletudo raro de encontrar"),
                 14, Rangos.CONDENADO2, IpMateriales.PEZ_GLOBO, -1, 6));
 
+        materiales.add(new IpMaterial(Material.BUBBLE_CORAL, "Piedra elemental", List.of( // piedra elemental
+                WHITE + "Contiene el poder del fuego y hielo" +
+                        WHITE + "se puede utilizar para crear armaduras"),
+                31, Rangos.CONDENADO2, IpMateriales.PIEDRA_ELEMENTAL));
+
         //Infierno 4
         materiales.add(new IpMaterial(Material.TUFF, "Restos de basura", Arrays.asList( // restos de basura
                 WHITE + "Trozo de los restos de desechos humanos,",
@@ -124,6 +130,30 @@ public class MaterialesManager {
         materiales.add(new IpComida(Material.RABBIT, "Restos de comida", List.of( // restos comida2
                 WHITE + "Lo que es basura para unos es oro para otros"),
                 7, Rangos.CONDENADO1, IpMateriales.RESTOS_COMIDA2, 1.5, 0 ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco elemental", List.of( // casco elemental
+                WHITE + "Contiene el poder del hielo",
+                        WHITE + "se puede utilizar para crear armaduras"),
+                Rangos.CONDENADO2, IpMateriales.CASCO_ELEMENTAL,1,0,
+                Color.fromRGB(159,251,255) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera elemental", List.of( // casco elemental
+                WHITE + "Contiene el poder del fuego",
+                        WHITE + "se puede utilizar para crear armaduras"),
+                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,1,0,
+                Color.fromRGB(210,57,33) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones elementales", List.of( // casco elemental
+                WHITE + "Contiene el poder del hielo",
+                        WHITE + "se puede utilizar para crear armaduras"),
+                Rangos.CONDENADO2, IpMateriales.PANTALONES_ELEMENTALES,1,0,
+                Color.fromRGB(159,251,255) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas elementales", List.of( // casco elemental
+                WHITE + "Contiene el poder del fuego",
+                WHITE + " utilizar para crear armaduras"),
+                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,1,0,
+                Color.fromRGB(210,57,33) ));
 
         //Afueras 1,2,3,4
         materiales.add(new IpMaterial(Material.STRIPPED_OAK_LOG, "Madera de roble", List.of( // Madera de roble

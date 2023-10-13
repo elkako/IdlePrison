@@ -11,12 +11,14 @@ import java.util.List;
 public class IpArmadura extends IpMaterial {
     private final int vida;
     private final int regeneracion;
+    private final boolean leather;
 
     public IpArmadura(Material material, String nombre, List<String> lore, Rangos permiso, IpMateriales ipMateriales,
                       int vida, int regeneracion) {
         super(material, nombre, lore, -1, permiso, ipMateriales);
         this.vida = vida;
         this.regeneracion = regeneracion;
+        leather = false;
     }
 
     @Override
@@ -29,10 +31,11 @@ public class IpArmadura extends IpMaterial {
         List<String> lore = itemMeta.getLore() ;
 
         assert lore != null;
-        lore.add(lore.size()-2, ChatColor.WHITE + "Efectos:");
-        if (regeneracion == 0)lore.add(lore.size()-2, ChatColor.WHITE + "-Vida máx: +" + vida);
-        else lore.add(lore.size()-2, ChatColor.WHITE + "-Regeneración: " + regeneracion);
+        lore.add(lore.size()-1, ChatColor.WHITE + "Efectos:");
+        if (regeneracion == 0)lore.add(lore.size()-1, ChatColor.WHITE + "-Vida máx: +" + vida);
+        else lore.add(lore.size()-1, ChatColor.WHITE + "-Regeneración: " + regeneracion);
 
+        itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);
         return item;
     }
