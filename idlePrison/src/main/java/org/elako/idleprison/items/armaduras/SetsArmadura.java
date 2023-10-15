@@ -2,18 +2,17 @@ package org.elako.idleprison.items.armaduras;
 
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.elako.idleprison.player.Rangos;
 
 public enum SetsArmadura {
-   ELEMENTAL( null ) , SANDIA( new PotionEffect(PotionEffectType.HUNGER,100,0) ) ;
+   ELEMENTAL( null ) , SANDIA( new PotionEffect(PotionEffectType.HUNGER,100,0) ),
+    DESIERTO_ROJO( new PotionEffect(PotionEffectType.FIRE_RESISTANCE,100,0) ),
+   CUARZO( new PotionEffect(PotionEffectType.GLOWING,20,0) ),
+   ;
 
-   private PotionEffect efecto;
+   private final PotionEffect efecto;
 
-   SetsArmadura( PotionEffect efecto ){
-      this.efecto = efecto;
-   }
+   SetsArmadura( PotionEffect efecto ){ this.efecto = efecto; }
 
-   public PotionEffect getEfecto() {
-      return efecto;
-   }
+   public PotionEffect getEfecto() { return efecto; }
+
 }

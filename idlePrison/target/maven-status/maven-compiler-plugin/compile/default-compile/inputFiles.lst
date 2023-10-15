@@ -4,8 +4,10 @@ C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idl
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\IpHerramienta.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\player\IdleManager.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\comandos\Rango.java
+C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\notas\TipoNota.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\player\Rangos.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\crafteos\CrafteoEncantar.java
+C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\armaduras\IpArmadura.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\crafteos\Crafteo.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\player\RangosManager.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\eventos\ComerEvent.java
@@ -18,14 +20,12 @@ C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idl
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\IdlePrison.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\eventos\BlockDropEvent.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\eventos\ItemsEvent.java
-C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\Nota.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\comandos\Crafteo.java
-C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\TipoNota.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\comandos\Mina.java
+C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\notas\NotaManager.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\eventos\InteractPlayerEvent.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\mina\BloqueManager.java
-C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\IpArmadura.java
-C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\NotaManager.java
+C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\armaduras\IpArmaduraColor.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\crafteos\CrafteoShapeless.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\eventos\MesasCrafteoEvent.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\IpComida.java
@@ -34,6 +34,7 @@ C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idl
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\player\Jugador.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\comandos\Idle.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\mina\IpMina.java
+C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\notas\Nota.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\comandos\Idleprison.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\IpMateriales.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\mina\MinaManager.java
@@ -42,8 +43,8 @@ C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idl
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\crafteos\CrafteoManager.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\crafteos\CrafteoShapelessDoble.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\IpMaterial.java
+C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\armaduras\SetsArmadura.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\VenderManager.java
-C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\IpArmaduraColor.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\items\IpFragmento.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\mina\DropCuanti.java
 C:\Users\elako\OneDrive\Escritorio\plugin\idlePrison\src\main\java\org\elako\idleprison\comandos\Ipcrear.java

@@ -43,6 +43,22 @@ public class CrafteoManager {
                 tablonesQ
         )), MaterialesManager.getItem(IpMateriales.PESCADO_BRASA) , Rangos.CONDENADO2 ) );
 
+        ItemStack hielo = MaterialesManager.getItem(IpMateriales.HIELO);
+        ItemStack bloqueMagma = MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO);
+        ItemStack piedraElemental = MaterialesManager.getItem(IpMateriales.ELEMENTO);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                nulo,           nulo,           nulo,
+                bloqueMagma,    bloqueMagma,    bloqueMagma,
+                hielo,          hielo,          hielo
+        ) ), piedraElemental, Rangos.CONDENADO2 ));
+
+        crafteosArmadura( piedraElemental, nulo, List.of(
+                MaterialesManager.getItem(IpMateriales.CASCO_ELEMENTAL),
+                MaterialesManager.getItem(IpMateriales.PECHERA_ELEMENTAL),
+                MaterialesManager.getItem(IpMateriales.PANTALONES_ELEMENTALES),
+                MaterialesManager.getItem(IpMateriales.BOTAS_ELEMENTALES)
+        ),Rangos.CONDENADO2);
+
         ItemStack fragmentoAzul1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_AZUL1);
         ItemStack esenciaAzul1 = MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL1);
         crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
@@ -71,7 +87,6 @@ public class CrafteoManager {
         ) ), MaterialesManager.getItem(IpMateriales.PICO_PIEDRA), Rangos.SINTECHO2 ) );
 
         ItemStack arena = MaterialesManager.getItem(IpMateriales.ARENA);
-        ItemStack bloqueMagma = MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO);
         ItemStack lente = MaterialesManager.getItem(IpMateriales.LENTE);
         crafteos.add( new CrafteoShapelessDoble( new LinkedList<>( List.of(
                 arena,              arena, arena ,
@@ -83,6 +98,21 @@ public class CrafteoManager {
                 arena,          arena, arena
             )), lente
         ) );
+
+        ItemStack rodajaSandia = MaterialesManager.getItem(IpMateriales.RODAJA_SANDIA);
+        ItemStack sandia = MaterialesManager.getItem(IpMateriales.SANDIA);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                rodajaSandia,   rodajaSandia,   rodajaSandia,
+                rodajaSandia,   rodajaSandia,   rodajaSandia,
+                rodajaSandia,   rodajaSandia,   rodajaSandia
+        ) ), sandia, Rangos.SINTECHO2 ) );
+
+        crafteosArmadura( sandia, nulo, List.of(
+                MaterialesManager.getItem(IpMateriales.CASCO_SANDIA),
+                MaterialesManager.getItem(IpMateriales.PECHERA_SANDIA),
+                MaterialesManager.getItem(IpMateriales.PANTALONES_SANDIA),
+                MaterialesManager.getItem(IpMateriales.BOTAS_SANDIA)
+        ),Rangos.SINTECHO2);
 
         ItemStack fragmentoRoja1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_ROJO1);
         ItemStack esenciaRoja1 = MaterialesManager.getItem(IpMateriales.ESENCIA_ROJA1);
@@ -96,7 +126,6 @@ public class CrafteoManager {
                 Rangos.SINTECHO1, Enchantment.LOOT_BONUS_BLOCKS, 1
         ) );
 
-
         ItemStack granGranito = MaterialesManager.getItem(IpMateriales.GRAN_GRANITO);
         ItemStack granito = MaterialesManager.getItem(IpMateriales.GRANITO);
         crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
@@ -104,6 +133,21 @@ public class CrafteoManager {
                 granito,   granito,   granito,
                 granito,   granito,   granito
         ) ), granGranito, Rangos.SINTECHO1 ) );
+
+        ItemStack florDesierto = MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO);
+        ItemStack desiertoRojo = MaterialesManager.getItem(IpMateriales.DESIERTO_ROJO);
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                nulo,           florDesierto,   nulo,
+                granGranito,   granGranito,     granGranito,
+                granGranito,   granGranito,     granGranito
+        ) ), desiertoRojo, Rangos.SINTECHO1 ) );
+
+        crafteosArmadura( desiertoRojo, nulo, List.of(
+                MaterialesManager.getItem(IpMateriales.CASCO_DESERTICO),
+                MaterialesManager.getItem(IpMateriales.PECHERA_DESERTICA),
+                MaterialesManager.getItem(IpMateriales.PANTALONES_DESERTICOS),
+                MaterialesManager.getItem(IpMateriales.BOTAS_DESERTICAS)
+        ),Rangos.SINTECHO1);
 
         ItemStack fragmentoVerde1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_VERDE1);
         ItemStack esenciaVerde1 = MaterialesManager.getItem(IpMateriales.ESENCIA_VERDE1);
@@ -167,7 +211,8 @@ public class CrafteoManager {
     }
 
     public static Inventory CraftGuide(Player p){
-        Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftGuide");
+        // tamaños inventarios: 9 18 27 36 45 54
+        Inventory inventario = Bukkit.createInventory(p, 36, ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftGuide");
         int i = 0;
         for (Crafteo c: crafteos) {
             if (rangosManager.isPermitido(p.getName(), c.getPermiso())) {
@@ -179,7 +224,7 @@ public class CrafteoManager {
             i++;
         }
 
-        inventario.setItem(26, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
+        inventario.setItem(35, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
                 ChatColor.WHITE + "Botón para volver al menú")));
 
         return inventario;
@@ -219,6 +264,32 @@ public class CrafteoManager {
             }
         }
         return devolver;
+    }
+
+    private void crafteosArmadura(ItemStack material, ItemStack nulo, List<ItemStack> armaduras, Rangos rango){
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                nulo,       nulo,       nulo,
+                material,   material,   material,
+                material,   nulo,       material
+        ) ), armaduras.get(0), rango ) );
+
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                material,   nulo,       material,
+                material,   material,   material,
+                material,   material,   material
+        ) ), armaduras.get(1), rango ) );
+
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                material,   material,   material,
+                material,   nulo,       material,
+                material,   nulo,       material
+        ) ), armaduras.get(2), rango ) );
+
+        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+                nulo,       nulo,   nulo,
+                material,   nulo,   material,
+                material,   nulo,   material
+        ) ), armaduras.get(3), rango ) );
     }
 
 

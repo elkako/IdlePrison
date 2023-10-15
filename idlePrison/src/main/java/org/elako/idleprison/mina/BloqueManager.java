@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.player.TreeSkillManager;
@@ -57,12 +58,14 @@ public class BloqueManager {
     }
 
     public String getNombre(ItemStack item){
-        return MaterialesManager.itemToMaterial(item).getNombre();
+        return MaterialesManager.blockToMaterial(item.getType()).getNombre();
     }
 
     public void drop(Block block, Player p, Boolean damage){
         IpBloque b = getBloque(block.getType());
         boolean hasDropped = false;
+
+        if(b == null) IdlePrison.broadcast("ERROR: " + block.getType());
 
         for (DropProb d : b.getDropsProb()) {
             if(dropProbabilidad(p, d.getProb(), d.getItem())) hasDropped = true;
@@ -103,14 +106,13 @@ public class BloqueManager {
         ipBloques.add(new IpBloque(Material.MAGMA_BLOCK, Arrays.asList(
                 new DropProb( MaterialesManager.getItem(IpMateriales.BLOQUE_MAGMATICO), 1 ),
                 new DropProb( MaterialesManager.getItem(IpMateriales.BAYA_LUMINOSA), 0.025 )
-        ), new ArrayList<>(), (p, pos) -> {} ));
+        ), new ArrayList<>(), (p, pos) -> p.setFireTicks(60)));
 
         ipBloques.add(new IpBloque(Material.ICE, Arrays.asList(
                 new DropProb( MaterialesManager.getItem(IpMateriales.HIELO), 1 ),
                 new DropProb( MaterialesManager.getItem(IpMateriales.PESCADO_CRUDO), 0.4 ),
                 new DropProb( MaterialesManager.getItem(IpMateriales.PEZ_GLOBO), 0.05 )
         ), new ArrayList<>(), (p, pos) -> pos.getBlock().setType(Material.AIR)));
-
 
         ipBloques.add(new IpBloque(Material.LIGHT_BLUE_TERRACOTTA, List.of(
                 new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_AZUL1), 0.9)
@@ -156,21 +158,39 @@ public class BloqueManager {
         ipBloques.add(new IpBloque(Material.SANDSTONE, Arrays.asList(
                 new DropProb( MaterialesManager.getItem(IpMateriales.ARENA), 1.2 ),
                 new DropProb( MaterialesManager.getItem(IpMateriales.ROCA_ARENOSA), 0.4),
-                new DropProb( MaterialesManager.getItem(IpMateriales.MADERA_ROBLE), 0.1)
-        ), new ArrayList<>(), (p, pos) -> {} ));
+                new DropProb( MaterialesManager.getItem(IpMateriales.MADERA_ROBLE), 0.1),
+                new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.007 )
+        ), new ArrayList<>(), (p, pos) -> {
+            if (probabilidad(0.02)) {
+                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
+                p.setFireTicks(90);
+                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
+                p.damage(4);
+            }
+        } ));
 
         ipBloques.add(new IpBloque(Material.RED_TERRACOTTA, List.of(
                 new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_ROJO1), 0.9)
         ), new ArrayList<>(), (p, pos) -> {
             coloresEsencias(p,pos,Color.RED,Color.FUCHSIA);
-            p.setFireTicks(120);
+            p.setFireTicks(180);
         } ));
 
         ipBloques.add(new IpBloque(Material.GRANITE, List.of(
-                new DropProb(MaterialesManager.getItem(IpMateriales.MADERA_ROBLE), 0.1)
+                new DropProb(MaterialesManager.getItem(IpMateriales.MADERA_ROBLE), 0.1),
+                new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.015 )
         ), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.GRANITO), 3, 6)
-        ), (p, pos) -> {} ));
+        ), (p, pos) -> {
+            if (probabilidad(0.05)) {
+                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
+                p.setFireTicks(90);
+                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
+                p.damage(4);
+            }
+        } ));
 
         ipBloques.add(new IpBloque(Material.LIME_TERRACOTTA, List.of(
                 new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_VERDE1), 0.5)
@@ -188,20 +208,46 @@ public class BloqueManager {
         } ));
 
         ipBloques.add(new IpBloque(Material.SMOOTH_SANDSTONE, List.of(
-                new DropProb(MaterialesManager.getItem(IpMateriales.ARENISCA), 0.7)
+                new DropProb(MaterialesManager.getItem(IpMateriales.ARENISCA), 0.7),
+                new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.03 )
         ), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.ARENA), 1, 3)
-        ), (p, pos) -> {} ));
+        ), (p, pos) -> {
+            if (probabilidad(0.05)) {
+                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
+                p.setFireTicks(90);
+                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
+                p.damage(4);
+            }
+        } ));
 
         ipBloques.add(new IpBloque(Material.SMOOTH_QUARTZ, List.of(
-                new DropProb(MaterialesManager.getItem(IpMateriales.CUARZO), 0.9)
-        ), new ArrayList<>(), (p, pos) -> {} ));
+                new DropProb(MaterialesManager.getItem(IpMateriales.CUARZO), 0.9),
+                new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.015 )
+        ), new ArrayList<>(), (p, pos) -> {
+            if (probabilidad(0.05)) {
+                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
+                p.setFireTicks(90);
+                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
+                p.damage(4);
+            }
+        } ));
 
         ipBloques.add(new IpBloque(Material.HAY_BLOCK, List.of(
                 new DropProb(MaterialesManager.getItem(IpMateriales.BAYA_LUMINOSA), 0.1)
         ), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.TRIGO), 1, 3)
-        ), (p, pos) -> {} ));
+        ), (p, pos) -> {
+            if (probabilidad(0.07)) {
+                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
+                p.setFireTicks(90);
+                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
+                p.damage(4);
+            }
+        } ));
 
         ipBloques.add(new IpBloque(Material.COBBLESTONE, List.of(
                 new DropProb(MaterialesManager.getItem(IpMateriales.PIEDRA), 1)

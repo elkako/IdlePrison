@@ -1,5 +1,6 @@
 TO-DO prison
-añadir armaduras
+añadir armaduras: cuarzo, granite, hierro, amatistas
+chetar bloques daño -> frio
 arreglar crafteo de fragmentos
 rework treeskill
 mejorar dar notas con inventario lleno

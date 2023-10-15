@@ -110,10 +110,10 @@ public class MaterialesManager {
                 WHITE + "Un pez mofletudo raro de encontrar"),
                 14, Rangos.CONDENADO2, IpMateriales.PEZ_GLOBO, -1, 6));
 
-        materiales.add(new IpMaterial(Material.BUBBLE_CORAL, "Piedra elemental", List.of( // piedra elemental
-                WHITE + "Contiene el poder del fuego y hielo" +
-                        WHITE + "se puede utilizar para crear armaduras"),
-                31, Rangos.CONDENADO2, IpMateriales.PIEDRA_ELEMENTAL));
+        materiales.add(new IpMaterial(Material.BUBBLE_CORAL, "Elemento", List.of( // elemento
+                WHITE + "Contiene el poder del fuego y hielo" ,
+                WHITE + "se puede utilizar para crear armaduras"),
+                31, Rangos.CONDENADO2, IpMateriales.ELEMENTO));
 
         //Infierno 4
         materiales.add(new IpMaterial(Material.TUFF, "Restos de basura", Arrays.asList( // restos de basura
@@ -145,13 +145,13 @@ public class MaterialesManager {
         materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera elemental", List.of( // casco elemental
                 WHITE + "Contiene el poder del fuego armadura básica",
                 WHITE + "Set elemental" ),
-                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,1, SetsArmadura.ELEMENTAL,
+                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,2, SetsArmadura.ELEMENTAL,
                 Color.fromRGB(210,57,33) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones elementales", List.of( // casco elemental
                 WHITE + "Contiene el poder del hielo armadura básica",
                 WHITE + "Set elemental" ),
-                Rangos.CONDENADO2, IpMateriales.PANTALONES_ELEMENTALES,1, SetsArmadura.ELEMENTAL,
+                Rangos.CONDENADO2, IpMateriales.PANTALONES_ELEMENTALES,2, SetsArmadura.ELEMENTAL,
                 Color.fromRGB(159,251,255) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas elementales", List.of( // casco elemental
@@ -201,34 +201,35 @@ public class MaterialesManager {
                 -1, Rangos.SINTECHO2, IpMateriales.LENTE));
 
         materiales.add(new IpComida(Material.MELON_SLICE, "Rodaja de sandía", List.of( // Sandía rodaja
-                WHITE + "Entra muy bien en verano"),
+                WHITE + "Fruta que entra muy bien en verano"),
                 7, Rangos.SINTECHO2, IpMateriales.RODAJA_SANDIA,1, 0 ));
 
-        materiales.add(new IpMaterial(Material.MELON, "Sandía", List.of(), // sandia
-                0.5, Rangos.SINTECHO2, IpMateriales.SANDIA ));
+        materiales.add(new IpMaterial(Material.MELON, "Sandía", List.of( // sandia
+                 WHITE + "Conjunto de rodajas de sandia"),
+                65, Rangos.SINTECHO2, IpMateriales.SANDIA ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco sandia", List.of( // casco SANDIA
                 WHITE + "Contiene el poder del hielo armadura básica",
-                WHITE + "Set sandía" ),
-                Rangos.SINTECHO2, IpMateriales.CASCO_SANDIA,1, SetsArmadura.SANDIA,
+                WHITE + "Set sandía entero: hambre" ),
+                Rangos.SINTECHO2, IpMateriales.CASCO_SANDIA,2, SetsArmadura.SANDIA,
                 Color.fromRGB(235,48,116) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera sandia", List.of( // casco SANDIA
                 WHITE + "Contiene el poder del fuego armadura básica",
-                WHITE + "Set sandía" ),
+                WHITE + "Set sandía entero: hambre" ),
                 Rangos.SINTECHO2, IpMateriales.PECHERA_SANDIA,2, SetsArmadura.SANDIA,
                 Color.fromRGB(235,48,116) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones sandia", List.of( // casco SANDIA
                 WHITE + "Contiene el poder del hielo armadura básica",
-                WHITE + "Set sandía" ),
+                WHITE + "Set sandía entero: hambre" ),
                 Rangos.SINTECHO2, IpMateriales.PANTALONES_SANDIA,2, SetsArmadura.SANDIA,
                 Color.fromRGB(235,48,116) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas sandia", List.of( // casco SANDIA
                 WHITE + "Contiene el poder del fuego armadura básica",
-                WHITE + "Set sandía" ),
-                Rangos.SINTECHO2, IpMateriales.BOTAS_SANDIA,1, SetsArmadura.SANDIA,
+                WHITE + "Set sandía entero: hambre" ),
+                Rangos.SINTECHO2, IpMateriales.BOTAS_SANDIA,2, SetsArmadura.SANDIA,
                 Color.fromRGB(235,48,116) ));
 
         //Afueras 2
@@ -249,6 +250,39 @@ public class MaterialesManager {
                 WHITE + "Roca de color rojo de gran tamaño,",
                 WHITE + " grangrangrangrangrangranito"),
                 54, Rangos.SINTECHO1, IpMateriales.GRAN_GRANITO));
+
+        materiales.add(new IpMaterial(Material.ALLIUM, "Flor del desierto", List.of( // DESIERTO ROJO
+                WHITE + "Una pequeña flor que crece solo en oasis"),
+                100, Rangos.SINTECHO1, IpMateriales.FLOR_DESIERTO));
+
+        materiales.add(new IpMaterial(Material.FIRE_CORAL, "Desierto rojo", Arrays.asList( // DESIERTO ROJO
+                WHITE + "Contiene el poder del desierto,",
+                WHITE + " se puede utilizar para crear armaduras"),
+                400, Rangos.SINTECHO1, IpMateriales.DESIERTO_ROJO));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco desértico", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set desierto rojo" ),
+                Rangos.SINTECHO1, IpMateriales.CASCO_DESERTICO,3, SetsArmadura.DESIERTO_ROJO,
+                Color.fromRGB(239,79,34) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera desértica", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set desierto rojo" ),
+                Rangos.SINTECHO1, IpMateriales.PECHERA_DESERTICA,4, SetsArmadura.DESIERTO_ROJO,
+                Color.fromRGB(239,79,34) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones desertico", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set desierto rojo" ),
+                Rangos.SINTECHO1, IpMateriales.PANTALONES_DESERTICOS,3, SetsArmadura.DESIERTO_ROJO,
+                Color.fromRGB(239,79,34) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas desertico", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set desierto rojo" ),
+                Rangos.SINTECHO1, IpMateriales.BOTAS_DESERTICAS,2, SetsArmadura.DESIERTO_ROJO,
+                Color.fromRGB(239,79,34) ));
 
         //Extra 1
         materiales.add(new IpFragmento(Material.LIME_DYE, "Fragmento de esencia capitalista [1]", List.of( // fragmento verde 1
@@ -464,6 +498,13 @@ public class MaterialesManager {
                 if (fragmento.getNivel() != itemStack.getEnchantmentLevel(fragmento.getEnchant()))  continue;
             }
             if (itemStack.getItemMeta().equals(m.getItem(1).getItemMeta())) return m;
+        }
+        return materiales.getFirst();
+    }
+
+    public static IpMaterial blockToMaterial(Material material) {
+        for (IpMaterial m: materiales) {
+          if(material == m.getMaterial()) return m;
         }
         return materiales.getFirst();
     }
