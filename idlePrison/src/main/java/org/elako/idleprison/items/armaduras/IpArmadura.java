@@ -34,7 +34,6 @@ public class IpArmadura extends IpMaterial {
         assert lore != null;
         lore.add(lore.size()-1, ChatColor.WHITE + "Efectos:");
         lore.add(lore.size()-1, ChatColor.WHITE + "-Vida máx: +" + vida/2.0 );
-        IdlePrison.broadcast(String.valueOf(vida/2.0));
         itemMeta.setUnbreakable(true);
         itemMeta.setLore(lore);
         item.setItemMeta(itemMeta);

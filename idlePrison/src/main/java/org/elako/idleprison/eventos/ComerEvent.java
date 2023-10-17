@@ -27,9 +27,7 @@ public class ComerEvent implements Listener {
         if ( rangosManager.isPermitido(p.getName(), mate.getPermiso()) ) {
             IpComida comida = (IpComida) mate;
             comida.comido(p);
-        }
-
-
+        } else p.sendMessage("Rango insuficiente");
 
     }
 }

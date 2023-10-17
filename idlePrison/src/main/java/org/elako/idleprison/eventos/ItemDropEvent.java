@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
+import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
@@ -28,9 +29,9 @@ public class ItemDropEvent implements Listener {
         if(item.getItemMeta() == null) return;
 
         try {
-            nota = Integer.parseInt(item.getItemMeta().getDisplayName().substring(9,10));
+            nota = Integer.parseInt(item.getItemMeta().getDisplayName().substring(9,11));
         } catch (NumberFormatException excepcion) {
-            nota = Integer.parseInt(item.getItemMeta().getDisplayName().substring(9,9));
+            nota = Integer.parseInt(item.getItemMeta().getDisplayName().substring(9,10));
         }
 
         e.getItemDrop().remove();

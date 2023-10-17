@@ -176,6 +176,7 @@ public class Idleprison implements CommandExecutor {
                             " verde, amarillo y negro ");
                     p.sendMessage("'/ip reiniciar' para reiniciar el idleprison");
                     p.sendMessage("'/ip materiales n' para ver el menú de items n");
+                    p.sendMessage(" '/ip getnota nota' para recibir nota");
                 }
                 if (p.hasPermission("op")) p.sendMessage("'/ip setperm nm' para ver cambiar los permisos de un jugador" +
                         " el n es el permiso de constructor y el segundo de comandos ");

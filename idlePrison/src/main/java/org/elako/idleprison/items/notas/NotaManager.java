@@ -48,7 +48,7 @@ public class NotaManager {
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota"
         ),List.of(
                 ChatColor.WHITE + " Encuentra el secreto de la zona infierno1"
-        ),20, TipoNota.SECRETO));
+        ),15, TipoNota.SECRETO));
 
         notas.add(new Nota( notas.size()+1, "Minero empedernido", List.of( //5
                 ChatColor.WHITE + "Las minas se regeneran cada 5 minutos aproximádamente"
@@ -81,20 +81,20 @@ public class NotaManager {
                 ChatColor.WHITE + " nuevos crafteos e idles, cada vez costará más"
         ),List.of(
                 ChatColor.WHITE + " Sube de rango por primera vez"
-        ),40, TipoNota.RANGO));
+        ),30, TipoNota.RANGO));
 
         notas.add(new Nota( notas.size()+1, "Zona secreta 2", List.of(
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
                 ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
         ),List.of(
                 ChatColor.WHITE + " Encuentra el secreto de la zona infierno2"
-        ),70, TipoNota.SECRETO));
+        ),50, TipoNota.SECRETO));
 
         notas.add(new Nota( notas.size()+1, "Fondon", List.of( //todo 11
                 ChatColor.WHITE + "La comida es útil para cuando pierdes vida"
         ),List.of(
                 ChatColor.WHITE + " Come 50 alimentos"
-        ),70, TipoNota.COMER));
+        ),60, TipoNota.COMER));
 
         //infierno3
         notas.add(new Nota( notas.size()+1, "Tecnología arcana", List.of( //todo 12
@@ -102,7 +102,7 @@ public class NotaManager {
                 ChatColor.WHITE + " las cuales a su vez sirven para mejorar picos"
         ),List.of(
                 ChatColor.WHITE + " Obtén tu primer fragmento de esencia"
-        ),70, TipoNota.ESENCIA));
+        ),40, TipoNota.ESENCIA));
 
         notas.add(new Nota( notas.size()+1, "Destrucción masiva", List.of( //todo 13
                 ChatColor.WHITE + "Aumenta la velocidad con la que mina el",
@@ -144,7 +144,7 @@ public class NotaManager {
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota"
         ),List.of(
                 ChatColor.WHITE + " Consigue 10.000 E"
-        ),1000, TipoNota.DINERO));
+        ),700, TipoNota.DINERO));
 
         //afueras1
         notas.add(new Nota( notas.size()+1, "Fuera del infierno", List.of( //9
@@ -152,21 +152,21 @@ public class NotaManager {
                 ChatColor.WHITE + " nuevos crafteos e idles, cada vez costará más"
         ),List.of(
                 ChatColor.WHITE + " Consigue el rango sintecho2"
-        ),400, TipoNota.RANGO));
+        ),300, TipoNota.RANGO));
 
         notas.add(new Nota( notas.size()+1, "Vendedor experto", List.of( //8
                 ChatColor.WHITE + "Las esencias no rentan venderlas a menos de",
                 ChatColor.WHITE + " que te sobren"
         ),List.of(
                 ChatColor.WHITE + " Vende 700 items"
-        ),300, TipoNota.VENDER));
+        ),200, TipoNota.VENDER));
 
         notas.add(new Nota( notas.size()+1, "Zona secreta 5", List.of( //16
                 ChatColor.WHITE + "En cada mina hay un secreto que te da una nota",
                 ChatColor.WHITE + " mira cuidadosamente para encontrarlos"
         ),List.of(
                 ChatColor.WHITE + " Encuentra el secreto de la zona afueras1"
-        ),800, TipoNota.SECRETO));
+        ),500, TipoNota.SECRETO));
 
         //afueras2
 

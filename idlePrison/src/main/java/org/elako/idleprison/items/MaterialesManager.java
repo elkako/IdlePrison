@@ -262,25 +262,25 @@ public class MaterialesManager {
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco desértico", List.of( // casco elemental
                 WHITE + "Contiene el poder del desierto y del calor",
-                WHITE + "Set desierto rojo" ),
+                WHITE + "Set desierto rojo entero: Inmunidad al fuego" ),
                 Rangos.SINTECHO1, IpMateriales.CASCO_DESERTICO,3, SetsArmadura.DESIERTO_ROJO,
                 Color.fromRGB(239,79,34) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera desértica", List.of( // casco elemental
                 WHITE + "Contiene el poder del desierto y del calor",
-                WHITE + "Set desierto rojo" ),
+                WHITE + "Set desierto rojo entero: Inmunidad al fuego" ),
                 Rangos.SINTECHO1, IpMateriales.PECHERA_DESERTICA,4, SetsArmadura.DESIERTO_ROJO,
                 Color.fromRGB(239,79,34) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones desertico", List.of( // casco elemental
                 WHITE + "Contiene el poder del desierto y del calor",
-                WHITE + "Set desierto rojo" ),
+                WHITE + "Set desierto rojo entero: Inmunidad al fuego" ),
                 Rangos.SINTECHO1, IpMateriales.PANTALONES_DESERTICOS,3, SetsArmadura.DESIERTO_ROJO,
                 Color.fromRGB(239,79,34) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas desertico", List.of( // casco elemental
                 WHITE + "Contiene el poder del desierto y del calor",
-                WHITE + "Set desierto rojo" ),
+                WHITE + "Set desierto rojo entero: Inmunidad al fuego" ),
                 Rangos.SINTECHO1, IpMateriales.BOTAS_DESERTICAS,2, SetsArmadura.DESIERTO_ROJO,
                 Color.fromRGB(239,79,34) ));
 
@@ -327,6 +327,34 @@ public class MaterialesManager {
         materiales.add(new IpComida(Material.BREAD, "Pan de chapata", List.of( // pan
                 WHITE + "Recien horneado y calentito"),
                 37, Rangos.CONDENADO2, IpMateriales.PAN,3,6  ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco de cuarzo", List.of( // casco elemental
+                WHITE + "Armadura utilizada por nobles, perfecta",
+                WHITE + " para llamar la atención.",
+                WHITE + "Set cuarzo: brillo" ),
+                Rangos.SINTECHO1, IpMateriales.CASCO_CUARZO,3, SetsArmadura.CUARZO,
+                Color.fromRGB(253,252,230) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera de cuarzo", List.of( // casco elemental
+                WHITE + "Armadura utilizada por nobles, perfecta",
+                WHITE + " para llamar la atención.",
+                WHITE + "Set cuarzo: brillo" ),
+                Rangos.SINTECHO1, IpMateriales.PECHERA_CUARZO,4, SetsArmadura.CUARZO,
+                Color.fromRGB(253,252,230) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones de cuarzo", List.of( // casco elemental
+                WHITE + "Armadura utilizada por nobles, perfecta",
+                WHITE + " para llamar la atención.",
+                WHITE + "Set cuarzo: brillo" ),
+                Rangos.SINTECHO1, IpMateriales.PANTALONES_CUARZO,4, SetsArmadura.CUARZO,
+                Color.fromRGB(253,252,230) ));
+
+        materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas de cuarzo", List.of( // casco elemental
+                WHITE + "Armadura utilizada por nobles, perfecta",
+                WHITE + "para llamar la atención.",
+                WHITE + "Set cuarzo: brillo" ),
+                Rangos.SINTECHO1, IpMateriales.BOTAS_CUARZO,3, SetsArmadura.CUARZO,
+                Color.fromRGB(253,252,230) ));
 
         //Afueras4
         materiales.add(new IpMaterial(Material.COBBLESTONE_SLAB, "Mini roca", Arrays.asList( // Mini roca
@@ -540,7 +568,6 @@ public class MaterialesManager {
             }
         }
         if(set == null) return null;
-        IdlePrison.broadcast(set.name());
         return set.getEfecto();
     }
 

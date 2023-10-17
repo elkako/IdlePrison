@@ -162,7 +162,7 @@ public class BloqueManager {
                 new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.007 )
         ), new ArrayList<>(), (p, pos) -> {
             if (probabilidad(0.02)) {
-                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.sendMessage(ChatColor.RED + "Te ha dado calor");
                 p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
                 p.setFireTicks(90);
                 p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
@@ -184,7 +184,7 @@ public class BloqueManager {
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.GRANITO), 3, 6)
         ), (p, pos) -> {
             if (probabilidad(0.05)) {
-                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.sendMessage(ChatColor.RED + "Te ha dado calor");
                 p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
                 p.setFireTicks(90);
                 p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
@@ -214,7 +214,7 @@ public class BloqueManager {
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.ARENA), 1, 3)
         ), (p, pos) -> {
             if (probabilidad(0.05)) {
-                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.sendMessage(ChatColor.RED + "Te ha dado calor");
                 p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
                 p.setFireTicks(90);
                 p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
@@ -227,7 +227,7 @@ public class BloqueManager {
                 new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.015 )
         ), new ArrayList<>(), (p, pos) -> {
             if (probabilidad(0.05)) {
-                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.sendMessage(ChatColor.RED + "Te ha dado calor");
                 p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
                 p.setFireTicks(90);
                 p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
@@ -241,7 +241,7 @@ public class BloqueManager {
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.TRIGO), 1, 3)
         ), (p, pos) -> {
             if (probabilidad(0.07)) {
-                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado calor");
+                p.sendMessage(ChatColor.RED + "Te ha dado calor");
                 p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
                 p.setFireTicks(90);
                 p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
