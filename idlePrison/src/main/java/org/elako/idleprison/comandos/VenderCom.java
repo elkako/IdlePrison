@@ -10,12 +10,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.elako.idleprison.items.VenderManager;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
-public class Vender implements CommandExecutor {
+public class VenderCom implements CommandExecutor {
     VenderManager venderManager;
 
-    public Vender(VenderManager vender) {
+    public VenderCom(VenderManager vender) {
         venderManager = vender;
     }
 
@@ -23,26 +24,27 @@ public class Vender implements CommandExecutor {
         // tamaños inventarios: 9 18 27 36 45 54
         Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.GREEN) + "Vender");
         for (int i = 7; i < 27 ;i=i+8) {         //7,8,16,17,25,26
-            inventario.setItem(i, Idleprison.crearObjeto(Material.BLACK_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
+            inventario.setItem(i, IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
             i++;
-            inventario.setItem(i, Idleprison.crearObjeto(Material.BLACK_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
+            inventario.setItem(i, IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
         }
         for (int i = 34; i < 53 ; i=i+8) {         //34,35,43,44,52,53
-            inventario.setItem(i, Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
+            inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
             i++;
-            if (i != 35) inventario.setItem(i, Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
+            if (i != 35) inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE,ChatColor.WHITE + " " ));
         }
 
-        inventario.setItem(35, Idleprison.crearObjetoLore(Material.LIME_STAINED_GLASS_PANE,ChatColor.WHITE + "Vender", List.of(
+        inventario.setItem(35, IdleprisonCom.crearObjetoLore(Material.LIME_STAINED_GLASS_PANE,ChatColor.WHITE + "Vender", List.of(
                 ChatColor.WHITE + "Botón para vender objetos",
                 ChatColor.WHITE + "Arrastra todo lo que quieras vender") ));
-        inventario.setItem(53, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
+        inventario.setItem(53, IdleprisonCom.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
                 ChatColor.WHITE + "Botón para volver al menú"  ) ));
         return inventario;
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command,
+                             @Nonnull String s, @Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
         if (strings.length > 1) {

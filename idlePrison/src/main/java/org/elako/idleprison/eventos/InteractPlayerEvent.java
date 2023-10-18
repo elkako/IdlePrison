@@ -54,17 +54,17 @@ public class InteractPlayerEvent implements Listener {
 
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
                 if(firstLine.contains("general")){
-                    p.openInventory(Idleprison.crearInventario(p));
+                    p.openInventory(IdleprisonCom.crearInventario(p));
                 } else if(firstLine.contains("idle")){
-                    p.openInventory(Idle.crearInventario(p,1));
+                    p.openInventory(IdleCom.crearInventario(p,1));
                 } else if(firstLine.contains("minas")){
-                    p.openInventory(Mina.crearInventario(p));
+                    p.openInventory(MinaCom.crearInventario(p));
                 } else if(firstLine.contains("Rankup")){
                     rangosManager.ascender(p);
                 } else if(firstLine.contains("hand")){
                     venderManager.venderObjeto(p.getInventory().getItemInMainHand(),p.getInventory().getContents(), p);
                 } else if(firstLine.contains("vender")){
-                    p.openInventory(Vender.crearInventario(p));
+                    p.openInventory(VenderCom.crearInventario(p));
                 } else if(firstLine.contains("Craftguide")){
                     p.openInventory(CrafteoManager.CraftGuide(p));
                 } else if(firstLine.contains("craftear")){

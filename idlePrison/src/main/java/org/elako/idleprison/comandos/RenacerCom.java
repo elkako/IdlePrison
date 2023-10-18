@@ -10,12 +10,12 @@ import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
 
-public class Renacer implements CommandExecutor {
+public class RenacerCom implements CommandExecutor {
     TreeSkillManager treeSkillManager;
     PlayerManager playerManager;
     RangosManager rangosManager;
 
-    public Renacer(TreeSkillManager treeSkillManager, PlayerManager playerManager, RangosManager rangosManager) {
+    public RenacerCom(TreeSkillManager treeSkillManager, PlayerManager playerManager, RangosManager rangosManager) {
         this.treeSkillManager = treeSkillManager;
         this.playerManager = playerManager;
         this.rangosManager = rangosManager;

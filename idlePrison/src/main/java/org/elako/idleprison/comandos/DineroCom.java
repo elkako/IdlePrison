@@ -7,11 +7,13 @@ import org.bukkit.entity.Player;
 import org.elako.idleprison.player.DineroManager;
 import org.elako.idleprison.player.PlayerManager;
 
-public class Dinero implements CommandExecutor {
+import javax.annotation.Nonnull;
+
+public class DineroCom implements CommandExecutor {
     DineroManager dineroManager;
     PlayerManager playerManager;
 
-    public Dinero(DineroManager dinero, PlayerManager player) {
+    public DineroCom(DineroManager dinero, PlayerManager player) {
         dineroManager = dinero;
         playerManager = player;
     }
@@ -23,7 +25,8 @@ public class Dinero implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command,
+                             @Nonnull String s, @Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
         boolean permiso = playerManager.isPermisoComandos(p.getName());

@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.comandos.Idle;
+import org.elako.idleprison.comandos.IdleCom;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 
@@ -319,7 +319,7 @@ public class IdleManager {
                 if(player == null) continue;
 
                 if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle")){
-                    player.openInventory(Idle.crearInventario(player,1));
+                    player.openInventory(IdleCom.crearInventario(player,1));
                 }
 
             }

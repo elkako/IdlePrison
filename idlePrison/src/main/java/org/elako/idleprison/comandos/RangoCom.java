@@ -7,11 +7,13 @@ import org.bukkit.entity.Player;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.RangosManager;
 
-public class Rango implements CommandExecutor {
+import javax.annotation.Nonnull;
+
+public class RangoCom implements CommandExecutor {
     private final RangosManager rangoManager;
     PlayerManager playerManager;
 
-    public Rango(RangosManager rango, PlayerManager player) {
+    public RangoCom(RangosManager rango, PlayerManager player) {
         rangoManager = rango;
         playerManager = player;
     }
@@ -19,7 +21,8 @@ public class Rango implements CommandExecutor {
     private void mensajeError(Player p) {p.sendMessage("Error, pon '/rango help' para ver el uso correcto");}
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command,
+                             @Nonnull String s, @Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
         boolean permiso = playerManager.isPermisoComandos(p.getName());
