@@ -21,10 +21,11 @@ import org.elako.idleprison.player.RangosManager;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
-public class Idleprison implements CommandExecutor {
+public class IdleprisonCom implements CommandExecutor {
     private static RangosManager rangoManager;
     private static DineroManager dineroManager;
     private static PlayerManager playerManager;
@@ -32,8 +33,8 @@ public class Idleprison implements CommandExecutor {
     private final MaterialesManager materialesManager;
     private final MinaManager minaManager;
 
-    public Idleprison(RangosManager rango, DineroManager dinero, PlayerManager player, TreeSkillManager treeSkill,
-                      MinaManager mina, MaterialesManager materiales) {
+    public IdleprisonCom(RangosManager rango, DineroManager dinero, PlayerManager player, TreeSkillManager treeSkill,
+                         MinaManager mina, MaterialesManager materiales) {
         materialesManager = materiales;
         playerManager = player;
         dineroManager = dinero;
@@ -129,7 +130,8 @@ public class Idleprison implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command,
+                             @Nonnull String s, @Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
         boolean permiso = playerManager.isPermisoComandos(p.getName());

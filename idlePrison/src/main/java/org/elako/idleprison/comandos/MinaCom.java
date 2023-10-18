@@ -14,13 +14,14 @@ import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.RangosManager;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
-public class Mina implements CommandExecutor {
+public class MinaCom implements CommandExecutor {
     private static MinaManager minaManager;
     private static RangosManager rangosManager;
 
-    public Mina(MinaManager mina, RangosManager rango) {
+    public MinaCom(MinaManager mina, RangosManager rango) {
         rangosManager = rango;
         minaManager = mina;
     }
@@ -43,14 +44,15 @@ public class Mina implements CommandExecutor {
             contador++;
         }
 
-        inventario.setItem(size-1, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
+        inventario.setItem(size-1, IdleprisonCom.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
                 ChatColor.WHITE + "Botón para volver al menú")));
 
         return inventario;
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command,
+                             @Nonnull String s, @Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
         if (strings.length > 2) {

@@ -14,18 +14,19 @@ import org.elako.idleprison.player.Rangos;
 import org.elako.idleprison.player.RangosManager;
 import org.elako.idleprison.player.PlayerManager;
 
-import java.util.Arrays;
+import javax.annotation.Nonnull;
 import java.util.LinkedList;
+import java.util.List;
 
-public class Idle implements CommandExecutor {
+public class IdleCom implements CommandExecutor {
     private static PlayerManager playerManager;
     private static RangosManager rangosManager;
     private static IdleManager idleManager;
 
-    public Idle(PlayerManager playerManager, RangosManager rango, IdleManager idle) {
+    public IdleCom(PlayerManager playerManager, RangosManager rango, IdleManager idle) {
         idleManager = idle;
         rangosManager = rango;
-        this.playerManager = playerManager;
+        IdleCom.playerManager = playerManager;
     }
 
     public static Inventory crearInventario(Player p, int cantidad) {
@@ -36,7 +37,7 @@ public class Idle implements CommandExecutor {
             inventarioTitulo += String.valueOf(cantidad);
         }
 
-        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + "" + ChatColor.GOLD + "Idle" + inventarioTitulo);
+        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle" + inventarioTitulo);
         String player = p.getName();
 
         for (int i=0;i<54;i++) {
@@ -44,15 +45,15 @@ public class Idle implements CommandExecutor {
 
             switch (i){
                 case 1:
-                    inventario.setItem(i, Idleprison.crearObjeto(Material.WOODEN_PICKAXE,
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.WOODEN_PICKAXE,
                             ChatColor.WHITE + "Niño minero", playerManager.getIdle(1,player) ));
                     break;
                 case 10:
-                    inventario.setItem(i, Idleprison.crearObjeto(Material.WOODEN_PICKAXE,
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.WOODEN_PICKAXE,
                             ChatColor.WHITE + "Niño minero", playerManager.getIdle(1,player)-64));
                     break;
                 case 19:
-                    inventario.setItem(i, Idleprison.crearObjeto(Material.WOODEN_PICKAXE,
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.WOODEN_PICKAXE,
                             ChatColor.WHITE + "Niño minero", playerManager.getIdle(1,player)-128));
                     break;
                 case 9:
@@ -73,23 +74,23 @@ public class Idle implements CommandExecutor {
                     lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,1)) + " cada 10 segs" );
                     lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,1)/10) + "/S)" );
 
-                    if (idleManager.isComprable(player,1,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
+                    if (idleManager.isComprable(player,1,cantidad)) inventario.setItem(i, IdleprisonCom.crearObjetoLore(
                             Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " niño minero", lore ));
-                    else inventario.setItem(i, Idleprison.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " niño minero", lore ));
+                    else inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " niño minero", lore ));
                     break;
                 case 4:
-                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO3)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.STONE_PICKAXE,
+                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO3)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.STONE_PICKAXE,
                             ChatColor.WHITE + "Minero experimentado", playerManager.getIdle(2,player)));
                     break;
                 case 13:
-                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO3)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.STONE_PICKAXE,
+                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO3)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.STONE_PICKAXE,
                             ChatColor.WHITE + "Minero experimentado", playerManager.getIdle(2,player)-64));
                     break;
                 case 22:
-                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO3)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.STONE_PICKAXE,
+                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO3)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.STONE_PICKAXE,
                             ChatColor.WHITE + "Minero experimentado", playerManager.getIdle(2,player)-128));
                     break;
                 case 12:
@@ -109,26 +110,26 @@ public class Idle implements CommandExecutor {
                         lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,2)) + " cada 20 segs" );
                         lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,2)/20) + " /S)" );
 
-                        if (idleManager.isComprable(player,2,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
+                        if (idleManager.isComprable(player,2,cantidad)) inventario.setItem(i, IdleprisonCom.crearObjetoLore(
                                 Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " minero experimentado", lore ));
-                        else inventario.setItem(i, Idleprison.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " minero experimentado", lore ));
+                        else inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " minero experimentado", lore ));
 
                     }
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
                     break;
                 case 7:
-                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.CALCITE,
+                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.CALCITE,
                             ChatColor.WHITE + "Yacimiento de calcita", playerManager.getIdle(3,player)));
                     break;
                 case 16:
-                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.CALCITE,
+                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.CALCITE,
                             ChatColor.WHITE + "Yacimiento de calcita", playerManager.getIdle(3,player)-64));
                     break;
                 case 25:
-                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.CALCITE,
+                    if(!rangosManager.isPermitido(player, Rangos.CONDENADO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.CALCITE,
                             ChatColor.WHITE + "Yacimiento de calcita", playerManager.getIdle(3,player)-128));
                     break;
                 case 15:
@@ -148,48 +149,48 @@ public class Idle implements CommandExecutor {
                         lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,3)) + " cada 25 segs" );
                         lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,3)/25) + "/S)" );
 
-                        if (idleManager.isComprable(player,3,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
+                        if (idleManager.isComprable(player,3,cantidad)) inventario.setItem(i, IdleprisonCom.crearObjetoLore(
                                 Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " yacimiento de calcita", lore ));
-                        else inventario.setItem(i, Idleprison.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " yacimiento de calcita", lore ));
+                        else inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " yacimiento de calcita", lore ));
 
-                    } else inventario.setItem(i, Idleprison.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
+                    } else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
                     break;
                 case 8:
-                    if (cantidad == 1) inventario.setItem(i, Idleprison.crearObjeto(Material.GRAY_CONCRETE,ChatColor.WHITE + "compra x1",1));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.LIGHT_GRAY_CONCRETE,ChatColor.WHITE + "compra x1",1));
+                    if (cantidad == 1) inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GRAY_CONCRETE,ChatColor.WHITE + "compra x1",1));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.LIGHT_GRAY_CONCRETE,ChatColor.WHITE + "compra x1",1));
                     break;
                 case 17:
-                    if (cantidad == 10) inventario.setItem(i, Idleprison.crearObjeto(Material.GRAY_CONCRETE,ChatColor.WHITE + "compra x10",10));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.LIGHT_GRAY_CONCRETE,ChatColor.WHITE + "compra x10",10));
+                    if (cantidad == 10) inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GRAY_CONCRETE,ChatColor.WHITE + "compra x10",10));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.LIGHT_GRAY_CONCRETE,ChatColor.WHITE + "compra x10",10));
                     break;
                 case 26:
-                    if (cantidad == 64) inventario.setItem(i, Idleprison.crearObjeto(Material.GRAY_CONCRETE,ChatColor.WHITE + "compra x64",64));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.LIGHT_GRAY_CONCRETE,ChatColor.WHITE + "compra x64",64));
+                    if (cantidad == 64) inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GRAY_CONCRETE,ChatColor.WHITE + "compra x64",64));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.LIGHT_GRAY_CONCRETE,ChatColor.WHITE + "compra x64",64));
                     break;
                 case 27:
-                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", Arrays.asList(
+                    inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
                             ChatColor.WHITE + "Botón para volver al menú"  ) ));
                     break;
                 case 29:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.SINTECHO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.GRANITE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.SINTECHO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GRANITE,
                             ChatColor.WHITE + "Cueva de granito", playerManager.getIdle(4,player)));
                     break;
                 case 38:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.SINTECHO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.GRANITE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.SINTECHO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GRANITE,
                             ChatColor.WHITE + "Cueva de granito", playerManager.getIdle(4,player)-64));
                     break;
                 case 47:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.SINTECHO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.GRANITE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.SINTECHO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GRANITE,
                             ChatColor.WHITE + "Cueva de granito", playerManager.getIdle(4,player)-128));
                     break;
                 case 37:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
                     else if(rangosManager.isPermitido(player, Rangos.SINTECHO1)){
                         lore.add( ChatColor.WHITE + "Precio: " );
                         lore.addAll( idleManager.loreToStrings(4,player,cantidad) );
@@ -206,33 +207,33 @@ public class Idle implements CommandExecutor {
                         lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,4)) + " cada 15 segs" );
                         lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,4)/15) + "/S)" );
 
-                        if (idleManager.isComprable(player,4,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
+                        if (idleManager.isComprable(player,4,cantidad)) inventario.setItem(i, IdleprisonCom.crearObjetoLore(
                                 Material.LIME_CONCRETE, ChatColor.GREEN + "Comprar x" + cantidad + " cueva de granito", lore ));
-                        else inventario.setItem(i, Idleprison.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " cueva de granito", lore ));
+                        else inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " cueva de granito", lore ));
 
                     }
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
                     break;
                 case 32:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.SMOOTH_SANDSTONE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.SMOOTH_SANDSTONE,
                                 ChatColor.WHITE + "Piramide de arenisca", playerManager.getIdle(5,player)));
                     break;
                 case 41:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.SMOOTH_SANDSTONE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.SMOOTH_SANDSTONE,
                                 ChatColor.WHITE + "Piramide de arenisca", playerManager.getIdle(5,player)-64));
                     break;
                 case 50:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.SMOOTH_SANDSTONE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.SMOOTH_SANDSTONE,
                                 ChatColor.WHITE + "Piramide de arenisca", playerManager.getIdle(5,player)-128));
                     break;
                 case 40:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
                     else if(rangosManager.isPermitido(player, Rangos.CAMPESINO2)){
                         lore.add( ChatColor.WHITE + "Precio: " );
                         lore.addAll( idleManager.loreToStrings(5,player,cantidad) );
@@ -249,33 +250,33 @@ public class Idle implements CommandExecutor {
                         lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,5)) + " cada 30 segs" );
                         lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,5)/30) + "/S)" );
 
-                        if (idleManager.isComprable(player,5,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
+                        if (idleManager.isComprable(player,5,cantidad)) inventario.setItem(i, IdleprisonCom.crearObjetoLore(
                                 Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " piramide de arenisca", lore ));
-                        else inventario.setItem(i, Idleprison.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " piramide de arenisca", lore ));
+                        else inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " piramide de arenisca", lore ));
 
                     }
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
                     break;
                 case 35:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.COAL_ORE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.COAL_ORE,
                                 ChatColor.WHITE + "Mina de carbón", playerManager.getIdle(6,player)));
                     break;
                 case 44:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.COAL_ORE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.COAL_ORE,
                                 ChatColor.WHITE + "Mina de carbón", playerManager.getIdle(6,player)-64));
                     break;
                 case 53:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO1)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.COAL_ORE,
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if(!rangosManager.isPermitido(player, Rangos.CAMPESINO1)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.COAL_ORE,
                                 ChatColor.WHITE + "Mina de carbón", playerManager.getIdle(6,player)-128));
                     break;
                 case 43:
-                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    if(!rangosManager.isPermitido(player, Rangos.SINTECHO2)) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
                     else if(rangosManager.isPermitido(player, Rangos.CAMPESINO1)) {
                         lore.add( ChatColor.WHITE + "Precio: " );
                         lore.addAll( idleManager.loreToStrings(6,player,cantidad) );
@@ -292,26 +293,28 @@ public class Idle implements CommandExecutor {
                         lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(idleManager.minaDinero(player,6)) + " cada 35 segs" );
                         lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(idleManager.minaDinero(player,6)/35) + "/S)" );
 
-                        if (idleManager.isComprable(player,6,cantidad)) inventario.setItem(i, Idleprison.crearObjetoLore(
+                        if (idleManager.isComprable(player,6,cantidad)) inventario.setItem(i, IdleprisonCom.crearObjetoLore(
                                 Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " mina de carbón", lore ));
-                        else inventario.setItem(i, Idleprison.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " mina de carbón", lore ));
+                        else inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " mina de carbón", lore ));
 
                     }
-                    else inventario.setItem(i, Idleprison.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
+                    else inventario.setItem(i, IdleprisonCom.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado"));
                     break;
                 case 45:
-                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.CHEST,ChatColor.GREEN + "Recoger dinero", Arrays.asList(
-                            ChatColor.WHITE + "Dinero acumulado: " + DineroManager.dineroToString(playerManager.getDineroAcum(player)) ) ));
+                    inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.CHEST,ChatColor.GREEN + "Recoger dinero", List.of(
+                            ChatColor.WHITE + "Dinero acumulado: " + DineroManager.dineroToString(playerManager.getDineroAcum(player))) ));
                     break;
                 default:
-                    if (i<27) inventario.setItem(i,  Idleprison.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
-                    else inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    if (i<27) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
+                    else inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
             }
         }
         return inventario;
     }
 
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    @Override
+    public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command,
+                             @Nonnull String s, @Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
 
@@ -322,18 +325,19 @@ public class Idle implements CommandExecutor {
             return true;
         }
 
-       if (strings[0].equals("recoger")){
-            idleManager.recogerDinero(p);
-            return true;
-        } else if (strings[0].equals("help")){
-        p.sendMessage("'/idle' para ver el menú general de idle");
-        p.sendMessage("'/idle recoger' para recoger el dinero del idle");
+        switch (strings[0]) {
+            case "recoger":
+                idleManager.recogerDinero(p);
+                return true;
+            case "help":
+                p.sendMessage("'/idle' para ver el menú general de idle");
+                p.sendMessage("'/idle recoger' para recoger el dinero del idle");
 
-        return true;
-       } else  if (strings[0].equals("skip")){
-           // programar
-           return true;
-       }
+                return true;
+            case "skip":
+                // programar
+                return true;
+        }
 
         return false;
     }

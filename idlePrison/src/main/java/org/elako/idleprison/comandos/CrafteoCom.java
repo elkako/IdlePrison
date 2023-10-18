@@ -10,25 +10,27 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.elako.idleprison.crafteos.CrafteoManager;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
-public class Crafteo implements CommandExecutor {
+public class CrafteoCom implements CommandExecutor {
 
     public static Inventory crearInventario(Player p) {
         // tamaños inventarios: 9 18 27 36 45 54
 
         Inventory inventario = Bukkit.createInventory(p, 27, ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "Craftear");
-        inventario.setItem(11, Idleprison.crearObjeto(Material.CRAFTING_TABLE,ChatColor.WHITE +"Craftear"));
-        inventario.setItem(15, Idleprison.crearObjeto(Material.BOOK,ChatColor.WHITE +"Craftguide"));
+        inventario.setItem(11, IdleprisonCom.crearObjeto(Material.CRAFTING_TABLE,ChatColor.WHITE +"Craftear"));
+        inventario.setItem(15, IdleprisonCom.crearObjeto(Material.BOOK,ChatColor.WHITE +"Craftguide"));
 
-        inventario.setItem(26, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
+        inventario.setItem(26, IdleprisonCom.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
                 ChatColor.WHITE + "Botón para volver al menú")));
 
         return inventario;
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@Nonnull CommandSender commandSender,@Nonnull Command command,
+                             @Nonnull String s,@Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
 

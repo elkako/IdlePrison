@@ -6,7 +6,8 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
-import org.elako.idleprison.comandos.Idleprison;
+import org.elako.idleprison.comandos.CrafteoCom;
+import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.player.Rangos;
@@ -224,7 +225,7 @@ public class CrafteoManager {
             i++;
         }
 
-        inventario.setItem(35, Idleprison.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
+        inventario.setItem(35, IdleprisonCom.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
                 ChatColor.WHITE + "Botón para volver al menú")));
 
         return inventario;
@@ -232,7 +233,7 @@ public class CrafteoManager {
 
     public void interactuar(ItemStack item, Player p){
         if (item.getType().equals(Material.RED_STAINED_GLASS_PANE))
-            p.openInventory(org.elako.idleprison.comandos.Crafteo.crearInventario(p));
+            p.openInventory(CrafteoCom.crearInventario(p));
         for ( Crafteo c : crafteos ) {
             if(MaterialesManager.comparar(item, c.getIcono())) p.openInventory(c.getGuide(p));
         }
@@ -291,6 +292,5 @@ public class CrafteoManager {
                 material,   nulo,   material
         ) ), armaduras.get(3), rango ) );
     }
-
 
 }

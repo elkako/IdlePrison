@@ -67,26 +67,26 @@ public class MenuListener implements Listener {
         if (e.getCurrentItem().getType().equals(Material.IRON_PICKAXE)) {
             p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE_FAR, 100, 2);
             rangosManager.ascender(p);
-            p.openInventory(Idleprison.crearInventario(p));
+            p.openInventory(IdleprisonCom.crearInventario(p));
         } else if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            Inventory inventario = Crafteo.crearInventario(p);
+            Inventory inventario = CrafteoCom.crearInventario(p);
             p.openInventory(inventario);
         } else if (e.getCurrentItem().getType().equals(Material.COAL_ORE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            Inventory inventario = Mina.crearInventario(p);
+            Inventory inventario = MinaCom.crearInventario(p);
             p.openInventory(inventario);
         } else if (e.getCurrentItem().getType().equals(Material.OAK_SAPLING)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            Inventory inventario = TreeSkill.crearInventario(p);
+            Inventory inventario = TreeSkillCom.crearInventario(p);
             p.openInventory(inventario);
         } else if (e.getCurrentItem().getType().equals(Material.CHEST)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            Inventory inventario = Idle.crearInventario(p,1);
+            Inventory inventario = IdleCom.crearInventario(p,1);
             p.openInventory(inventario);
         } else if (e.getCurrentItem().getType().equals(Material.GOLD_INGOT)){
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            Inventory inventario = Vender.crearInventario(p);
+            Inventory inventario = VenderCom.crearInventario(p);
             p.openInventory(inventario);
         } else if (e.getCurrentItem().getType().equals(Material.NETHER_STAR)){
             treeSkillManager.renacer(p);
@@ -138,7 +138,7 @@ public class MenuListener implements Listener {
             e.getView().close();
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-            p.openInventory(Idleprison.crearInventario(p));
+            p.openInventory(IdleprisonCom.crearInventario(p));
         }
     }
 
@@ -157,7 +157,7 @@ public class MenuListener implements Listener {
             p.openInventory(CrafteoManager.CraftGuide(p));
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-            p.openInventory(Idleprison.crearInventario(p));
+            p.openInventory(IdleprisonCom.crearInventario(p));
         }
     }
 
@@ -199,7 +199,7 @@ public class MenuListener implements Listener {
                 if (dinero != 0) {
                     p.sendMessage("Comprado por: " + DineroManager.dineroToString(dinero) + ", 1 alga seca y " +
                             (playerManager.getIdle(1,p.getName())) + " polvo de hueso" );
-                    p.openInventory(Idle.crearInventario(p,cantidad));
+                    p.openInventory(IdleCom.crearInventario(p,cantidad));
                 }
                 else p.sendMessage("No suficiente dinero");
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x"+cantidad+" minero experimentado")) {
@@ -207,7 +207,7 @@ public class MenuListener implements Listener {
                 double dinero = idleManager.comprar(p,2, cantidad);
                 if (dinero != 0) {
                     p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
-                    p.openInventory(Idle.crearInventario(p,cantidad));
+                    p.openInventory(IdleCom.crearInventario(p,cantidad));
                 }
                 else p.sendMessage("No suficiente dinero");
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x"+cantidad+" yacimiento de calcita")) {
@@ -215,7 +215,7 @@ public class MenuListener implements Listener {
                 double dinero = idleManager.comprar(p,3, cantidad);
                 if (dinero != 0) {
                     p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
-                    p.openInventory(Idle.crearInventario(p,cantidad));
+                    p.openInventory(IdleCom.crearInventario(p,cantidad));
                 }
                 else p.sendMessage("No suficiente dinero");
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x"+cantidad+" cueva de granito")) {
@@ -223,7 +223,7 @@ public class MenuListener implements Listener {
                 double dinero = idleManager.comprar(p,4, cantidad);
                 if (dinero != 0) {
                     p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
-                    p.openInventory(Idle.crearInventario(p,cantidad));
+                    p.openInventory(IdleCom.crearInventario(p,cantidad));
                 }
                 else p.sendMessage("No suficiente dinero");
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x" + cantidad + " piramide de arenisca")) {
@@ -231,7 +231,7 @@ public class MenuListener implements Listener {
                 double dinero = idleManager.comprar(p,5, cantidad);
                 if (dinero != 0) {
                     p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
-                    p.openInventory(Idle.crearInventario(p,cantidad));
+                    p.openInventory(IdleCom.crearInventario(p,cantidad));
                 }
                 else p.sendMessage("No suficiente dinero");
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GREEN + "Comprar x" + cantidad + " mina de carbón")) {
@@ -239,7 +239,7 @@ public class MenuListener implements Listener {
                 double dinero = idleManager.comprar(p,6, cantidad);
                 if (dinero != 0) {
                     p.sendMessage("Comprado por " + DineroManager.dineroToString(dinero));
-                    p.openInventory(Idle.crearInventario(p,cantidad));
+                    p.openInventory(IdleCom.crearInventario(p,cantidad));
                 }
                 else p.sendMessage("No suficiente dinero");
             }
@@ -248,10 +248,10 @@ public class MenuListener implements Listener {
             p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,2);
         } else if (e.getCurrentItem().getType().equals(Material.LIGHT_GRAY_CONCRETE)){
             if (e.getCurrentItem().getItemMeta().getDisplayName().contains("10")){
-                p.openInventory(Idle.crearInventario(p,10));
+                p.openInventory(IdleCom.crearInventario(p,10));
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("64")){
-                p.openInventory(Idle.crearInventario(p,64));
-            } else p.openInventory(Idle.crearInventario(p,1));
+                p.openInventory(IdleCom.crearInventario(p,64));
+            } else p.openInventory(IdleCom.crearInventario(p,1));
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
         } else if (e.getCurrentItem().getType().equals(Material.BLACK_CONCRETE)){
             p.sendMessage("Bloqueado");
@@ -259,10 +259,10 @@ public class MenuListener implements Listener {
         } else if (e.getCurrentItem().getType().equals(Material.CHEST)) {
             p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,1);
             idleManager.recogerDinero(p);
-            p.openInventory(Idle.crearInventario(p,cantidad));
+            p.openInventory(IdleCom.crearInventario(p,cantidad));
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-            p.openInventory(Idleprison.crearInventario(p));
+            p.openInventory(IdleprisonCom.crearInventario(p));
         }
     }
 
@@ -278,7 +278,7 @@ public class MenuListener implements Listener {
                 e.setCancelled(true);         // No mover item
             } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-                p.openInventory(Idleprison.crearInventario(p));
+                p.openInventory(IdleprisonCom.crearInventario(p));
                 e.setCancelled(true);         // No mover item
             } else if (e.getCurrentItem().getType().equals(Material.GRAY_STAINED_GLASS_PANE)) {
                 e.setCancelled(true);         // No mover item
@@ -300,41 +300,41 @@ public class MenuListener implements Listener {
                 p.playSound(p.getLocation(),Sound.BLOCK_STONE_BUTTON_CLICK_ON,100,2);
                 if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Trebol de 4 hojas (click para comprar)")) {
                     playerManager.setTreeSkill(1,p.getName(),1);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Curso de marketing online (click para comprar)")) {
                     playerManager.setTreeSkill(2,p.getName(),1);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Stonks (click para comprar)")) {
                     playerManager.setTreeSkill(3,p.getName(),1);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "El ascendido (click para comprar)")) {
                     playerManager.setTreeSkill(1,p.getName(),2);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Rebajas (click para comprar)")) {
                     playerManager.setTreeSkill(2,p.getName(),2);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Ingresos pasivos (click para comprar)")) {
                     playerManager.setTreeSkill(3,p.getName(),2);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Constitución ancha (click para comprar)")) {
                     playerManager.setTreeSkill(1,p.getName(),3);
                     p.setHealthScale(20+ TreeSkillManager.getHealthBoost(p.getName()));
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Minero adolescente (click para comprar)")) {
                     playerManager.setTreeSkill(2,p.getName(),3);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Ahorrador (click para comprar)")) {
                     playerManager.setTreeSkill(3,p.getName(),3);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Haste I (click para comprar)")) {
                     playerManager.setTreeSkill(1,p.getName(),4);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Regeneration I (click para comprar)")) {
                     playerManager.setTreeSkill(2,p.getName(),4);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "Speed I (click para comprar)")) {
                     playerManager.setTreeSkill(3,p.getName(),4);
-                    p.openInventory(TreeSkill.crearInventario(p));
+                    p.openInventory(TreeSkillCom.crearInventario(p));
                 }
             } else {
                 p.playSound(p.getLocation(),Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF,100,2);
@@ -345,7 +345,7 @@ public class MenuListener implements Listener {
             p.sendMessage("No te quedan puntos");
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-            p.openInventory(Idleprison.crearInventario(p));
+            p.openInventory(IdleprisonCom.crearInventario(p));
         }
     }
 
@@ -357,7 +357,7 @@ public class MenuListener implements Listener {
         if(e.getClickedInventory()==null) return;
 
         if (isMenu(e.getCurrentItem())) {
-            p.openInventory(Idleprison.crearInventario(p));
+            p.openInventory(IdleprisonCom.crearInventario(p));
             e.setCancelled(true);
         }
 

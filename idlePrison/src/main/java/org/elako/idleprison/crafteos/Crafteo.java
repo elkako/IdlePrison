@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
-import org.elako.idleprison.comandos.Idleprison;
+import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.player.Rangos;
 
 import java.util.LinkedList;
@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class Crafteo {
     private final LinkedList<ItemStack> receta;
     private final ItemStack resultado;
-    private Rangos permiso;
+    private final Rangos permiso;
 
     public Crafteo(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
         this.receta = receta;
@@ -58,10 +58,10 @@ public abstract class Crafteo {
                     inventario.setItem(i, resul);
                     break;
                 case 26:
-                    inventario.setItem(i, Idleprison.crearObjeto(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR"));
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR"));
                     break;
                 default:
-                    inventario.setItem(i,  Idleprison.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
+                    inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
             }
         }
         return inventario;
@@ -103,11 +103,11 @@ public abstract class Crafteo {
                     inventario.setItem(i, resul2);
                     break;
                 case 45:
-                    inventario.setItem(i, Idleprison.crearObjeto(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR"));
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR"));
                     break;
                 default:
-                    if (i<27) inventario.setItem(i,  Idleprison.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
-                    else inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    if (i<27) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
+                    else inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
             }
         }
         return inventario;

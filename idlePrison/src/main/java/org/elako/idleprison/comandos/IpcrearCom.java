@@ -9,13 +9,15 @@ import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.PlayerManager;
 
-public class Ipcrear implements CommandExecutor {
+import javax.annotation.Nonnull;
+
+public class IpcrearCom implements CommandExecutor {
     private final MinaManager minaMg;
     private final PlayerManager playerManager;
     private Location previa1 = null;
     private Location previa2 = null;
 
-    public Ipcrear(MinaManager mina, PlayerManager player) {
+    public IpcrearCom(MinaManager mina, PlayerManager player) {
         minaMg = mina;
         playerManager = player;
     }
@@ -29,7 +31,8 @@ public class Ipcrear implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command,
+                             @Nonnull String s, @Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
         if ( strings.length != 1) {

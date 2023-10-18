@@ -13,15 +13,16 @@ import org.elako.idleprison.player.RangosManager;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
+import javax.annotation.Nonnull;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TreeSkill implements CommandExecutor {
+public class TreeSkillCom implements CommandExecutor {
     static TreeSkillManager treeSkillManager;
     RangosManager rangosManager;
     static PlayerManager playerManager;
 
-    public TreeSkill(TreeSkillManager treeskill, RangosManager rango, PlayerManager player) {
+    public TreeSkillCom(TreeSkillManager treeskill, RangosManager rango, PlayerManager player) {
         treeSkillManager = treeskill;
         rangosManager = rango;
         playerManager = player;
@@ -31,15 +32,15 @@ public class TreeSkill implements CommandExecutor {
     }
 
     private static ItemStack botonTreeSkill(String p, int lvlActual, int lvlNecesario, String nombre, LinkedList<String> lore) {
-        if (lvlActual>lvlNecesario) return Idleprison.crearObjetoLore(Material.GREEN_CONCRETE, ChatColor.GREEN + nombre + " (comprado)" , lore);
+        if (lvlActual>lvlNecesario) return IdleprisonCom.crearObjetoLore(Material.GREEN_CONCRETE, ChatColor.GREEN + nombre + " (comprado)" , lore);
         else if (lvlActual>lvlNecesario-1) {
             if (quedanPuntos(p)) {
                 lore.add(ChatColor.WHITE + "Te quedan " + treeSkillManager.getPuntosDisponibles(p) + " puntos de treeSkill" );
-                return Idleprison.crearObjetoLore(Material.YELLOW_CONCRETE, ChatColor.YELLOW + nombre + " (click para comprar)", lore );
+                return IdleprisonCom.crearObjetoLore(Material.YELLOW_CONCRETE, ChatColor.YELLOW + nombre + " (click para comprar)", lore );
             }
-            else return Idleprison.crearObjetoLore(Material.RED_CONCRETE, ChatColor.RED + nombre + " (no te quedan puntos)",lore );
+            else return IdleprisonCom.crearObjetoLore(Material.RED_CONCRETE, ChatColor.RED + nombre + " (no te quedan puntos)",lore );
         }
-        else return Idleprison.crearObjetoLore(Material.GRAY_CONCRETE, ChatColor.GRAY + nombre + " (no alcanzable)",lore );
+        else return IdleprisonCom.crearObjetoLore(Material.GRAY_CONCRETE, ChatColor.GRAY + nombre + " (no alcanzable)",lore );
 
     }
 
@@ -53,17 +54,17 @@ public class TreeSkill implements CommandExecutor {
         for (int i=0;i<54;i++) {
             switch (i){
                 case 0:
-                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.GOLDEN_PICKAXE,ChatColor.WHITE + "Trabajador", List.of(
+                    inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.GOLDEN_PICKAXE,ChatColor.WHITE + "Trabajador", List.of(
                             ChatColor.WHITE + String.valueOf(lvlTrab) + " puntos invertidos en esta rama"
                     )));
                     break;
                 case 18:
-                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.RAW_GOLD,ChatColor.WHITE + "Empresario", List.of(
+                    inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.RAW_GOLD,ChatColor.WHITE + "Empresario", List.of(
                             ChatColor.WHITE + String.valueOf(lvlEario) + " puntos invertidos en esta rama"
                     )));
                     break;
                 case 36:
-                    inventario.setItem(i, Idleprison.crearObjetoLore(Material.GOLDEN_BOOTS,ChatColor.WHITE + "Emprendedor", List.of(
+                    inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.GOLDEN_BOOTS,ChatColor.WHITE + "Emprendedor", List.of(
                             ChatColor.WHITE + String.valueOf(lvlEdor) + " puntos invertidos en esta rama"
                     )));
                     break;
@@ -116,17 +117,17 @@ public class TreeSkill implements CommandExecutor {
                             List.of( ChatColor.WHITE + "Te da el efecto de Velocidad 1 continuamente" )) ));
                     break;
                 case 45:
-                    inventario.setItem(i, Idleprison.crearObjeto(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR"));
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR"));
                     break;
                 case 53:
-                    inventario.setItem(i, Idleprison.crearObjeto(Material.GREEN_STAINED_GLASS_PANE,ChatColor.WHITE + "SIGUIENTE"));
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.GREEN_STAINED_GLASS_PANE,ChatColor.WHITE + "SIGUIENTE"));
                 default:
-                    if (i<=8 && i!=1) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else if (i<=17) inventario.setItem(i,  Idleprison.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
-                    else if (i<=26 && i!=19) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else if (i<=35) inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
-                    else if (i<=44 && i!=37) inventario.setItem(i,  Idleprison.crearObjeto(Material.GLASS_PANE," "));
-                    else inventario.setItem(i,  Idleprison.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    if (i<=8 && i!=1) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else if (i<=17) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
+                    else if (i<=26 && i!=19) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else if (i<=35) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+                    else if (i<=44 && i!=37) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    else inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
             }
         }
 
@@ -134,7 +135,8 @@ public class TreeSkill implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command,
+                             @Nonnull String s, @Nonnull String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         Player p = (Player) commandSender;
 
