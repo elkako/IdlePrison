@@ -10,6 +10,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
 import org.elako.idleprison.comandos.*;
+import org.elako.idleprison.comandos.RangoCom;
 import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.eventos.*;
 import org.elako.idleprison.items.*;
@@ -311,16 +312,16 @@ public final class IdlePrison extends JavaPlugin {
         pm.registerEvents(new InteractPlayerEvent(playerManager, rango, vender),this);
 
         //comandos
-        Objects.requireNonNull(getCommand("idleprison")).setExecutor(new Idleprison(rango,dinero,playerManager,treeskill,mina, materiales));
-        Objects.requireNonNull(getCommand("ipcrear")).setExecutor(new Ipcrear(mina, playerManager));
-        Objects.requireNonNull(getCommand("rango")).setExecutor(new Rango(rango, playerManager));
-        Objects.requireNonNull(getCommand("dinero")).setExecutor(new Dinero(dinero, playerManager));
-        Objects.requireNonNull(getCommand("mina")).setExecutor(new Mina(mina,rango));
-        Objects.requireNonNull(getCommand("vender")).setExecutor(new Vender(vender));
-        Objects.requireNonNull(getCommand("treeskill")).setExecutor(new TreeSkill(treeskill,rango, playerManager));
-        Objects.requireNonNull(getCommand("crafteo")).setExecutor(new Crafteo());
-        Objects.requireNonNull(getCommand("idle")).setExecutor(new Idle(playerManager,rango,idle));
-        Objects.requireNonNull(getCommand("renacer")).setExecutor(new Renacer(treeskill,playerManager,rango));
+        Objects.requireNonNull(getCommand("idleprison")).setExecutor(new IdleprisonCom(rango,dinero,playerManager,treeskill,mina, materiales));
+        Objects.requireNonNull(getCommand("ipcrear")).setExecutor(new IpcrearCom(mina, playerManager));
+        Objects.requireNonNull(getCommand("rango")).setExecutor(new RangoCom(rango, playerManager));
+        Objects.requireNonNull(getCommand("dinero")).setExecutor(new DineroCom(dinero, playerManager));
+        Objects.requireNonNull(getCommand("mina")).setExecutor(new MinaCom(mina,rango));
+        Objects.requireNonNull(getCommand("vender")).setExecutor(new VenderCom(vender));
+        Objects.requireNonNull(getCommand("treeskill")).setExecutor(new TreeSkillCom(treeskill,rango, playerManager));
+        Objects.requireNonNull(getCommand("crafteo")).setExecutor(new CrafteoCom());
+        Objects.requireNonNull(getCommand("idle")).setExecutor(new IdleCom(playerManager,rango,idle));
+        Objects.requireNonNull(getCommand("renacer")).setExecutor(new RenacerCom(treeskill,playerManager,rango));
 
         //recetas
 

@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.comandos.Idleprison;
+import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.IpMaterial;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
@@ -261,7 +261,7 @@ public class MinaManager {
         linea = new StringBuilder(linea.substring(0, linea.length() - 2));
         lore.add(ChatColor.WHITE + linea.toString());
 
-        return Idleprison.crearObjetoLore(mina.getIcono(), mina.getName() , Integer.parseInt(String.valueOf(id.charAt(id.length()-1))), lore );
+        return IdleprisonCom.crearObjetoLore(mina.getIcono(), mina.getName() , Integer.parseInt(String.valueOf(id.charAt(id.length()-1))), lore );
     }
 
 

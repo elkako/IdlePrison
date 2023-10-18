@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.comandos.Idleprison;
+import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.*;
 import org.elako.idleprison.mina.*;
 import org.elako.idleprison.player.TreeSkillManager;
@@ -46,7 +46,7 @@ public class ItemsEvent implements Listener {
         if (menu == -1)  return;
         if ( e.getNewSlot() != menu) return;
 
-        p.openInventory(Idleprison.crearInventario(p));
+        p.openInventory(IdleprisonCom.crearInventario(p));
         e.setCancelled(true);
     }
 
