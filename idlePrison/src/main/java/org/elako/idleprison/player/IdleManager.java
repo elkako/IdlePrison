@@ -6,8 +6,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.IdleCom;
-import org.elako.idleprison.items.IpMateriales;
-import org.elako.idleprison.items.MaterialesManager;
+import org.elako.idleprison.items.materiales.IpMateriales;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 
 import java.util.LinkedList;
 import java.util.Objects;

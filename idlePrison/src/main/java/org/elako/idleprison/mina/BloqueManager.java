@@ -7,8 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.items.IpMateriales;
-import org.elako.idleprison.items.MaterialesManager;
+import org.elako.idleprison.items.materiales.IpMateriales;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
 import java.util.ArrayList;

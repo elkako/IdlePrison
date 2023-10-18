@@ -5,6 +5,8 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.elako.idleprison.items.materiales.IpMaterial;
+import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.List;

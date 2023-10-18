@@ -5,7 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.items.IpMateriales;
+import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.HashMap;

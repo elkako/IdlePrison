@@ -4,6 +4,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
+import org.elako.idleprison.items.materiales.IpMaterial;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.player.DineroManager;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.rango.RangosManager;

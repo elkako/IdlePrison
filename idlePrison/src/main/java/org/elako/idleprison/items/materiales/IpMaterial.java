@@ -1,4 +1,4 @@
-package org.elako.idleprison.items;
+package org.elako.idleprison.items.materiales;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

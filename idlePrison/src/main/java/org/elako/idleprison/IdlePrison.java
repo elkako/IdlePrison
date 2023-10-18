@@ -14,6 +14,7 @@ import org.elako.idleprison.comandos.RangoCom;
 import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.eventos.*;
 import org.elako.idleprison.items.*;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.mina.BloqueManager;
 import org.elako.idleprison.mina.MinaManager;

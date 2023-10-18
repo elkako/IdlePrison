@@ -1,4 +1,4 @@
-package org.elako.idleprison.items;
+package org.elako.idleprison.items.materiales;
 
 public enum IpMateriales {
     MENU, AIRE, MADERA_INFIERNO, MADERA_INFIERNO_CALIDAD, TABLONES_QUEMADOS, PICO_MADERA, CALCITA, POLVO_HUESO, ALGA,

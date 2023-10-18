@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.elako.idleprison.comandos.CrafteoCom;
 import org.elako.idleprison.comandos.IdleprisonCom;
-import org.elako.idleprison.items.IpMateriales;
-import org.elako.idleprison.items.MaterialesManager;
+import org.elako.idleprison.items.materiales.IpMateriales;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.player.rango.Rangos;
 import org.elako.idleprison.player.rango.RangosManager;
 

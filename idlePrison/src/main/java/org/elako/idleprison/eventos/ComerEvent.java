@@ -5,8 +5,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.elako.idleprison.items.IpComida;
-import org.elako.idleprison.items.IpMaterial;
-import org.elako.idleprison.items.MaterialesManager;
+import org.elako.idleprison.items.materiales.IpMaterial;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.player.rango.RangosManager;
 
 public class ComerEvent implements Listener {

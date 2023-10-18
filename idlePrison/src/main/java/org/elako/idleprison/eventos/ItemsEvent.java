@@ -12,7 +12,9 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.IdleprisonCom;
-import org.elako.idleprison.items.*;
+import org.elako.idleprison.items.materiales.IpMaterial;
+import org.elako.idleprison.items.materiales.IpMateriales;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.mina.*;
 import org.elako.idleprison.player.TreeSkillManager;
 

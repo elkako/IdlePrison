@@ -12,6 +12,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.elako.idleprison.comandos.*;
 import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.items.*;
+import org.elako.idleprison.items.materiales.IpMateriales;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.items.notas.TipoNota;
 import org.elako.idleprison.player.PlayerManager;
