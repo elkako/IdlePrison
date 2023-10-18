@@ -311,20 +311,10 @@ public class MaterialesManager {
                 WHITE + " camuflándola entre ella"),
                 20, Rangos.CAMPESINO2, IpMateriales.ARENISCA));
 
-        materiales.add(new IpMaterial(Material.SMOOTH_QUARTZ_SLAB, "Trozo de marmol", Arrays.asList( // trozo marmol
-                WHITE + "Mineral duro y blanco ",
-                WHITE + " en zonas con mucha arena"),
-                70, Rangos.CAMPESINO2, IpMateriales.TROZO_MARMOL));
-
-        materiales.add(new IpMaterial(Material.SMOOTH_QUARTZ_SLAB, "Marmol", Arrays.asList( // marmol
-                WHITE + "Piedra blanca brillante encontrada",
-                WHITE + " en zonas con mucha arena"),
-                45, Rangos.CAMPESINO2, IpMateriales.MARMOL));
-
         materiales.add(new IpMaterial(Material.SMOOTH_QUARTZ, "Cuarzo", Arrays.asList( // Cuarzo
                 WHITE + "Piedra blanca impoluta encontrada",
                 WHITE + " en zonas con mucha arena"),
-                30, Rangos.CAMPESINO2, IpMateriales.CUARZO));
+                50, Rangos.CAMPESINO2, IpMateriales.CUARZO));
 
         materiales.add(new IpMaterial(Material.HAY_BLOCK, "Bala de trigo", List.of(), // bala trigo
                 0.5, Rangos.CAMPESINO2, IpMateriales.BALA_TRIGO ));
@@ -336,34 +326,6 @@ public class MaterialesManager {
         materiales.add(new IpComida(Material.BREAD, "Pan de chapata", List.of( // pan
                 WHITE + "Recien horneado y calentito"),
                 37, Rangos.CONDENADO2, IpMateriales.PAN,3,6  ));
-
-        materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco de cuarzo", List.of( // casco elemental
-                WHITE + "Armadura utilizada por nobles, perfecta",
-                WHITE + " para llamar la atención.",
-                WHITE + "Set cuarzo: brillo" ),
-                Rangos.SINTECHO1, IpMateriales.CASCO_CUARZO,3, SetsArmadura.CUARZO,
-                Color.fromRGB(253,252,230) ));
-
-        materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera de cuarzo", List.of( // casco elemental
-                WHITE + "Armadura utilizada por nobles, perfecta",
-                WHITE + " para llamar la atención.",
-                WHITE + "Set cuarzo: brillo" ),
-                Rangos.SINTECHO1, IpMateriales.PECHERA_CUARZO,4, SetsArmadura.CUARZO,
-                Color.fromRGB(253,252,230) ));
-
-        materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones de cuarzo", List.of( // casco elemental
-                WHITE + "Armadura utilizada por nobles, perfecta",
-                WHITE + " para llamar la atención.",
-                WHITE + "Set cuarzo: brillo" ),
-                Rangos.SINTECHO1, IpMateriales.PANTALONES_CUARZO,4, SetsArmadura.CUARZO,
-                Color.fromRGB(253,252,230) ));
-
-        materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas de cuarzo", List.of( // casco elemental
-                WHITE + "Armadura utilizada por nobles, perfecta",
-                WHITE + "para llamar la atención.",
-                WHITE + "Set cuarzo: brillo" ),
-                Rangos.SINTECHO1, IpMateriales.BOTAS_CUARZO,3, SetsArmadura.CUARZO,
-                Color.fromRGB(253,252,230) ));
 
         //Afueras4
         materiales.add(new IpMaterial(Material.COBBLESTONE_SLAB, "Mini roca", Arrays.asList( // Mini roca
