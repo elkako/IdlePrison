@@ -8,7 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.elako.idleprison.comandos.IdleprisonCom;
-import org.elako.idleprison.player.Rangos;
+import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.LinkedList;
 import java.util.List;

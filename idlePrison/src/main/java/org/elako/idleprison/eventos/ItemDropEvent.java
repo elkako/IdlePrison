@@ -6,11 +6,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
-import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.RangosManager;
 
 public class ItemDropEvent implements Listener {
     RangosManager rangosManager;

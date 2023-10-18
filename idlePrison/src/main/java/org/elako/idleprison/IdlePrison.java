@@ -18,6 +18,8 @@ import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.mina.BloqueManager;
 import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.*;
+import org.elako.idleprison.player.rango.Rangos;
+import org.elako.idleprison.player.rango.RangosManager;
 
 import java.io.File;
 import java.util.*;

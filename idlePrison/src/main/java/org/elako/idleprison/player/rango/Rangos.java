@@ -1,4 +1,4 @@
-package org.elako.idleprison.player;
+package org.elako.idleprison.player.rango;
 
 public enum Rangos{
     NUEVO, CONDENADO4, CONDENADO3, CONDENADO2, CONDENADO1, SINTECHO2, SINTECHO1, CAMPESINO3, CAMPESINO2, CAMPESINO1,

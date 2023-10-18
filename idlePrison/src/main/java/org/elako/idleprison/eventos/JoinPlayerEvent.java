@@ -8,10 +8,10 @@ import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
-import org.elako.idleprison.player.Rangos;
+import org.elako.idleprison.player.rango.Rangos;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.DineroManager;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.RangosManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
 import java.util.Arrays;

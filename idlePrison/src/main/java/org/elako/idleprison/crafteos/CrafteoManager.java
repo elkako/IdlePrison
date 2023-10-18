@@ -10,8 +10,8 @@ import org.elako.idleprison.comandos.CrafteoCom;
 import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
-import org.elako.idleprison.player.Rangos;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.Rangos;
+import org.elako.idleprison.player.rango.RangosManager;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -3,12 +3,11 @@ package org.elako.idleprison.crafteos;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
-import org.elako.idleprison.player.Rangos;
+import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.LinkedList;
 import java.util.List;

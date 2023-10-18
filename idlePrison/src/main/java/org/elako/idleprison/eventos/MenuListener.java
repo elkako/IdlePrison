@@ -19,7 +19,7 @@ import org.elako.idleprison.player.DineroManager;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.TreeSkillManager;
 import org.elako.idleprison.mina.MinaManager;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.RangosManager;
 
 public class MenuListener implements Listener {
     private final TreeSkillManager treeSkillManager;

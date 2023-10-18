@@ -1,4 +1,4 @@
-package org.elako.idleprison.player;
+package org.elako.idleprison.player.rango;
 
 import java.util.List;
 

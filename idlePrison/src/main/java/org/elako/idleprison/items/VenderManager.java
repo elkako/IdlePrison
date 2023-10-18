@@ -6,7 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.player.DineroManager;
 import org.elako.idleprison.player.PlayerManager;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.RangosManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
 public class VenderManager {

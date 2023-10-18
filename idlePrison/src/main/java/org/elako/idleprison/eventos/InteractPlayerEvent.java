@@ -15,7 +15,7 @@ import org.elako.idleprison.items.*;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.items.notas.TipoNota;
 import org.elako.idleprison.player.PlayerManager;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.RangosManager;
 
 public class InteractPlayerEvent implements Listener {
     private final PlayerManager playerManager;

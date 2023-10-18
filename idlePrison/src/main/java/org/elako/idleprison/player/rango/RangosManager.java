@@ -1,7 +1,10 @@
-package org.elako.idleprison.player;
+package org.elako.idleprison.player.rango;
 
 import org.bukkit.entity.Player;
 import org.elako.idleprison.IdlePrison;
+import org.elako.idleprison.player.DineroManager;
+import org.elako.idleprison.player.PlayerManager;
+import org.elako.idleprison.player.TreeSkillManager;
 
 import java.util.*;
 

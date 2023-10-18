@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.elako.idleprison.player.IdleManager;
 import org.elako.idleprison.player.DineroManager;
-import org.elako.idleprison.player.Rangos;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.Rangos;
+import org.elako.idleprison.player.rango.RangosManager;
 import org.elako.idleprison.player.PlayerManager;
 
 import javax.annotation.Nonnull;

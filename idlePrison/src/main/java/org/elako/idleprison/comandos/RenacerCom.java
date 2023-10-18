@@ -4,8 +4,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.elako.idleprison.player.Rangos;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.Rangos;
+import org.elako.idleprison.player.rango.RangosManager;
 import org.elako.idleprison.player.PlayerManager;
 import org.elako.idleprison.player.TreeSkillManager;
 

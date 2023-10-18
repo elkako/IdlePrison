@@ -11,8 +11,8 @@ import org.bukkit.inventory.Inventory;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.mina.IpMina;
 import org.elako.idleprison.mina.MinaManager;
-import org.elako.idleprison.player.Rangos;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.Rangos;
+import org.elako.idleprison.player.rango.RangosManager;
 
 import javax.annotation.Nonnull;
 import java.util.List;

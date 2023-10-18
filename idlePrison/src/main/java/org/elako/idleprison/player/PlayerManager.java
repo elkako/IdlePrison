@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.items.notas.TipoNota;
+import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.LinkedList;
 import java.util.Objects;

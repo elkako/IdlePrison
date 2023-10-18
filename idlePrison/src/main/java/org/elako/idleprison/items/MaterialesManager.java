@@ -5,11 +5,10 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.armaduras.IpArmadura;
 import org.elako.idleprison.items.armaduras.IpArmaduraColor;
 import org.elako.idleprison.items.armaduras.SetsArmadura;
-import org.elako.idleprison.player.Rangos;
+import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.Arrays;
 import java.util.LinkedList;

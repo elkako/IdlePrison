@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.crafteos.Crafteo;
 import org.elako.idleprison.crafteos.CrafteoEncantar;
 import org.elako.idleprison.crafteos.CrafteoManager;
-import org.elako.idleprison.player.RangosManager;
+import org.elako.idleprison.player.rango.RangosManager;
 
 
 public class MesasCrafteoEvent implements Listener {

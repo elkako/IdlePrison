@@ -8,6 +8,8 @@ import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.IpMateriales;
 import org.elako.idleprison.items.MaterialesManager;
 import org.elako.idleprison.mina.MinaManager;
+import org.elako.idleprison.player.rango.Rangos;
+import org.elako.idleprison.player.rango.RangosManager;
 
 import java.util.LinkedList;
 
