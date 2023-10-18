@@ -292,5 +292,4 @@ public class CrafteoManager {
         ) ), armaduras.get(3), rango ) );
     }
 
-
 }

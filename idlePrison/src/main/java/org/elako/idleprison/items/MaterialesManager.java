@@ -4,7 +4,6 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.armaduras.IpArmadura;
@@ -15,6 +14,7 @@ import org.elako.idleprison.player.Rangos;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.bukkit.ChatColor.*;
 
@@ -139,25 +139,25 @@ public class MaterialesManager {
         materiales.add(new IpArmaduraColor(Material.LEATHER_HELMET, "Casco elemental", List.of( // casco elemental
                 WHITE + "Contiene el poder del hielo armadura básica",
                 WHITE + "Set elemental" ),
-                Rangos.CONDENADO2, IpMateriales.CASCO_ELEMENTAL,1, SetsArmadura.ELEMENTAL,
+                Rangos.CONDENADO2, IpMateriales.CASCO_ELEMENTAL,1, SetsArmadura.NULO,
                 Color.fromRGB(159,251,255) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_CHESTPLATE, "Pechera elemental", List.of( // casco elemental
                 WHITE + "Contiene el poder del fuego armadura básica",
                 WHITE + "Set elemental" ),
-                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,2, SetsArmadura.ELEMENTAL,
+                Rangos.CONDENADO2, IpMateriales.PECHERA_ELEMENTAL,2, SetsArmadura.NULO,
                 Color.fromRGB(210,57,33) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_LEGGINGS, "Pantalones elementales", List.of( // casco elemental
                 WHITE + "Contiene el poder del hielo armadura básica",
                 WHITE + "Set elemental" ),
-                Rangos.CONDENADO2, IpMateriales.PANTALONES_ELEMENTALES,2, SetsArmadura.ELEMENTAL,
+                Rangos.CONDENADO2, IpMateriales.PANTALONES_ELEMENTALES,2, SetsArmadura.NULO,
                 Color.fromRGB(159,251,255) ));
 
         materiales.add(new IpArmaduraColor(Material.LEATHER_BOOTS, "Botas elementales", List.of( // casco elemental
                 WHITE + "Contiene el poder del fuego armadura básica",
                 WHITE + "Set elemental" ),
-                Rangos.CONDENADO2, IpMateriales.BOTAS_ELEMENTALES,1, SetsArmadura.ELEMENTAL,
+                Rangos.CONDENADO2, IpMateriales.BOTAS_ELEMENTALES,1, SetsArmadura.NULO,
                 Color.fromRGB(210,57,33) ));
 
         //Afueras 1,2,3,4
@@ -312,10 +312,20 @@ public class MaterialesManager {
                 WHITE + " camuflándola entre ella"),
                 20, Rangos.CAMPESINO2, IpMateriales.ARENISCA));
 
-        materiales.add(new IpMaterial(Material.SMOOTH_QUARTZ, "Cuarzo", Arrays.asList( // Cuarzo
+        materiales.add(new IpMaterial(Material.SMOOTH_QUARTZ_SLAB, "Trozo de marmol", Arrays.asList( // trozo marmol
+                WHITE + "Mineral duro y blanco ",
+                WHITE + " en zonas con mucha arena"),
+                70, Rangos.CAMPESINO2, IpMateriales.TROZO_MARMOL));
+
+        materiales.add(new IpMaterial(Material.SMOOTH_QUARTZ_SLAB, "Marmol", Arrays.asList( // marmol
                 WHITE + "Piedra blanca brillante encontrada",
                 WHITE + " en zonas con mucha arena"),
-                45, Rangos.CAMPESINO2, IpMateriales.CUARZO));
+                45, Rangos.CAMPESINO2, IpMateriales.MARMOL));
+
+        materiales.add(new IpMaterial(Material.SMOOTH_QUARTZ, "Cuarzo", Arrays.asList( // Cuarzo
+                WHITE + "Piedra blanca impoluta encontrada",
+                WHITE + " en zonas con mucha arena"),
+                30, Rangos.CAMPESINO2, IpMateriales.CUARZO));
 
         materiales.add(new IpMaterial(Material.HAY_BLOCK, "Bala de trigo", List.of(), // bala trigo
                 0.5, Rangos.CAMPESINO2, IpMateriales.BALA_TRIGO ));
@@ -378,8 +388,30 @@ public class MaterialesManager {
                 100, Rangos.MINERO3, IpMateriales.MENA_HIERRO ));
 
         materiales.add(new IpMaterial(Material.IRON_INGOT, "Lingote de hierro", List.of( // hierro
-                WHITE + "Mineral negro que arde con facilidad"),
+                WHITE + "Es duro y resistente, es bueno para crear",
+                WHITE + " herramientas y armaduras."),
                 180, Rangos.MINERO3, IpMateriales.HIERRO));
+
+        materiales.add(new IpArmadura(Material.IRON_HELMET, "Casco metálico", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set hierro" ),
+                Rangos.MINERO3, IpMateriales.CASCO_HIERRO,3, SetsArmadura.NULO));
+
+        materiales.add(new IpArmadura(Material.IRON_CHESTPLATE, "Pechera metálico", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set hierro" ),
+                Rangos.MINERO3, IpMateriales.PECHERA_HIERRO,4, SetsArmadura.NULO ));
+
+        materiales.add(new IpArmadura(Material.IRON_LEGGINGS, "Pantalones metálicos", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set hierro" ),
+                Rangos.MINERO3, IpMateriales.PANTALONES_HIERRO,4, SetsArmadura.NULO ));
+
+        materiales.add(new IpArmadura(Material.IRON_BOOTS, "Botas metálicas", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set hierro" ),
+                Rangos.MINERO3, IpMateriales.BOTAS_HIERRO,3, SetsArmadura.NULO ));
+
 
         materiales.add(new IpMaterial(Material.SPRUCE_LEAVES, "Arbusto", List.of(), // arbusto
                 180, Rangos.MINERO3, IpMateriales.ARBUSTO));
@@ -479,10 +511,6 @@ public class MaterialesManager {
         return getItem(ipMateriales,1);
     }
 
-    public static boolean comparar(ItemStack item, IpMaterial ip){ // true == son iguales
-        if (item == null) return false;
-        return ip.getMaterial().equals(item.getType());
-    }
     public static boolean comparar(ItemStack item1, ItemStack item2){ // true == son iguales
         if(item1 == null && item2 == null) return true;
         if(item1 == null || item2 == null) return false;
@@ -497,7 +525,7 @@ public class MaterialesManager {
                 IpFragmento fragmento = (IpFragmento) m;
                 if (fragmento.getNivel() != itemStack.getEnchantmentLevel(fragmento.getEnchant()))  continue;
             }
-            if (itemStack.getItemMeta().equals(m.getItem(1).getItemMeta())) return m;
+            if (Objects.requireNonNull(itemStack.getItemMeta()).equals(m.getItem(1).getItemMeta())) return m;
         }
         return materiales.getFirst();
     }
@@ -543,6 +571,5 @@ public class MaterialesManager {
         IdlePrison.broadcast(set.name());
         return set.getEfecto();
     }
-
 
 }
