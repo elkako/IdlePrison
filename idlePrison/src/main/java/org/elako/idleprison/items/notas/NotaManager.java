@@ -14,8 +14,8 @@ public class NotaManager {
     private static final LinkedList<Nota> notas = new LinkedList<>();
 
     public NotaManager(DineroManager dineroManager, PlayerManager playerManager) {
-        this.playerManager = playerManager;
-        this.dineroManager = dineroManager;
+        NotaManager.playerManager = playerManager;
+        NotaManager.dineroManager = dineroManager;
 
         //infierno1
         notas.add(new Nota( notas.size()+1, "Mira la descripción de la nota", List.of( //1

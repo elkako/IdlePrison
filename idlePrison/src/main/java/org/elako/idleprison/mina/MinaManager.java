@@ -97,7 +97,13 @@ public class MinaManager {
                 IpMateriales.ESENCIA_VERDE1, 5, IpMateriales.ESENCIA_AZUL2,5 , IpMateriales.ESENCIA_VERDE2, 15,
                 IpMateriales.ESENCIA_ROJA2,15, IpMateriales.ESENCIA_OSCURA1, 20 ))) );
 
-        // añadir mina
+        for (IpMina m : ipMinas) {
+            Rangos rango = m.getPermiso();
+
+            rango.addDesbloqueo("[Minas: has desbloqueado " + m.getName() + ChatColor.WHITE + "]");
+        }
+
+            // añadir mina
 
     }
 

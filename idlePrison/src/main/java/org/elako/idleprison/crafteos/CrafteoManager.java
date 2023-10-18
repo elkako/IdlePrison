@@ -15,6 +15,7 @@ import org.elako.idleprison.player.rango.RangosManager;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class CrafteoManager {
     private static RangosManager rangosManager;
@@ -200,6 +201,12 @@ public class CrafteoManager {
         crafteos.add( new CrafteoShapeless( new LinkedList<>( List.of(
                 esenciaAmarilla1, catalejo
         )), MaterialesManager.getItem(IpMateriales.DETECTOR1), Rangos.CAMPESINO1 ) );
+
+        for (Crafteo c : crafteos) {
+            Rangos rango = c.getPermiso();
+
+            rango.addDesbloqueo("[Minas: has desbloqueado " + Objects.requireNonNull(c.getIcono().getItemMeta()).getDisplayName() + "]");
+        }
 
     }
 
