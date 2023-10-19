@@ -191,7 +191,7 @@ public class IdleManager {
     }
 
     public double formulaDinero(int idle,int nivel){
-        switch (idle){  //return 10+5*Math.pow(2,playerManager.getIdle1(jugador));
+        switch (idle){
             case 1:
                 if (nivel == 1) return 10;
                 return formulaDinero(1, nivel-1)+ nivel;
