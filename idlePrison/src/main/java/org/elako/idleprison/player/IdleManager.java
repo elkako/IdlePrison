@@ -1,6 +1,7 @@
 package org.elako.idleprison.player;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -8,8 +9,10 @@ import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.IdleCom;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
+import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class IdleManager {
@@ -18,12 +21,60 @@ public class IdleManager {
 
     private final DineroManager dineroManager;
     private final PlayerManager playerManager;
-
+    private final LinkedList<Idle> idles = new LinkedList<>();
 
     public IdleManager(DineroManager dinero, PlayerManager player) {
         playerManager = player;
         dineroManager = dinero;
+
+        idles.add( new Idle("Niño minero", Material.WOODEN_PICKAXE,10,1,1,
+                10, Rangos.CONDENADO4, nivel -> new LinkedList<>( List.of(
+                    MaterialesManager.getItem(IpMateriales.POLVO_HUESO,nivel),
+                    MaterialesManager.getItem(IpMateriales.ALGA)
+                )), nivel -> new LinkedList<>(List.of(
+                    MaterialesManager.getItem(IpMateriales.POLVO_HUESO,5*nivel),
+                    MaterialesManager.getItem(IpMateriales.ALGA,10)
+                )  )) );
+        idles.add( new Idle("Minero experimentado", Material.IRON_PICKAXE,50,3,8,
+                20, Rangos.CONDENADO3, nivel -> new LinkedList<>( List.of(
+                    MaterialesManager.getItem(IpMateriales.POLVO_HUESO,nivel),
+                    MaterialesManager.getItem(IpMateriales.PIEDRA_INFIERNO_ROJA,nivel/10 + 1)
+                )), nivel -> (LinkedList<ItemStack>) List.of(
+                    MaterialesManager.getItem(IpMateriales.PIEDRA_INFIERNO_VERDE,nivel / 10)
+                )  ) );
+        idles.add( new Idle("Yacimiento de calcita", Material.CALCITE,200,5,20,
+                25, Rangos.CONDENADO1, nivel -> new LinkedList<>( List.of(
+                    MaterialesManager.getItem(IpMateriales.RESTOS_BASURA),
+                    MaterialesManager.getItem(IpMateriales.CALCITA,8*nivel)
+                )), nivel -> new LinkedList<>(List.of(
+                    MaterialesManager.getItem(IpMateriales.PEZ_GLOBO)
+                )  )) );
+
+        idles.add( new Idle("Cueva de granito", Material.GRANITE,500,8,25,
+                15, Rangos.SINTECHO1, nivel -> new LinkedList<>( List.of(
+                    MaterialesManager.getItem(IpMateriales.PIEDRA,nivel),
+                    MaterialesManager.getItem(IpMateriales.ROCA_ARENOSA,nivel),
+                    MaterialesManager.getItem(IpMateriales.GRANITO, 8*nivel)
+                )), nivel -> new LinkedList<>(List.of(
+                    MaterialesManager.getItem(IpMateriales.GRAN_GRANITO, 2*nivel)
+                )  )) );
+        idles.add( new Idle("Piramide de arenisca", Material.SMOOTH_SANDSTONE,1000,15, 70,
+                30, Rangos.CAMPESINO2, nivel -> new LinkedList<>( List.of(
+                    MaterialesManager.getItem(IpMateriales.ARENISCA, 2*nivel)
+                )), nivel -> new LinkedList<>(List.of(
+                    MaterialesManager.getItem(IpMateriales.ARENISCA, 4*nivel),
+                    MaterialesManager.getItem(IpMateriales.ARENA, 64*(nivel/10))
+                )  )) );
+        idles.add( new Idle("Mina de carbón", Material.COAL_ORE,1500,30,100,
+                35, Rangos.CAMPESINO1, nivel -> new LinkedList<>( List.of(
+                    MaterialesManager.getItem(IpMateriales.MINI_ROCA,nivel*16),
+                    MaterialesManager.getItem(IpMateriales.CARBON,nivel)
+                )), nivel -> new LinkedList<>(List.of(
+                    MaterialesManager.getItem(IpMateriales.PIEDRA,64*(nivel/10))
+                )  )) );
     }
+
+    public Idle getIdle(int i){ return idles.get(i-1); }
 
     public static String tiempoToString(int segundos){
         String devolver = "";
@@ -39,7 +90,6 @@ public class IdleManager {
             devolver += seg;
             devolver += " segs";
         }
-
         return devolver;
     }
 
@@ -69,8 +119,9 @@ public class IdleManager {
         return devolver;
     }
 
-    public LinkedList<ItemStack> materiales1(int idle, int nivel){
-        LinkedList<ItemStack> devolver = new LinkedList<>();
+    public LinkedList<ItemStack> materialesx1(int idle, int nivel){
+        return getIdle(idle).getMateriales(nivel);
+        /*
         switch (idle){
             case 1:
                 if (nivel%10 == 0) {
@@ -124,13 +175,13 @@ public class IdleManager {
                 }
                 break;
         }
-        return devolver;
+        return devolver; */
     }
 
     public LinkedList<ItemStack> materialesTotal(int idle, String jugador, int cantidad){
         LinkedList<ItemStack> devolver = new LinkedList<>();
         for (int i = 1; i <= cantidad; i++) {
-            devolver.addAll(materiales1( idle, playerManager.getIdle(idle,jugador)+i));
+            devolver.addAll(materialesx1( idle, playerManager.getIdle(idle,jugador)+i));
         }
         return devolver;
     }
@@ -191,28 +242,8 @@ public class IdleManager {
     }
 
     public double formulaDinero(int idle,int nivel){
-        switch (idle){
-            case 1:
-                if (nivel == 1) return 10;
-                return formulaDinero(1, nivel-1)+ nivel;
-            case 2:
-                if (nivel == 1) return 50;
-                return formulaDinero(2, nivel-1)+nivel*3;
-            case 3:
-                if (nivel == 1) return 200;
-                return formulaDinero(3, nivel-1)+nivel*5;
-            case 4:
-                if (nivel == 1) return 500;
-                return formulaDinero(4, nivel-1)+nivel*8;
-            case 5:
-                if (nivel == 1) return 1000;
-                return formulaDinero(5, nivel-1)+nivel*15;
-            case 6:
-                if (nivel == 1) return 1500;
-                return formulaDinero(6, nivel-1)+nivel*30;
-            default:
-                return 0;
-        }
+        if (nivel == 1) return getIdle(idle).getPrecioTotal();
+        return formulaDinero(idle, nivel-1)+ nivel * getIdle(idle).getPrecioPorNivel();
     }
 
     public String getDineroCompraToString(int idle, String jugador,int cantidad){
@@ -225,7 +256,6 @@ public class IdleManager {
         double dineroJugador = playerManager.getDinero(jugador);
         if (dinero <= dineroJugador) return DineroManager.dineroToString(dinero);
         else return DineroManager.dineroToString(dinero) + "/" + DineroManager.dineroToString(dineroJugador);
-
     }
 
 
@@ -256,27 +286,9 @@ public class IdleManager {
     public double minaDinero(String jugador, int idle,int n) {
         int doble = TreeSkillManager.getIdleDoble(jugador);
         double incremento = TreeSkillManager.getDineroIdle(jugador);
-        double cantidad=0;
-        switch (idle) {
-            case 1:
-                cantidad = n;
-                break;
-            case 2:
-                cantidad = n*8;
-                break;
-            case 3:
-                cantidad = n*20;
-                break;
-            case 4:
-                cantidad = n*25;
-                break;
-            case 5:
-                cantidad = n*70;
-                break;
-            case 6:
-                cantidad = n*100;
-                break;
-        }
+
+        double cantidad = n * getIdle(idle).getDineroCantidad();
+
         cantidad += cantidad * 0.5 * Math.floor((double) playerManager.getIdle(idle, jugador) /10);
         cantidad = cantidad + cantidad * (incremento / 100) ;
 
@@ -308,19 +320,18 @@ public class IdleManager {
 
                 playerManager.reduceTimeOffline(p); //reducir time offline
 
-                if(ticksLeft%10==0) playerManager.addDineroAcum(p, minaDinero(p,1), player != null);
-                if(ticksLeft%20==0) playerManager.addDineroAcum(p, minaDinero(p,2), player != null);
-                if(ticksLeft%25==0) playerManager.addDineroAcum(p, minaDinero(p,3), player != null);
-                if(ticksLeft%15==0) playerManager.addDineroAcum(p, minaDinero(p,4), player != null);
-                if(ticksLeft%30==0) playerManager.addDineroAcum(p, minaDinero(p,5), player != null);
-                if(ticksLeft%35==0) playerManager.addDineroAcum(p, minaDinero(p,6), player != null);
+                for (Idle idle :idles) {
+                    if(ticksLeft%idle.getDineroTiempo()==0){
+                        playerManager.addDineroAcum(p, minaDinero(p, idles.indexOf(idle)+1 ), player != null);
+                    }
+                }
 
                 // actualizar menú idle
                 if(player == null) continue;
 
                 if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle")){
                     player.openInventory(IdleCom.crearInventario(player,1));
-                }
+                } //todo arreglar para cantidades
 
             }
         }

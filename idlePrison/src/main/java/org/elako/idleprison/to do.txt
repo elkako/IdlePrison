@@ -1,10 +1,11 @@
 TO-DO prison
+idle menú automatico
+revisar actualizaciones de idle
 añadir armaduras: cuarzo, granite, hierro, amatistas
 chetar bloques daño -> frio
 arreglar crafteo de fragmentos
 rework treeskill
 mejorar dar notas con inventario lleno
-idle menú automatico
 treeskill automatico?
 programar timeskip
 poner each rango as a class

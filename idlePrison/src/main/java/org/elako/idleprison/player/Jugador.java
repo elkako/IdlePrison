@@ -67,9 +67,7 @@ public class Jugador {
     public void reduceTimeScore() { duracionScoreboard = duracionScoreboard-1; }
     public void reloadTimeScoreboard(int segs) { duracionScoreboard = segs; }
 
-    public int getIdle(int i){
-        return idle.get(i-1);
-    }
+    public int getIdle(int i){ return idle.get(i-1); }
 
     public double getDineroRun() { return dineroRun; }
     public double getDineroRenacer() { return dineroRenacer; }

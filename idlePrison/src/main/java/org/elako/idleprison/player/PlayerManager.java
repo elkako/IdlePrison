@@ -80,9 +80,7 @@ public class PlayerManager {
     public void reloadTimeOffline(String player){ getPlayer(player).reloadTimeOffline(); }
     public void reduceTimeOffline(String player){  getPlayer(player).reduceTimeOffline(); }
 
-    public int getIdle(int i, String player){
-        return getPlayer(player).getIdle(i);
-    }
+    public int getIdle(int i, String player){ return getPlayer(player).getIdle(i); }
 
     public void setIdle(int i, String player, int cantidad){
         getPlayer(player).setIdle(i,cantidad);
