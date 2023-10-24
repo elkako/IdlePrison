@@ -45,7 +45,7 @@ public class CrafteoCom implements CommandExecutor {
                     p.openWorkbench(null, true);
                     return true;
                 case "craftguide":
-                    p.openInventory(CrafteoManager.CraftGuide(p));
+                    p.openInventory(CrafteoManager.CraftGuide(p,1));
                     return true;
                 case "help":
                     p.sendMessage("'/crafteo' para ver el menú general de crafteos");

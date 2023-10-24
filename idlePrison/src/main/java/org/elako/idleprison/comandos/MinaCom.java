@@ -38,7 +38,6 @@ public class MinaCom implements CommandExecutor {
 
         for (IpMina mina : minaManager.getMinas()) {
             if (contador == 4) contador++;
-            IdlePrison.imprimirConsola(mina.getName() + " c" + contador + " e" + mina.getExtra());
             if(mina.getExtra() != 0) contador = (size-10)+ mina.getExtra();
             if (rangosManager.isPermitido(p.getName(), mina.getPermiso())) inventario.setItem(contador, minaManager.crearObjeto(mina));
             contador++;
@@ -63,7 +62,6 @@ public class MinaCom implements CommandExecutor {
 
         if(!rangosManager.isPermitido(p.getName(), Rangos.CONDENADO4)) return false;
 
-
         if(strings.length == 0) {
             Inventory inventario = crearInventario(p);
             p.openInventory(inventario);
@@ -72,7 +70,7 @@ public class MinaCom implements CommandExecutor {
            if (strings[0].equals("all")) {
                 minaManager.minaAll(p);
             } else {
-                minaManager.tpMina(p, strings[0]);
+                minaManager.tpMina(p, minaManager.getMina(strings[0]));
                 return true;
             }
         } else {

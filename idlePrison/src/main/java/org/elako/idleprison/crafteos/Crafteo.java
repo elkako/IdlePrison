@@ -20,7 +20,7 @@ public abstract class Crafteo {
 
     public Crafteo(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
         this.receta = receta;
-        this.resultado = resultado;
+        this.resultado = resultado.clone();
         this.permiso = permiso;
     }
 
@@ -51,7 +51,6 @@ public abstract class Crafteo {
                 case 21:
                 case 22:
                     ItemStack item = items.pop();
-                    p.sendMessage(String.valueOf(item.getType()));
                     if(!item.getType().equals(Material.BARRIER)) inventario.setItem(i, item);
                     break;
                 case 15:

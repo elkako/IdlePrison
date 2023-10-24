@@ -224,7 +224,7 @@ public class NotaManager {
     public static void sendMensajeRecompensa(Player p, int n) {
         double dinero = notas.get(n-1).getRecompensa();
         dineroManager.addMoney(p.getName(),dinero);
-        p.sendMessage("Has conseguido " + DineroManager.dineroToString(dinero)
+        p.sendMessage("Has conseguido " + DineroManager.dineroToString(dinero, true)
                 + " por reclamar la nota");
 
         playerManager.setNotas(p.getName(), n);

@@ -1,15 +1,22 @@
-package org.elako.idleprison.player;
+package org.elako.idleprison.player.idle;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.IdleCom;
+import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
+import org.elako.idleprison.player.DineroManager;
+import org.elako.idleprison.player.PlayerManager;
+import org.elako.idleprison.player.TreeSkillManager;
 import org.elako.idleprison.player.rango.Rangos;
+import org.elako.idleprison.player.rango.RangosManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,57 +28,100 @@ public class IdleManager {
 
     private final DineroManager dineroManager;
     private final PlayerManager playerManager;
+    private final RangosManager rangosManager;
     private final LinkedList<Idle> idles = new LinkedList<>();
 
-    public IdleManager(DineroManager dinero, PlayerManager player) {
+    public IdleManager(DineroManager dinero, PlayerManager player, RangosManager rangosManager) {
         playerManager = player;
         dineroManager = dinero;
+        this.rangosManager = rangosManager;
 
-        idles.add( new Idle("Niño minero", Material.WOODEN_PICKAXE,10,1,1,
-                10, Rangos.CONDENADO4, nivel -> new LinkedList<>( List.of(
+        idles.add( new Idle("Niño Minero", Material.STONE_PICKAXE,10,1,1,
+                10, Rangos.CONDENADO4, Rangos.CONDENADO4, true, nivel -> new LinkedList<>( List.of(
                     MaterialesManager.getItem(IpMateriales.POLVO_HUESO,nivel),
                     MaterialesManager.getItem(IpMateriales.ALGA)
                 )), nivel -> new LinkedList<>(List.of(
                     MaterialesManager.getItem(IpMateriales.POLVO_HUESO,5*nivel),
                     MaterialesManager.getItem(IpMateriales.ALGA,10)
                 )  )) );
-        idles.add( new Idle("Minero experimentado", Material.IRON_PICKAXE,50,3,8,
-                20, Rangos.CONDENADO3, nivel -> new LinkedList<>( List.of(
+        idles.add( new Idle("Minero Experimentado", Material.IRON_PICKAXE,50,3,8,
+                20, Rangos.CONDENADO3, Rangos.CONDENADO4, true, nivel -> new LinkedList<>( List.of(
                     MaterialesManager.getItem(IpMateriales.POLVO_HUESO,nivel),
                     MaterialesManager.getItem(IpMateriales.PIEDRA_INFIERNO_ROJA,nivel/10 + 1)
-                )), nivel -> (LinkedList<ItemStack>) List.of(
+                )), nivel -> new LinkedList<>( List.of(
                     MaterialesManager.getItem(IpMateriales.PIEDRA_INFIERNO_VERDE,nivel / 10)
-                )  ) );
-        idles.add( new Idle("Yacimiento de calcita", Material.CALCITE,200,5,20,
-                25, Rangos.CONDENADO1, nivel -> new LinkedList<>( List.of(
+                )  )) );
+        idles.add( new Idle("Yacimiento de Calcita", Material.CALCITE,200,5,20,
+                25, Rangos.CONDENADO1, Rangos.CONDENADO4, true, nivel -> new LinkedList<>( List.of(
                     MaterialesManager.getItem(IpMateriales.RESTOS_BASURA),
                     MaterialesManager.getItem(IpMateriales.CALCITA,8*nivel)
                 )), nivel -> new LinkedList<>(List.of(
                     MaterialesManager.getItem(IpMateriales.PEZ_GLOBO)
                 )  )) );
 
-        idles.add( new Idle("Cueva de granito", Material.GRANITE,500,8,25,
-                15, Rangos.SINTECHO1, nivel -> new LinkedList<>( List.of(
+        idles.add( new Idle("Cueva de Granito", Material.GRANITE,500,8,25,
+                15, Rangos.SINTECHO1, Rangos.SINTECHO2, false, nivel -> new LinkedList<>( List.of(
                     MaterialesManager.getItem(IpMateriales.PIEDRA,nivel),
                     MaterialesManager.getItem(IpMateriales.ROCA_ARENOSA,nivel),
                     MaterialesManager.getItem(IpMateriales.GRANITO, 8*nivel)
                 )), nivel -> new LinkedList<>(List.of(
                     MaterialesManager.getItem(IpMateriales.GRAN_GRANITO, 2*nivel)
                 )  )) );
-        idles.add( new Idle("Piramide de arenisca", Material.SMOOTH_SANDSTONE,1000,15, 70,
-                30, Rangos.CAMPESINO2, nivel -> new LinkedList<>( List.of(
+        idles.add( new Idle("Piramide de Arenisca", Material.SMOOTH_SANDSTONE,1000,15, 70,
+                30, Rangos.CAMPESINO2, Rangos.SINTECHO2, false, nivel -> new LinkedList<>( List.of(
                     MaterialesManager.getItem(IpMateriales.ARENISCA, 2*nivel)
                 )), nivel -> new LinkedList<>(List.of(
                     MaterialesManager.getItem(IpMateriales.ARENISCA, 4*nivel),
                     MaterialesManager.getItem(IpMateriales.ARENA, 64*(nivel/10))
                 )  )) );
-        idles.add( new Idle("Mina de carbón", Material.COAL_ORE,1500,30,100,
-                35, Rangos.CAMPESINO1, nivel -> new LinkedList<>( List.of(
+        idles.add( new Idle("Mina de Carbón", Material.COAL_ORE,1500,30,100,
+                35, Rangos.CAMPESINO1, Rangos.SINTECHO2, false, nivel -> new LinkedList<>( List.of(
                     MaterialesManager.getItem(IpMateriales.MINI_ROCA,nivel*16),
                     MaterialesManager.getItem(IpMateriales.CARBON,nivel)
                 )), nivel -> new LinkedList<>(List.of(
                     MaterialesManager.getItem(IpMateriales.PIEDRA,64*(nivel/10))
                 )  )) );
+    }
+
+    public ItemStack crearObjetoIdle(int nIdle, String player, int cantidad){
+        LinkedList<String> lore = new LinkedList<>();
+        Idle idle = getIdle(nIdle);
+        if(!rangosManager.isPermitido(player, idle.getPermisoMostrar())) {
+            if(idle.isNegro()) return IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," ");
+            else return IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," ");
+        } else if(rangosManager.isPermitido(player, idle.getPermisoCompra())) {
+            lore.add( ChatColor.WHITE + "Precio: " );
+            lore.addAll( loreToStrings(nIdle,player,cantidad) );
+            if (isTen(player,nIdle)) {
+                lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(minaDinero(player,nIdle,cantidad), true) +
+                        " cada "+ idle.getDineroTiempo() + " segs" + ChatColor.YELLOW + " x50%" );
+                lore.add( ChatColor.WHITE + " (" + DineroManager.dineroToString(minaDinero(player, nIdle,cantidad)/idle.getDineroTiempo(), false) +
+                        " E/S)" + ChatColor.YELLOW + " x50%" );
+            }
+            else {
+                lore.add(  ChatColor.WHITE + "+" + DineroManager.dineroToString(minaDinero(player,nIdle,cantidad), true) +
+                        " cada "+ idle.getDineroTiempo() + " segs (" + DineroManager.dineroToString(minaDinero(player, nIdle,cantidad)/idle.getDineroTiempo(), false) + " E/S)");
+            }
+            lore.add( ChatColor.WHITE + "Total: " + DineroManager.dineroToString(minaDinero(player,nIdle), true) + " cada " + idle.getDineroTiempo() + " segs" );
+            lore.add( ChatColor.WHITE + "(" + DineroManager.dineroToString(minaDinero(player,nIdle)/idle.getDineroTiempo(), false) + " E/S)" );
+
+            if (isComprable(player,nIdle,cantidad)) return IdleprisonCom.crearObjetoLore(
+                    Material.LIME_CONCRETE,ChatColor.GREEN + "Comprar x" + cantidad + " " + idle.getNombre(), lore );
+            else return IdleprisonCom.crearObjetoLore(Material.YELLOW_CONCRETE,ChatColor.YELLOW + "Comprar x" + cantidad + " " + idle.getNombre(), lore );
+        }
+        else return IdleprisonCom.crearObjeto(Material.BLACK_CONCRETE,ChatColor.RED + "Bloqueado");
+    }
+
+    public ItemStack crearObjetoMina(int nIdle, String player,int resta){
+        Idle idle = getIdle(nIdle);
+
+        if(!rangosManager.isPermitido(player, idle.getPermisoMostrar())) {
+            if( ( (nIdle-1) %3) %2 == 0) return IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," ");
+            else return IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," ");
+        }else if(!rangosManager.isPermitido(player, idle.getPermisoCompra()))
+            return IdleprisonCom.crearObjeto(Material.GLASS_PANE, " ");
+        else return IdleprisonCom.crearObjeto(idle.getIconoIdle(),
+                ChatColor.WHITE + idle.getNombre(), playerManager.getIdle(nIdle,player)-resta);
     }
 
     public Idle getIdle(int i){ return idles.get(i-1); }
@@ -121,61 +171,6 @@ public class IdleManager {
 
     public LinkedList<ItemStack> materialesx1(int idle, int nivel){
         return getIdle(idle).getMateriales(nivel);
-        /*
-        switch (idle){
-            case 1:
-                if (nivel%10 == 0) {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.POLVO_HUESO,5*nivel));
-                    devolver.add(MaterialesManager.getItem(IpMateriales.ALGA,10));
-                } else {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.POLVO_HUESO,nivel));
-                    devolver.add(MaterialesManager.getItem(IpMateriales.ALGA));
-                }
-                break;
-            case 2:
-                if (nivel%10 == 0) {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.PIEDRA_INFIERNO_VERDE,nivel / 10));
-                } else {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.POLVO_HUESO,nivel));
-                    devolver.add(MaterialesManager.getItem(IpMateriales.PIEDRA_INFIERNO_ROJA,nivel/10 + 1));
-                }
-                break;
-            case 3:
-                if (nivel%10 == 0) devolver.add(MaterialesManager.getItem(IpMateriales.PEZ_GLOBO));
-                else {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.RESTOS_BASURA));
-                    devolver.add(MaterialesManager.getItem(IpMateriales.CALCITA,8*nivel));
-                }
-                break;
-            case 4:
-                if(nivel%10 == 0){
-                    devolver.add(MaterialesManager.getItem(IpMateriales.GRAN_GRANITO, 2*nivel));
-                } else {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.PIEDRA,nivel));
-                    devolver.add(MaterialesManager.getItem(IpMateriales.ROCA_ARENOSA,nivel));
-                    devolver.add(MaterialesManager.getItem(IpMateriales.GRANITO, 8*nivel));
-                }
-                break;
-            case 5:
-
-                if(nivel%10 == 0) {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.ARENISCA, 4*nivel));
-                    devolver.add(MaterialesManager.getItem(IpMateriales.ARENA, 64*(nivel/10)));
-                }
-                else {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.ARENISCA, 2*nivel));
-                }
-                break;
-            case 6:
-                if(nivel%10 == 0) {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.PIEDRA,64*(nivel/10)));
-                } else {
-                    devolver.add(MaterialesManager.getItem(IpMateriales.MINI_ROCA,nivel*16));
-                    devolver.add(MaterialesManager.getItem(IpMateriales.CARBON,nivel));
-                }
-                break;
-        }
-        return devolver; */
     }
 
     public LinkedList<ItemStack> materialesTotal(int idle, String jugador, int cantidad){
@@ -254,8 +249,8 @@ public class IdleManager {
         }
         dinero = Math.round( dinero-dinero*(rebaja/100) );
         double dineroJugador = playerManager.getDinero(jugador);
-        if (dinero <= dineroJugador) return DineroManager.dineroToString(dinero);
-        else return DineroManager.dineroToString(dinero) + "/" + DineroManager.dineroToString(dineroJugador);
+        if (dinero <= dineroJugador) return DineroManager.dineroToString(dinero, false);
+        else return DineroManager.dineroToString(dinero, false) + "/" + DineroManager.dineroToString(dineroJugador, false);
     }
 
 
@@ -271,7 +266,7 @@ public class IdleManager {
     public void recogerDinero(Player p){
         double acum = playerManager.recogerDineroAcum(p.getName());
         dineroManager.addMoney(p.getName(),acum);
-        p.sendMessage("Has recogido " + DineroManager.dineroToString(acum) + " de idle");
+        p.sendMessage("Has recogido " + DineroManager.dineroToString(acum,true) + " de idle");
         playerManager.reloadTimeOffline(p.getName());
     }
 
@@ -327,12 +322,17 @@ public class IdleManager {
                 }
 
                 // actualizar menú idle
-                if(player == null) continue;
+                if(player == null) continue;    // offline
+                String titulo = player.getOpenInventory().getTitle();
+                if(!titulo.contains("Idle")) continue;
 
-                if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle")){
+                if (titulo.equals(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle")){
                     player.openInventory(IdleCom.crearInventario(player,1));
-                } //todo arreglar para cantidades
-
+                } else if (titulo.equals(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle x10")){
+                    player.openInventory(IdleCom.crearInventario(player,10));
+                } else if (titulo.equals(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle x64")){
+                    player.openInventory(IdleCom.crearInventario(player,64));
+                }
             }
         }
 
@@ -345,4 +345,45 @@ public class IdleManager {
         }
     }
 
+    public void interactuar(InventoryClickEvent e, Player p, int cantidad) {
+        if (e.getCurrentItem() == null) return;
+        if (e.getCurrentItem().getItemMeta() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.LIME_CONCRETE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_STONE_BUTTON_CLICK_ON, 100, 2);
+            for (Idle idle : idles) {
+
+                int nIdle = idles.indexOf(idle) + 1;
+                if (e.getCurrentItem().getItemMeta().getDisplayName().contains(idle.getNombre())) {
+                    comprarMaterial(nIdle, p.getName(), cantidad);
+                    double dinero = comprar(p, nIdle, cantidad);
+                    if (dinero != 0) {
+                        p.sendMessage("Comprado por: " + DineroManager.dineroToString(dinero,true) + ", 1 alga seca y " +
+                                (playerManager.getIdle(nIdle, p.getName())) + " polvo de hueso");
+                        p.openInventory(IdleCom.crearInventario(p, cantidad));
+                    } else p.sendMessage("No suficiente dinero");
+                }
+            }
+        }else if (e.getCurrentItem().getType().equals(Material.YELLOW_CONCRETE)) {
+            p.sendMessage("No tienes suficiente dinero");
+            p.playSound(p.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF, 100, 2);
+        } else if (e.getCurrentItem().getType().equals(Material.LIGHT_GRAY_CONCRETE)) {
+            if (e.getCurrentItem().getItemMeta().getDisplayName().contains("10")) {
+                p.openInventory(IdleCom.crearInventario(p, 10));
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("64")) {
+                p.openInventory(IdleCom.crearInventario(p, 64));
+            } else p.openInventory(IdleCom.crearInventario(p, 1));
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+        } else if (e.getCurrentItem().getType().equals(Material.BLACK_CONCRETE)) {
+            p.sendMessage("Bloqueado");
+            p.playSound(p.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF, 100, 2);
+        } else if (e.getCurrentItem().getType().equals(Material.CHEST)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF, 100, 1);
+            recogerDinero(p);
+            p.openInventory(IdleCom.crearInventario(p, cantidad));
+        } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(IdleprisonCom.crearInventario(p));
+        }
+    }
 }

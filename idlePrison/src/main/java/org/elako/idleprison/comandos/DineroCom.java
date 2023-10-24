@@ -41,8 +41,8 @@ public class DineroCom implements CommandExecutor {
                 mensajeJugadorDesconocido(p,p.getName());
                 return false;
             }
-            String money = DineroManager.dineroToString(dineroManager.getDinero(p));
-            p.sendMessage("Tu dinero es de " + money + "laCoins");
+            String money = DineroManager.dineroToString(dineroManager.getDinero(p), false);
+            p.sendMessage("Tu dinero es de " + money + " ElaCoins");
             return true;
         }
 
@@ -101,7 +101,7 @@ public class DineroCom implements CommandExecutor {
                 case "set":
                     if(permiso){
                         if (dineroManager.isSetMoney(strings[1], money)) {
-                            p.sendMessage("Establecido el dinero de " + strings[1] + " a " + DineroManager.dineroToString(money) + " con éxito");
+                            p.sendMessage("Establecido el dinero de " + strings[1] + " a " + DineroManager.dineroToString(money,true) + " con éxito");
                             return true;
                         } else {
                             mensajeJugadorDesconocido(p, strings[1]);
@@ -114,7 +114,7 @@ public class DineroCom implements CommandExecutor {
                 case "setm":
                     if(permiso){
                         if (dineroManager.isSetMoney(strings[1], money*Math.pow(10,6))) {
-                            p.sendMessage("Establecido el dinero de " + strings[1] + " a " + DineroManager.dineroToString(money*Math.pow(10,6)) + "E con éxito");
+                            p.sendMessage("Establecido el dinero de " + strings[1] + " a " + DineroManager.dineroToString(money*Math.pow(10,6),true) + " con éxito");
                             return true;
                         } else {
                             mensajeJugadorDesconocido(p, strings[1]);
@@ -127,7 +127,7 @@ public class DineroCom implements CommandExecutor {
                 case "add":
                     if(permiso){
                         if (dineroManager.addMoney(strings[1], money)) {
-                            p.sendMessage("Áñadido " + DineroManager.dineroToString(money) + " a " + strings[1] + " con éxito");
+                            p.sendMessage("Áñadido " + DineroManager.dineroToString(money,true) + " a " + strings[1] + " con éxito");
                             return true;
                         } else {
                             mensajeJugadorDesconocido(p, strings[1]);
@@ -140,7 +140,7 @@ public class DineroCom implements CommandExecutor {
                 case "remove":
                     if(permiso){
                         if (dineroManager.removeMoney(strings[1], money)) {
-                            p.sendMessage("Eliminado " + DineroManager.dineroToString(money) + " a " + strings[1] + " con éxito");
+                            p.sendMessage("Eliminado " + DineroManager.dineroToString(money,true) + " a " + strings[1] + " con éxito");
                             return true;
                         } else {
                             mensajeJugadorDesconocido(p, strings[1]);

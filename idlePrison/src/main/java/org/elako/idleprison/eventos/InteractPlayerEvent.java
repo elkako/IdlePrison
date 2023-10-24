@@ -68,7 +68,7 @@ public class InteractPlayerEvent implements Listener {
                 } else if(firstLine.contains("vender")){
                     p.openInventory(VenderCom.crearInventario(p));
                 } else if(firstLine.contains("Craftguide")){
-                    p.openInventory(CrafteoManager.CraftGuide(p));
+                    p.openInventory(CrafteoManager.CraftGuide(p,1));
                 } else if(firstLine.contains("craftear")){
                     p.openWorkbench(null,true);
                 }

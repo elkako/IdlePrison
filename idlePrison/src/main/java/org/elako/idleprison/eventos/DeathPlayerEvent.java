@@ -41,7 +41,7 @@ public class DeathPlayerEvent implements Listener {
                 i.setAmount(i.getAmount()-cantidad);
             }
         }
-        p.sendMessage("Hubieras ganado vendiendolo " + DineroManager.dineroToString(dinero) );
+        p.sendMessage("Hubieras ganado vendiendolo " + DineroManager.dineroToString(dinero, true) );
 
 
     }

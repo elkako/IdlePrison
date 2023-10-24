@@ -1,17 +1,21 @@
 package org.elako.idleprison.crafteos;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.elako.idleprison.IdlePrison;
+import org.elako.idleprison.comandos.IdleprisonCom;
+import org.elako.idleprison.items.materiales.IpMateriales;
+import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static org.bukkit.ChatColor.*;
 
 public class CrafteoEncantar extends Crafteo {
     private final Enchantment encanti;
@@ -30,10 +34,12 @@ public class CrafteoEncantar extends Crafteo {
 
         assert meta != null;
 
-        if(encanti.equals(Enchantment.DIG_SPEED)) meta.setDisplayName(ChatColor.WHITE + "Pico destructor ["+ nivel + "]");
-        else if(encanti.equals(Enchantment.LOOT_BONUS_BLOCKS)) meta.setDisplayName(ChatColor.WHITE + "Pico vivo ["+ nivel + "]");
-        else if(encanti.equals(Enchantment.LOOT_BONUS_MOBS)) meta.setDisplayName(ChatColor.WHITE + "Pico capitalista ["+ nivel + "]");
-        else if(encanti.equals(Enchantment.MULTISHOT)) meta.setDisplayName(ChatColor.WHITE + "Pico oscuro ["+ nivel + "]");
+        if(encanti.equals(Enchantment.DIG_SPEED)) meta.setDisplayName(WHITE + "Pico destructor ["+ nivel + "]");
+        else if(encanti.equals(Enchantment.LOOT_BONUS_BLOCKS)) meta.setDisplayName(WHITE + "Pico vivo ["+ nivel + "]");
+        else if(encanti.equals(Enchantment.LOOT_BONUS_MOBS)) meta.setDisplayName(WHITE + "Pico capitalista ["+ nivel + "]");
+        else if(encanti.equals(Enchantment.MULTISHOT)) meta.setDisplayName(WHITE + "Pico oscuro ["+ nivel + "]");
+
+        meta.addEnchant(encanti,nivel, true);
 
         item.setItemMeta(meta);
         return item;
@@ -66,6 +72,9 @@ public class CrafteoEncantar extends Crafteo {
     @Override
     public Inventory getGuide(Player p) {
         LinkedList<ItemStack> lista = getReceta();
+        ItemStack picoCualquiera = IdleprisonCom.crearObjeto(getResultado().getType(),
+                DARK_AQUA + String.valueOf(BOLD) + "Pico cualquiera");
+        lista.add(picoCualquiera);
         LinkedList<ItemStack> guia = new LinkedList<>();
         ItemStack vacio = new ItemStack(Material.BARRIER);
         switch (lista.size()){
@@ -100,6 +109,9 @@ public class CrafteoEncantar extends Crafteo {
 
     public ItemStack encantar(ItemStack item){
         ItemMeta itemMeta = item.getItemMeta();
+
+        if(itemMeta == null) return MaterialesManager.getItem(IpMateriales.PICO_MADERA);
+
         itemMeta.addEnchant(encanti,nivel,true);
         item.setItemMeta(itemMeta);
         return item;

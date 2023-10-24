@@ -349,8 +349,8 @@ public class BloqueManager {
         } ));
 
         ipBloques.add(new IpBloque(Material.BLACK_CONCRETE, List.of(
-                new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_OSCURO1), 0.3),
-                new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_OSCURO1), 0.2)
+                new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_NEGRO1), 0.3),
+                new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_NEGRO1), 0.2)
         ), new ArrayList<>(), (p, pos) -> {
                 coloresEsencias(p,pos,Color.BLACK,Color.PURPLE);
                 p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER,60*4,1));

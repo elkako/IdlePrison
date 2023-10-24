@@ -39,7 +39,7 @@ public class TreeSkillManager {
         for (int i = 1; i <= 4; i++) {
             playerManager.setIdle(i,ps,0);
         }
-        minaManager.tpMina(p, "mina1");
+        minaManager.tpMina(p, minaManager.getMina("mina1"));
         playerManager.reloadTimeOffline(p.getName());
         p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 70, 2);
         p.spawnParticle(Particle.DUST_COLOR_TRANSITION, p.getLocation(), 40, 1, 1, 1, new Particle.DustTransition(Color.BLUE, Color.RED, 3));

@@ -13,7 +13,7 @@ public class DineroManager {
         playerManager = player;
     }
 
-    public static String dineroToString(double dinero){
+    public static String dineroToString(double dinero, boolean isE){
         String money = Double.toString(dinero);
         char[] moneyArr = money.toCharArray();
         StringBuilder moneyFinal = new StringBuilder();
@@ -76,7 +76,7 @@ public class DineroManager {
                 moneyFinal.append("M");
             }
         }
-        moneyFinal.append("E");
+        if(isE) moneyFinal.append("E");
 
         return valueOf(moneyFinal);
     }
@@ -130,7 +130,7 @@ public class DineroManager {
                     max = player;
                 }
             }
-            message.append(i).append(": ").append(max).append("-").append(DineroManager.dineroToString(n));
+            message.append(i).append(": ").append(max).append("-").append(DineroManager.dineroToString(n,false));
             jugadores.remove(max);
             if (i%3==0) {
                 message = new StringBuilder(message.substring(0, message.length() - 2));

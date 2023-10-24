@@ -69,22 +69,26 @@ public class RangosManager {
     private LinkedList<String> mensajeUnlock(Player jugador, String rango, double coste) {
         LinkedList<String> s = Rangos.valueOf(rango).getDesbloquearExtra();
 
-        jugador.sendMessage("Ahora eres rango " + rango.toLowerCase() + ", has perdido " +  DineroManager.dineroToString(coste) + " y tu dinero se a quedado en " + DineroManager.dineroToString(dineroManager.getDinero(jugador)));
+        jugador.sendMessage("Ahora eres rango " + rango.toLowerCase() +
+                ", has perdido " +  DineroManager.dineroToString(coste, true) +
+                " y tu dinero se a quedado en " + DineroManager.dineroToString(dineroManager.getDinero(jugador), true)
+                );
 
         for (String str: s) {
             jugador.sendMessage(str);
         }
         s.addFirst("-------------------------");
-        s.addFirst( "Tu dinero se a quedado en " + DineroManager.dineroToString(dineroManager.getDinero(jugador)));
-        s.addFirst("Has perdido " +  DineroManager.dineroToString(coste) );
+        s.addFirst( "Tu dinero se a quedado en " + DineroManager.dineroToString(dineroManager.getDinero(jugador), true));
+        s.addFirst("Has perdido " +  DineroManager.dineroToString(coste, true) );
         s.addFirst("Ahora eres rango " + rango.toLowerCase());
 
         return s;
     }
 
     private void mensajeInsuficiente(Player player,double dineroRestante, double necesario, String nextRank) {
-        player.sendMessage("Para alcanzar el rango " + nextRank.toLowerCase() + " necesitas " + DineroManager.dineroToString(necesario) + ", te queda " + DineroManager.dineroToString(dineroRestante));
-        player.sendMessage();
+        player.sendMessage("Para alcanzar el rango " + nextRank.toLowerCase() +
+                " necesitas " + DineroManager.dineroToString(necesario, true) +
+                ", te queda " + DineroManager.dineroToString(dineroRestante, true));
     }
 
     public void mostrar(Player p) {
