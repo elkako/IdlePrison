@@ -363,13 +363,18 @@ public class CrafteoManager {
             if(inventario.getItem(i) != null) {
                 items.add( inventario.getItem(i) );
                 p.sendMessage(inventario.getItem(i).getType().toString());
-            } else
+            } else{
                 items.add( IdleprisonCom.crearObjeto(Material.BARRIER, " ") );
+                p.sendMessage("AIRE");
+            }
+
             if(n>=3){
                 n = 0;
                 i += 7;
             }
         }
+
+
 
 
     }
