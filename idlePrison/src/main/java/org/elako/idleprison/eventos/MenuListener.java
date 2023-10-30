@@ -101,7 +101,7 @@ public class MenuListener implements Listener {
        minaManager.interactuar(e, p);
     }
 
-    private void manejadorCraftear(InventoryClickEvent e, Player p) {
+    private void manejadorCraftMenu(InventoryClickEvent e, Player p) {
         e.setCancelled(true);         // No mover items
         if (e.getClickedInventory() == null) return;
         if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
@@ -118,6 +118,18 @@ public class MenuListener implements Listener {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
             p.openInventory(IdleprisonCom.crearInventario(p));
         }
+    }
+
+    private void manejadorCraftear(InventoryClickEvent e, Player p) {
+        e.setCancelled(true);         // No mover items
+        if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)){
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(CrafteoCom.crearInventario(p));
+        } else crafteoManager.interactuarCrafteo(e.getView().getTopInventory(), p);
     }
 
     private void manejadorCraftguide(InventoryClickEvent e, Player p) {
@@ -253,11 +265,14 @@ public class MenuListener implements Listener {
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_GREEN) + "Minas")) {
             manejadorMinas(e,p);
 
-        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "Craftear")) {
-            manejadorCraftear(e,p);
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftMenu")) {
+            manejadorCraftMenu(e,p);
 
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftGuide")) {
             manejadorCraftguide(e, p);
+
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.RED) + "Craftear")) {
+            manejadorCraftear(e, p);
 
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.LIGHT_PURPLE) + "Crafteo")) {
             manejadorCrafteo(e, p);

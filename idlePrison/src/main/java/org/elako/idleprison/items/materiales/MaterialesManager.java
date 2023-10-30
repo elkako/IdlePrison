@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.items.IpComida;
 import org.elako.idleprison.items.IpFragmento;
 import org.elako.idleprison.items.IpHerramienta;

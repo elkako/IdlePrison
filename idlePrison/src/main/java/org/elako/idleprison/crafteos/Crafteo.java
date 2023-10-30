@@ -17,6 +17,7 @@ public abstract class Crafteo {
     private final LinkedList<ItemStack> receta;
     private final ItemStack resultado;
     private final Rangos permiso;
+    private boolean fragmento = false;
 
     public Crafteo(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
         this.receta = receta;
@@ -24,7 +25,15 @@ public abstract class Crafteo {
         this.permiso = permiso;
     }
 
+    public Crafteo(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso, boolean fragmento) {
+        this.receta = receta;
+        this.resultado = resultado.clone();
+        this.permiso = permiso;
+        this.fragmento = fragmento;
+    }
+
     public abstract List<Recipe> getCrafteo();
+    public abstract boolean isCrafteo(LinkedList<ItemStack> items);
 
     public abstract Inventory getGuide(Player p);
 
@@ -112,4 +121,5 @@ public abstract class Crafteo {
         return inventario;
     }
 
+    public boolean isFragmento() { return fragmento; }
 }

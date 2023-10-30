@@ -183,6 +183,11 @@ public class Jugador {
         IdlePrison.getPlugin().escribirNotas(jugador, notas);
     }
 
+    public void reloadNotas() {
+        notas = "000000000000000000000000000000000000000000000000000000000000";
+        notasRecibidas = "000000000000000000000000000000000000000000000000000000000000";
+    }
+
     public void setNotasRecibidas(int i) {
         char[] lista = notasRecibidas.toCharArray();
         lista[i-1] = '1';
@@ -218,4 +223,6 @@ public class Jugador {
     }
     public double getDiferenciaDinero() {return diferenciaDinero;}
     public void reiniciarDiferenciaDinero() { diferenciaDinero = 0;}
+
+
 }

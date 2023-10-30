@@ -15,9 +15,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CrafteoShaped extends Crafteo {
-
     public CrafteoShaped(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
         super(receta, resultado, permiso);
+    }
+
+    public CrafteoShaped(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso, Boolean fragmento) {
+        super(receta, resultado, permiso,fragmento);
     }
 
     @Override
@@ -54,10 +57,20 @@ public class CrafteoShaped extends Crafteo {
         receta.shape(s1.toString(), s2.toString(), s3.toString());
 
         for (ItemStack item: array) {
-            receta.setIngredient(map.get(item) , item.getType());
+            receta.setIngredient( map.get(item) , item.getType());
         }
 
         return List.of(receta);
+    }
+
+    @Override
+    public boolean isCrafteo(LinkedList<ItemStack> items) {
+        LinkedList<ItemStack> receta = getReceta();
+        for (ItemStack item : items) {
+            if(!receta.pop().getType().equals(item.getType()))
+                return false;
+        }
+        return true;
     }
 
     @Override

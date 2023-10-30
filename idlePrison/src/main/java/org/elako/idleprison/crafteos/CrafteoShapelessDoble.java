@@ -49,6 +49,34 @@ public class CrafteoShapelessDoble extends Crafteo {
     }
 
     @Override
+    public boolean isCrafteo(LinkedList<ItemStack> items) {
+        boolean devolver = true;
+        for (ItemStack item : items) {
+            if(item.getType().equals(Material.BARRIER)) continue;
+            boolean existe = false;
+            for (ItemStack rece : getReceta()) {
+                if(item.getType().equals(rece.getType())) existe = true;
+            }
+            if(!existe) {
+                devolver = false;
+                break;
+            }
+        }
+        if(devolver) return true;
+
+        for (ItemStack item : items) {
+            if(item.getType().equals(Material.BARRIER)) continue;
+            boolean existe = false;
+            for (ItemStack rece : getReceta()) {
+                if(item.getType().equals(rece.getType())) existe = true;
+            }
+
+            if(!existe) return false;
+        }
+        return true;
+    }
+
+    @Override
     public Inventory getGuide(Player p) {
         LinkedList<ItemStack> lista = getReceta();
         LinkedList<ItemStack> guia = new LinkedList<>();

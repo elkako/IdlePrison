@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
-import org.elako.idleprison.comandos.CrafteoCom;
+import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
@@ -159,7 +159,7 @@ public class CrafteoManager {
                 fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1,
                 fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1,
                 fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1
-        ) ), esenciaVerde1, Rangos.CAMPESINO3 ) );
+        ) ), esenciaVerde1, Rangos.CAMPESINO3, true ) );
 
         crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde1) ), picoMadera,
                 Rangos.CAMPESINO3, Enchantment.LOOT_BONUS_MOBS, 1
@@ -248,7 +248,7 @@ public class CrafteoManager {
                 fragmentoVerde2,   fragmentoVerde2,   fragmentoVerde2,
                 fragmentoVerde2,   fragmentoVerde2,   fragmentoVerde2,
                 fragmentoVerde2,   fragmentoVerde2,   fragmentoVerde2
-        ) ), esenciaVerde2, Rangos.MINERO1 ) );
+        ) ), esenciaVerde2, Rangos.MINERO1, true ) );
 
         crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde2) ), picoMadera,
                 Rangos.MINERO1, Enchantment.LOOT_BONUS_MOBS, 2
@@ -282,6 +282,51 @@ public class CrafteoManager {
         return recetas;
     }
 
+    public static Inventory CraftMenu(Player p){
+        // tamaños inventarios: 9 18 27 36 45 54
+
+        Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.RED) + "Craftear");
+
+        for (int i=0;i<54;i++) {
+            p.sendMessage("i: " + i);
+            switch (i){
+                case 10:
+                case 11:
+                case 12:
+                case 19:
+                case 20:
+                case 21:
+                case 26:
+                case 28:
+                case 29:
+                case 30:
+                    break;
+                case 22:
+                case 24:
+                    inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GLASS_PANE," "));
+                    break;
+                case 23:
+                    inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.WHITE_STAINED_GLASS_PANE," "));
+                    break;
+                case 45:
+                    inventario.setItem(i, IdleprisonCom.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
+                            ChatColor.WHITE + "Botón para volver al menú")));
+                    break;
+                case 50:
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.CRAFTING_TABLE,ChatColor.WHITE + "Craftear x1"));
+                    break;
+                case 52:
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.FLETCHING_TABLE,ChatColor.WHITE + "Craftear max") );
+                    break;
+                default:
+                    if (i<27) inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.BLACK_STAINED_GLASS_PANE," "));
+                    else inventario.setItem(i,  IdleprisonCom.crearObjeto(Material.GRAY_STAINED_GLASS_PANE," "));
+            }
+        }
+
+        return inventario;
+    }
+
     public static Inventory CraftGuide(Player p, int pagina){
         // tamaños inventarios: 9 18 27 36 45 54
 
@@ -309,12 +354,35 @@ public class CrafteoManager {
         }
     }
 
-    public Crafteo getCrafteo(ItemStack itemStack){
-        for ( Crafteo c : crafteos ) {
-            if(c.getClass() != CrafteoEncantar.class)
-                    if(MaterialesManager.comparar(itemStack,c.getResultado())) return c;
+    public void interactuarCrafteo(Inventory inventario, Player p) {
+        LinkedList<ItemStack> items = new LinkedList<>();
+
+        int n = 0;
+        for (int i = 10; i <= 30; i++) {
+            n++;
+            if(inventario.getItem(i) != null) {
+                items.add( inventario.getItem(i) );
+                p.sendMessage(inventario.getItem(i).getType().toString());
+            } else
+                items.add( IdleprisonCom.crearObjeto(Material.BARRIER, " ") );
+            if(n>=3){
+                n = 0;
+                i += 7;
+            }
         }
 
+
+    }
+
+    public Crafteo getCrafteo(ItemStack itemStack){
+        for ( Crafteo c : crafteos ) {
+            if(c.getClass() != CrafteoEncantar.class){
+                if(c.isFragmento()) {
+                    if (c.getReceta().getFirst().getEnchantments().equals(itemStack.getEnchantments()))
+                        return c;
+                } else if(MaterialesManager.comparar(itemStack,c.getResultado())) return c;
+            }
+        }
         return null;
     }
 
@@ -362,5 +430,6 @@ public class CrafteoManager {
                 material,   nulo,   material
         ) ), armaduras.get(3), rango ) );
     }
+
 
 }

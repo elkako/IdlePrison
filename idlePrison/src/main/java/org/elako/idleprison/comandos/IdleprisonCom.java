@@ -152,26 +152,31 @@ public class IdleprisonCom implements CommandExecutor {
             return true;
         } else if (strings.length == 1) {
             if (strings[0].equals("reiniciar")  && permiso) {
-                playerManager.recogerDineroAcum(p.getName());
+                String ps = p.getName();
+                playerManager.recogerDineroAcum(ps);
                 playerManager.setDinero(p.getName(), 0.0);
-                rangoManager.setPlayer(p.getName(), Rangos.CONDENADO4.toString());
-                for (int i = 1; i <= 6; i++) {
-                    playerManager.setIdle(i, p.getName(), 0);
-                }
+                rangoManager.setPlayer(ps, Rangos.CONDENADO4.toString());
+                for (int i = 1; i <= 6; i++)
+                    playerManager.setIdle(i, ps, 0);
+
                 minaManager.tpMina(p, minaManager.getMina("mina1"));
 
                 for (ItemStack i : p.getInventory().getContents()) {
                     if (i == null) continue;
                     i.setAmount(0);
                 }
-                playerManager.reloadTimeOffline(p.getName());
-                playerManager.setDineroRenacer(p.getName(), 0);
-                playerManager.setDineroRun(p.getName(), 0);
+                playerManager.reloadTimeOffline(ps);
+                playerManager.setDineroRenacer(ps, 0);
+                playerManager.setDineroRun(ps, 0);
                 p.getInventory().addItem(MaterialesManager.getItem(IpMateriales.PICO_MADERA));
                 p.getInventory().setItem(8, MaterialesManager.getItem(IpMateriales.MENU));
-                for (int i = 1; i <= 3; i++) {
-                    playerManager.setTreeSkill(i, p.getName(), 0);
-                }
+                for (int i = 1; i <= 3; i++)
+                    playerManager.setTreeSkill(i, ps, 0);
+
+                playerManager.reloadNotas(ps);
+                playerManager.setItemsVendidos(ps, 0);
+                playerManager.setBloquesRotos(ps, 0);
+
                 p.sendMessage("RELOADED");
                 return true;
             } else if (strings[0].equals("help")){

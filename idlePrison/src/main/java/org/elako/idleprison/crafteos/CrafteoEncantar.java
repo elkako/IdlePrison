@@ -46,6 +46,23 @@ public class CrafteoEncantar extends Crafteo {
     }
 
     @Override
+    public boolean isCrafteo(LinkedList<ItemStack> items){
+        int devolver = 0;
+        ItemStack esencia = getReceta().getFirst();
+
+        for (ItemStack item : items) {
+            if( item.getType().equals(Material.WOODEN_PICKAXE) || item.getType().equals(Material.STONE_PICKAXE)
+            || item.getType().equals(Material.IRON_PICKAXE) || item.getType().equals(Material.DIAMOND_PICKAXE) )
+                devolver++;
+
+            if( MaterialesManager.comparar(item, esencia) ) if(item.getAmount() > esencia.getAmount())
+                devolver++;
+        }
+
+        return devolver >= 2;
+    }
+
+    @Override
     public List<Recipe> getCrafteo() {
         ShapelessRecipe recetaW = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.WOODEN_PICKAXE));
         ShapelessRecipe recetaS = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.STONE_PICKAXE));
