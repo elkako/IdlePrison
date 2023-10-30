@@ -288,7 +288,6 @@ public class CrafteoManager {
         Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.RED) + "Craftear");
 
         for (int i=0;i<54;i++) {
-            p.sendMessage("i: " + i);
             switch (i){
                 case 10:
                 case 11:
@@ -296,7 +295,7 @@ public class CrafteoManager {
                 case 19:
                 case 20:
                 case 21:
-                case 26:
+                case 25:
                 case 28:
                 case 29:
                 case 30:
@@ -362,21 +361,21 @@ public class CrafteoManager {
             n++;
             if(inventario.getItem(i) != null) {
                 items.add( inventario.getItem(i) );
-                p.sendMessage(inventario.getItem(i).getType().toString());
+                p.sendMessage(i + inventario.getItem(i).getType().toString());
             } else{
                 items.add( IdleprisonCom.crearObjeto(Material.BARRIER, " ") );
-                p.sendMessage("AIRE");
+                p.sendMessage(i + "AIRE");
             }
-
             if(n>=3){
                 n = 0;
-                i += 7;
+                i += 6;
             }
         }
 
-
-
-
+        for (Crafteo crafteo:crafteos) {
+            crafteo.isCrafteo(items);
+        }
+        
     }
 
     public Crafteo getCrafteo(ItemStack itemStack){

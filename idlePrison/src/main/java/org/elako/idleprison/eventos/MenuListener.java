@@ -121,15 +121,29 @@ public class MenuListener implements Listener {
     }
 
     private void manejadorCraftear(InventoryClickEvent e, Player p) {
-        e.setCancelled(true);         // No mover items
         if (e.getClickedInventory() == null) return;
         if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
         if (e.getCurrentItem() == null) return;
 
-        if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)){
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-            p.openInventory(CrafteoCom.crearInventario(p));
-        } else crafteoManager.interactuarCrafteo(e.getView().getTopInventory(), p);
+        if (e.getClickedInventory().equals(e.getView().getTopInventory())) {
+            if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+                p.openInventory(CrafteoCom.crearInventario(p));
+                e.setCancelled(true);         // No mover item
+            } else if (e.getCurrentItem().getType().equals(Material.GRAY_STAINED_GLASS_PANE)) {
+                e.setCancelled(true);         // No mover item
+            } else if (e.getCurrentItem().getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
+                e.setCancelled(true);         // No mover item
+            } else if (e.getCurrentItem().getType().equals(Material.GLASS_PANE)) {
+                e.setCancelled(true);         // No mover item
+            } else if (e.getCurrentItem().getType().equals(Material.WHITE_STAINED_GLASS_PANE)) {
+                e.setCancelled(true);         // No mover item
+            } else if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 2F);
+                crafteoManager.interactuarCrafteo(e.getView().getTopInventory(), p);
+                e.setCancelled(true);         // No mover item
+            }
+        }
     }
 
     private void manejadorCraftguide(InventoryClickEvent e, Player p) {
