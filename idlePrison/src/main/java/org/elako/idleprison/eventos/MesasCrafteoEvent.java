@@ -50,14 +50,10 @@ public class MesasCrafteoEvent implements Listener {
         boolean cancelar = true;
 
         //tablones quemados puedes desde nivel 1
-        p.sendMessage("0");
         Crafteo crafteo = crafteoManager.getCrafteo(ci.getResult());
-        p.sendMessage("1");
         if (crafteo != null) {
             cancelar = !rangosManager.isPermitido(p.getName(), crafteo.getPermiso());
-            p.sendMessage("2");
         }
-        p.sendMessage("3");
 
         CrafteoEncantar crafteoEn = null;
 

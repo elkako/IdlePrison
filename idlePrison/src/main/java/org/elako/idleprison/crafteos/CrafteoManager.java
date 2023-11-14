@@ -353,29 +353,80 @@ public class CrafteoManager {
         }
     }
 
-    public void interactuarCrafteo(Inventory inventario, Player p) {
+    private LinkedList<ItemStack> crafteoToLista(Inventory inventario) {
         LinkedList<ItemStack> items = new LinkedList<>();
-
         int n = 0;
         for (int i = 10; i <= 30; i++) {
             n++;
             if(inventario.getItem(i) != null) {
                 items.add( inventario.getItem(i) );
-                p.sendMessage(i + inventario.getItem(i).getType().toString());
             } else{
                 items.add( IdleprisonCom.crearObjeto(Material.BARRIER, " ") );
-                p.sendMessage(i + "AIRE");
             }
             if(n>=3){
                 n = 0;
                 i += 6;
             }
         }
+        return items;
+    }
+
+    private void limpiarCrafteo(Inventory inventario) {
+        int n = 0;
+        for (int i = 10; i <= 30; i++) {
+            n++;
+            if (inventario.getItem(i) != null) Objects.requireNonNull(inventario.getItem(i)).setType(Material.AIR);
+
+            if(n>=3){
+                n = 0;
+                i += 6;
+            }
+        }
+    }
+
+    public void craftear(Inventory inventario, Player p) {
+        LinkedList<ItemStack> items = new LinkedList<>(crafteoToLista(inventario));
+
+        boolean conseguido = false;
+        for (Crafteo crafteo:crafteos) {
+            int ncraft = crafteo.isCrafteo(items);
+            if(ncraft != 0) {
+                conseguido = true;
+                if (inventario.getItem(25) != null) p.getInventory().addItem(inventario.getItem(25));
+                inventario.setItem(25,crafteo.getResultado(ncraft));
+                p.sendMessage( crafteo.getResultado().getType().toString() );
+
+                limpiarCrafteo(inventario);
+            }
+        }
+
+        if(conseguido) {
+            p.sendMessage("PIOLA");
+        } else {
+            p.sendMessage("ANTIPIOLA");
+
+        }
+    }
+
+    public void iteractuarCrafteo(Inventory inventario, ItemStack item, boolean isNotBottom) {
+        LinkedList<ItemStack> items = new LinkedList<>(crafteoToLista(inventario));
+
+        if(item!=null && item.getItemMeta()!=null && isNotBottom) items.add(item);
+        for (ItemStack i :items) {
+            if(item!=null && i != null && i.getItemMeta()!=null) IdlePrison.broadcast("kuskus:" + i.getItemMeta().getDisplayName());
+        }
 
         for (Crafteo crafteo:crafteos) {
-            crafteo.isCrafteo(items);
+            int ncraft = crafteo.isCrafteo(items);
+            if (ncraft != 0) {
+                IdlePrison.broadcast("MENÚ");
+                inventario.setItem(23,  IdleprisonCom.crearObjeto(Material.LIME_STAINED_GLASS_PANE," "));
+                return;
+            }
         }
-        
+        inventario.setItem(23,  IdleprisonCom.crearObjeto(Material.WHITE_STAINED_GLASS_PANE," "));
+
+
     }
 
     public Crafteo getCrafteo(ItemStack itemStack){
@@ -434,6 +485,6 @@ public class CrafteoManager {
                 material,   nulo,   material
         ) ), armaduras.get(3), rango ) );
     }
-
-
 }
+
+

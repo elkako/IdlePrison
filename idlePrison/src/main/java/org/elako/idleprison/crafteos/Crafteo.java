@@ -33,7 +33,7 @@ public abstract class Crafteo {
     }
 
     public abstract List<Recipe> getCrafteo();
-    public abstract boolean isCrafteo(LinkedList<ItemStack> items);
+    public abstract int isCrafteo(LinkedList<ItemStack> items);
 
     public abstract Inventory getGuide(Player p);
 
@@ -42,7 +42,9 @@ public abstract class Crafteo {
 
     public LinkedList<ItemStack> getReceta() { return new LinkedList<>(receta); }
 
-    public ItemStack getResultado() { return resultado; }
+    public ItemStack getResultado() { return resultado.clone(); }
+
+    public ItemStack getResultado(int n) { return resultado.clone(); }
 
     public Rangos getPermiso() { return permiso; }
 

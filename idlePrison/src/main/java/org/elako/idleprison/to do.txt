@@ -1,5 +1,5 @@
 TO-DO prison
-sistema propio de crafteo
+sistema propio de crafteo usar ticks para actualizar crafteo y tienda
 añadir armaduras: amatistas
 probar arreglar crafteo de fragmentos
 rework treeskill

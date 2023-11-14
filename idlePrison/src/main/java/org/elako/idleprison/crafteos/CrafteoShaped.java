@@ -64,13 +64,13 @@ public class CrafteoShaped extends Crafteo {
     }
 
     @Override
-    public boolean isCrafteo(LinkedList<ItemStack> items) {
+    public int isCrafteo(LinkedList<ItemStack> items) {
         LinkedList<ItemStack> receta = getReceta();
         for (ItemStack item : items) {
             if(!receta.pop().getType().equals(item.getType()))
-                return false;
+                return 0;
         }
-        return true;
+        return 1;
     }
 
     @Override

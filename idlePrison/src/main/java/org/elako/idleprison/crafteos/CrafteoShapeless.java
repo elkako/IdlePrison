@@ -34,16 +34,22 @@ public class CrafteoShapeless extends Crafteo {
     }
 
     @Override
-    public boolean isCrafteo(LinkedList<ItemStack> items) {
+    public int isCrafteo(LinkedList<ItemStack> items) {
+        int itemsMatch = 0;
+
         for (ItemStack item : items) {
             if(item.getType().equals(Material.BARRIER)) continue;
             boolean existe = false;
             for (ItemStack rece : getReceta()) {
-                if(item.getType().equals(rece.getType())) existe = true;
+                if(item.getType().equals(rece.getType())){
+                    existe = true;
+                    itemsMatch++;
+                }
             }
-            if(!existe) return false;
+            if(!existe) return 0;
         }
-        return true;
+        if(itemsMatch >= getReceta().size()) return 1;
+        return 0;
     }
 
     @Override

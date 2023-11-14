@@ -109,7 +109,7 @@ public class MenuListener implements Listener {
 
         if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            p.openWorkbench(null,true);
+            p.openInventory(CrafteoManager.CraftMenu(p));
         } else if (e.getCurrentItem().getType().equals(Material.BOOK)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
 
@@ -122,10 +122,14 @@ public class MenuListener implements Listener {
 
     private void manejadorCraftear(InventoryClickEvent e, Player p) {
         if (e.getClickedInventory() == null) return;
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
-        if (e.getCurrentItem() == null) return;
 
-        if (e.getClickedInventory().equals(e.getView().getTopInventory())) {
+
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
+            crafteoManager.iteractuarCrafteo(e.getView().getTopInventory(), e.getCursor(), false);
+            return;
+        } else crafteoManager.iteractuarCrafteo(e.getView().getTopInventory(), e.getCursor(), true);
+
+        if (e.getClickedInventory().equals(e.getView().getTopInventory()) && e.getCurrentItem() != null) {
             if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
                 p.openInventory(CrafteoCom.crearInventario(p));
@@ -136,13 +140,16 @@ public class MenuListener implements Listener {
                 e.setCancelled(true);         // No mover item
             } else if (e.getCurrentItem().getType().equals(Material.GLASS_PANE)) {
                 e.setCancelled(true);         // No mover item
-            } else if (e.getCurrentItem().getType().equals(Material.WHITE_STAINED_GLASS_PANE)) {
+            } else if (e.getCurrentItem().getType().equals(Material.WHITE_STAINED_GLASS_PANE) ||
+                    e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE)) {
                 e.setCancelled(true);         // No mover item
             } else if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 2F);
-                crafteoManager.interactuarCrafteo(e.getView().getTopInventory(), p);
                 e.setCancelled(true);         // No mover item
+                crafteoManager.craftear(e.getView().getTopInventory(), p);
+            } else {
             }
+        } else {
         }
     }
 

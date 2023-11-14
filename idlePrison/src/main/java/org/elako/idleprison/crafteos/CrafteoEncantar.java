@@ -46,7 +46,7 @@ public class CrafteoEncantar extends Crafteo {
     }
 
     @Override
-    public boolean isCrafteo(LinkedList<ItemStack> items){
+    public int isCrafteo(LinkedList<ItemStack> items){
         int devolver = 0;
         ItemStack esencia = getReceta().getFirst();
 
@@ -59,7 +59,8 @@ public class CrafteoEncantar extends Crafteo {
                 devolver++;
         }
 
-        return devolver >= 2;
+        if (devolver >= 2) return 1;
+        else return 0;
     }
 
     @Override
