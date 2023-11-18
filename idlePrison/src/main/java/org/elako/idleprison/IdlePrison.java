@@ -13,7 +13,6 @@ import org.elako.idleprison.comandos.*;
 import org.elako.idleprison.comandos.RangoCom;
 import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.eventos.*;
-import org.elako.idleprison.items.*;
 import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.mina.BloqueManager;
@@ -38,6 +37,8 @@ public final class IdlePrison extends JavaPlugin {
     private static IdlePrison plugin;
     private static int crafteoskey = 0;
     private int setContador = 10;
+    private CrafteoManager crafteo;
+    private VenderManager vender;
 
     public static IdlePrison getPlugin(){ return plugin; }
 
@@ -217,8 +218,6 @@ public final class IdlePrison extends JavaPlugin {
 
         playerManager.reiniciarDiferenciaDinero(p.getName());
 
-
-
         String s = ChatColor.WHITE + String.valueOf(sr.toUpperCase().charAt(0)) + sr.substring(1).toLowerCase();
         LinkedList<String> lineas = new LinkedList<>( List.of(
                 ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d, false) + diferenciaDinero,
@@ -244,6 +243,17 @@ public final class IdlePrison extends JavaPlugin {
             score.setScore(lineas.size()-i);
         }
         p.setScoreboard(scoreboard);
+    }
+
+    private void tickInventarios(Player p) {
+        Inventory inventario = p.getOpenInventory().getTopInventory();
+        String titulo = p.getOpenInventory().getTitle();
+
+        if (titulo.equals(ChatColor.BOLD + String.valueOf(ChatColor.RED) + "Craftear")){
+            crafteo.tickCrafteo(inventario);
+        } else if (titulo.equals(ChatColor.BOLD + String.valueOf(ChatColor.GREEN) + "Vender")){
+            vender.tickVender(inventario, p);
+        }
     }
 
     private double getVida(Player p){
@@ -275,20 +285,19 @@ public final class IdlePrison extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         //inicializacion
         plugin = this;
         playerManager = new PlayerManager();
         dinero = new DineroManager(playerManager);
         rango = new RangosManager(dinero,playerManager);
         materiales = new MaterialesManager();
-        VenderManager vender = new VenderManager(dinero, rango, playerManager);
+        vender = new VenderManager(dinero, rango, playerManager);
         NotaManager nota = new NotaManager(dinero, playerManager);
         BloqueManager bloque = new BloqueManager();
         idle = new IdleManager(dinero,playerManager, rango);
         mina = new MinaManager(rango);
         treeskill = new TreeSkillManager(playerManager,rango,mina);
-        CrafteoManager crafteo = new CrafteoManager(rango);
+        crafteo = new CrafteoManager(rango);
 
         insertarConfig();
 
@@ -346,13 +355,10 @@ public final class IdlePrison extends JavaPlugin {
                 if (getConfig().get("Players." + key) != "") {
                     // rangos
                     String rangoJugador = getConfig().getString("Players." + key + ".rango");
-
                     //money
                     double dineroJugador = getConfig().getDouble("Players." + key + ".dinero");
-
                     //money renacer
                     double dineroRenacer = getConfig().getDouble("Players." + key + ".dineroRenacer");
-
                     //money run
                     double dineroRun = getConfig().getDouble("Players." + key + ".dineroRun");
 
@@ -389,15 +395,20 @@ public final class IdlePrison extends JavaPlugin {
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (Player p : getServer().getOnlinePlayers()) { // a todos los jugadores en linea
+                tickInventarios(p);
+
                 if (playerManager.getTimeScore(p.getName())<=0) tickScoreboard(p);
                 else playerManager.reduceTimeScore(p.getName());
                 tickEffect(p);
             }
 
+
             mina.tick();
             idle.tick();
         }, 20, 20);
     }
+
+
 
     @Override
     public void onDisable() {

@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.crafteos.CrafteoManager;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
-import org.elako.idleprison.items.VenderManager;
+import org.elako.idleprison.player.VenderManager;
 import org.elako.idleprison.player.idle.IdleManager;
 import org.elako.idleprison.comandos.*;
 import org.elako.idleprison.player.PlayerManager;
@@ -42,17 +42,29 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
+        Player p = (Player) e.getPlayer();
+
         if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.GREEN) + "Vender")) {
-            Player p = (Player) e.getPlayer();
             for (ItemStack i : e.getView().getTopInventory()) {
-                if (i == null) continue;
-                if (i.getItemMeta() == null) continue;
+               if (i == null) continue;
+               if (i.getItemMeta() == null) continue;
                if (!i.getType().equals(Material.LIME_STAINED_GLASS_PANE) && !i.getType().equals(Material.GRAY_STAINED_GLASS_PANE)
                         && !i.getType().equals(Material.RED_STAINED_GLASS_PANE) && !i.getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
                     p.getInventory().addItem(i);
                 }
             }
 
+        } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.RED) + "Craftear")) {
+            for (ItemStack i : e.getView().getTopInventory()) {
+                if (i == null) continue;
+                if (i.getItemMeta() == null) continue;
+                if (!i.getType().equals(Material.LIME_STAINED_GLASS_PANE) && !i.getType().equals(Material.GRAY_STAINED_GLASS_PANE)
+                        && !i.getType().equals(Material.RED_STAINED_GLASS_PANE) && !i.getType().equals(Material.BLACK_STAINED_GLASS_PANE)
+                        && !i.getType().equals(Material.WHITE_STAINED_GLASS_PANE) && !i.getType().equals(Material.CRAFTING_TABLE)
+                        && !i.getType().equals(Material.FLETCHING_TABLE) ) {
+                    p.getInventory().addItem(i);
+                }
+            }
         }
     }
 
@@ -122,34 +134,26 @@ public class MenuListener implements Listener {
 
     private void manejadorCraftear(InventoryClickEvent e, Player p) {
         if (e.getClickedInventory() == null) return;
+        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) return;
+        if (e.getCurrentItem() == null) return;
 
-
-        if (e.getClickedInventory().equals(e.getView().getBottomInventory())) {
-            crafteoManager.iteractuarCrafteo(e.getView().getTopInventory(), e.getCursor(), false);
-            return;
-        } else crafteoManager.iteractuarCrafteo(e.getView().getTopInventory(), e.getCursor(), true);
-
-        if (e.getClickedInventory().equals(e.getView().getTopInventory()) && e.getCurrentItem() != null) {
-            if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
-                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-                p.openInventory(CrafteoCom.crearInventario(p));
-                e.setCancelled(true);         // No mover item
-            } else if (e.getCurrentItem().getType().equals(Material.GRAY_STAINED_GLASS_PANE)) {
-                e.setCancelled(true);         // No mover item
-            } else if (e.getCurrentItem().getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
-                e.setCancelled(true);         // No mover item
-            } else if (e.getCurrentItem().getType().equals(Material.GLASS_PANE)) {
-                e.setCancelled(true);         // No mover item
-            } else if (e.getCurrentItem().getType().equals(Material.WHITE_STAINED_GLASS_PANE) ||
-                    e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE)) {
-                e.setCancelled(true);         // No mover item
-            } else if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
-                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 2F);
-                e.setCancelled(true);         // No mover item
-                crafteoManager.craftear(e.getView().getTopInventory(), p);
-            } else {
-            }
-        } else {
+        if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(CrafteoCom.crearInventario(p));
+            e.setCancelled(true);         // No mover item
+        } else if (e.getCurrentItem().getType().equals(Material.GRAY_STAINED_GLASS_PANE)) {
+            e.setCancelled(true);         // No mover item
+        } else if (e.getCurrentItem().getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
+            e.setCancelled(true);         // No mover item
+        } else if (e.getCurrentItem().getType().equals(Material.GLASS_PANE)) {
+            e.setCancelled(true);         // No mover item
+        } else if (e.getCurrentItem().getType().equals(Material.WHITE_STAINED_GLASS_PANE) ||
+                e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE)) {
+            e.setCancelled(true);         // No mover item
+        } else if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 2F);
+            e.setCancelled(true);         // No mover item
+            crafteoManager.craftear(e.getView().getTopInventory(), p);
         }
     }
 
@@ -282,33 +286,24 @@ public class MenuListener implements Listener {
 
         if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_RED) + "Menú")) {
             manejadorMenu(e,p);
-
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_GREEN) + "Minas")) {
             manejadorMinas(e,p);
-
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftMenu")) {
             manejadorCraftMenu(e,p);
-
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_PURPLE) + "CraftGuide")) {
             manejadorCraftguide(e, p);
-
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.RED) + "Craftear")) {
             manejadorCraftear(e, p);
-
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.LIGHT_PURPLE) + "Crafteo")) {
             manejadorCrafteo(e, p);
-
         } else if (e.getView().getTitle().contains(ChatColor.BOLD + String.valueOf(ChatColor.GOLD) + "Idle")) {
             if (e.getView().getTitle().contains("10")) manejadorIdle(e,p,10);
             else if (e.getView().getTitle().contains("64")) manejadorIdle(e,p,64);
             else manejadorIdle(e,p,1);
-
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.GREEN) + "Vender")) {
             manejadorVender(e,p);
-
         } else if (e.getView().getTitle().equals(ChatColor.BOLD + String.valueOf(ChatColor.DARK_AQUA) + "TreeSkill")) {
             manejadorTreeSkill(e,p);
-
         }
 
     }

@@ -375,7 +375,11 @@ public class CrafteoManager {
         int n = 0;
         for (int i = 10; i <= 30; i++) {
             n++;
-            if (inventario.getItem(i) != null) Objects.requireNonNull(inventario.getItem(i)).setType(Material.AIR);
+            ItemStack item = inventario.getItem(i);
+            if(item != null) {
+                item.setAmount(item.getAmount()-1);
+                inventario.setItem( i, item );
+            }
 
             if(n>=3){
                 n = 0;
@@ -408,13 +412,8 @@ public class CrafteoManager {
         }
     }
 
-    public void iteractuarCrafteo(Inventory inventario, ItemStack item, boolean isNotBottom) {
+    public void tickCrafteo(Inventory inventario) {
         LinkedList<ItemStack> items = new LinkedList<>(crafteoToLista(inventario));
-
-        if(item!=null && item.getItemMeta()!=null && isNotBottom) items.add(item);
-        for (ItemStack i :items) {
-            if(item!=null && i != null && i.getItemMeta()!=null) IdlePrison.broadcast("kuskus:" + i.getItemMeta().getDisplayName());
-        }
 
         for (Crafteo crafteo:crafteos) {
             int ncraft = crafteo.isCrafteo(items);
@@ -425,8 +424,6 @@ public class CrafteoManager {
             }
         }
         inventario.setItem(23,  IdleprisonCom.crearObjeto(Material.WHITE_STAINED_GLASS_PANE," "));
-
-
     }
 
     public Crafteo getCrafteo(ItemStack itemStack){

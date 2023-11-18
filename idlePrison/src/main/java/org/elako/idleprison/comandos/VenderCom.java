@@ -8,7 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.elako.idleprison.items.VenderManager;
+import org.elako.idleprison.player.DineroManager;
+import org.elako.idleprison.player.VenderManager;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -35,8 +36,9 @@ public class VenderCom implements CommandExecutor {
         }
 
         inventario.setItem(35, IdleprisonCom.crearObjetoLore(Material.LIME_STAINED_GLASS_PANE,ChatColor.WHITE + "Vender", List.of(
-                ChatColor.WHITE + "Botón para vender objetos",
-                ChatColor.WHITE + "Arrastra todo lo que quieras vender") ));
+                ChatColor.WHITE + "Botón para vender objetos, arrastra",
+                ChatColor.WHITE + " todo lo que quieras vender",
+                ChatColor.WHITE + "Obtendrás " + DineroManager.dineroToString(0,true)) ));
         inventario.setItem(53, IdleprisonCom.crearObjetoLore(Material.RED_STAINED_GLASS_PANE,ChatColor.WHITE + "SALIR", List.of(
                 ChatColor.WHITE + "Botón para volver al menú"  ) ));
         return inventario;

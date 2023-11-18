@@ -1,7 +1,8 @@
 TO-DO prison
 sistema propio de crafteo usar ticks para actualizar crafteo y tienda
+crafteo de fragmentos
+craftear max implementar boton
 añadir armaduras: amatistas
-probar arreglar crafteo de fragmentos
 rework treeskill
 crear enciclopedia con notas y bloques
 mejorar dar notas con inventario lleno

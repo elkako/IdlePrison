@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.elako.idleprison.items.VenderManager;
+import org.elako.idleprison.player.VenderManager;
 import org.elako.idleprison.player.DineroManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
