@@ -1,5 +1,5 @@
 TO-DO prison
-crafteo de fragmentos
+crafteo de encantar picos
 craftear max implementar boton
 añadir boton para abrir craftear desde el craftguide de cada objeto
 Rework carteles (rankup -> subir rango, eliminar sell hand y craftguide, cambiar cartel de crafteo)
