@@ -192,6 +192,17 @@ public class IdleprisonCom implements CommandExecutor {
                 if (p.hasPermission("op")) p.sendMessage("'/ip setperm nm' para ver cambiar los permisos de un jugador" +
                         " el n es el permiso de constructor y el segundo de comandos ");
                 return true;
+            } else if (strings[0].equals("materiales")  && permiso) {
+                // tamaños inventarios: 9 18 27 36 45 54
+                Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.DARK_AQUA) + "-=(materiales)=-");
+                int i = 0;
+                for (IpMaterial m : materialesManager.getMateriales()) {
+                    inventario.setItem(i,m.getItem(1));
+                    i++;
+                    if (i == 54) break;
+                }
+                p.openInventory(inventario);
+                return true;
             }
         }else if (strings.length == 2) {
             if (strings[0].equals("getnota") && permiso) {
@@ -201,7 +212,6 @@ public class IdleprisonCom implements CommandExecutor {
                 // tamaños inventarios: 9 18 27 36 45 54
                 Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.DARK_AQUA) + "-=(materiales)=-");
                 if (strings[1].equals("1")){
-
                     int i = 0;
                     for (IpMaterial m : materialesManager.getMateriales()) {
                         inventario.setItem(i,m.getItem(1));

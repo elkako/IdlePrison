@@ -3,6 +3,7 @@ package org.elako.idleprison.crafteos;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
@@ -17,11 +18,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class CrafteoManager {
+public class CraftManager {
     private static RangosManager rangosManager;
     private static final LinkedList<Crafteo> crafteos = new LinkedList<>();
 
-    public CrafteoManager(RangosManager rangos) {
+    public CraftManager(RangosManager rangos) {
         rangosManager = rangos;
         ItemStack nulo = new ItemStack(Material.BARRIER);
 
@@ -62,9 +63,9 @@ public class CrafteoManager {
                 MaterialesManager.getItem(IpMateriales.BOTAS_ELEMENTALES)
         ),Rangos.CONDENADO2);
 
-        ItemStack fragmentoAzul1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_AZUL1);
+        ItemStack fragmentoAzul1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_AZUL1,2);
         ItemStack esenciaAzul1 = MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL1);
-        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+        crafteos.add( new CrafteoFragmentado( new LinkedList<>( List.of(
                 fragmentoAzul1,   fragmentoAzul1,   fragmentoAzul1,
                 fragmentoAzul1,   fragmentoAzul1,   fragmentoAzul1,
                 fragmentoAzul1,   fragmentoAzul1,   fragmentoAzul1
@@ -120,7 +121,7 @@ public class CrafteoManager {
 
         ItemStack fragmentoRoja1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_ROJO1);
         ItemStack esenciaRoja1 = MaterialesManager.getItem(IpMateriales.ESENCIA_ROJA1);
-        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+        crafteos.add( new CrafteoFragmentado( new LinkedList<>( List.of(
                 fragmentoRoja1,   fragmentoRoja1,   fragmentoRoja1,
                 fragmentoRoja1,   fragmentoRoja1,   fragmentoRoja1,
                 fragmentoRoja1,   fragmentoRoja1,   fragmentoRoja1
@@ -155,11 +156,11 @@ public class CrafteoManager {
 
         ItemStack fragmentoVerde1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_VERDE1);
         ItemStack esenciaVerde1 = MaterialesManager.getItem(IpMateriales.ESENCIA_VERDE1);
-        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+        crafteos.add( new CrafteoFragmentado( new LinkedList<>( List.of(
                 fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1,
                 fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1,
                 fragmentoVerde1,   fragmentoVerde1,   fragmentoVerde1
-        ) ), esenciaVerde1, Rangos.CAMPESINO3, true ) );
+        ) ), esenciaVerde1, Rangos.CAMPESINO3 ) );
 
         crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde1) ), picoMadera,
                 Rangos.CAMPESINO3, Enchantment.LOOT_BONUS_MOBS, 1
@@ -167,7 +168,7 @@ public class CrafteoManager {
 
         ItemStack fragmentoAzul2 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_AZUL2);
         ItemStack esenciaAzul2 = MaterialesManager.getItem(IpMateriales.ESENCIA_AZUL2);
-        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+        crafteos.add( new CrafteoFragmentado( new LinkedList<>( List.of(
                 fragmentoAzul2,   fragmentoAzul2,   fragmentoAzul2,
                 fragmentoAzul2,   fragmentoAzul2,   fragmentoAzul2,
                 fragmentoAzul2,   fragmentoAzul2,   fragmentoAzul2
@@ -194,7 +195,7 @@ public class CrafteoManager {
 
         ItemStack fragmentoAmarillo1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_AMARILLO1);
         ItemStack esenciaAmarilla1 = MaterialesManager.getItem(IpMateriales.ESENCIA_AMARILLA1);
-        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+        crafteos.add( new CrafteoFragmentado( new LinkedList<>( List.of(
                 fragmentoAmarillo1,   fragmentoAmarillo1,   fragmentoAmarillo1,
                 fragmentoAmarillo1,   fragmentoAmarillo1,   fragmentoAmarillo1,
                 fragmentoAmarillo1,   fragmentoAmarillo1,   fragmentoAmarillo1
@@ -232,7 +233,7 @@ public class CrafteoManager {
 
         ItemStack fragmentoRojo2 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_ROJO2);
         ItemStack esenciaRoja2 = MaterialesManager.getItem(IpMateriales.ESENCIA_ROJA2);
-        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+        crafteos.add( new CrafteoFragmentado( new LinkedList<>( List.of(
                 fragmentoRojo2,   fragmentoRojo2,   fragmentoRojo2,
                 fragmentoRojo2,   fragmentoRojo2,   fragmentoRojo2,
                 fragmentoRojo2,   fragmentoRojo2,   fragmentoRojo2
@@ -244,11 +245,11 @@ public class CrafteoManager {
 
         ItemStack fragmentoVerde2 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_VERDE2);
         ItemStack esenciaVerde2 = MaterialesManager.getItem(IpMateriales.ESENCIA_VERDE2);
-        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+        crafteos.add( new CrafteoFragmentado( new LinkedList<>( List.of(
                 fragmentoVerde2,   fragmentoVerde2,   fragmentoVerde2,
                 fragmentoVerde2,   fragmentoVerde2,   fragmentoVerde2,
                 fragmentoVerde2,   fragmentoVerde2,   fragmentoVerde2
-        ) ), esenciaVerde2, Rangos.MINERO1, true ) );
+        ) ), esenciaVerde2, Rangos.MINERO1 ) );
 
         crafteos.add( new CrafteoEncantar( new LinkedList<>( List.of(esenciaVerde2) ), picoMadera,
                 Rangos.MINERO1, Enchantment.LOOT_BONUS_MOBS, 2
@@ -256,7 +257,7 @@ public class CrafteoManager {
 
         ItemStack fragmentoNegro1 = MaterialesManager.getItem(IpMateriales.FRAGMENTO_NEGRO1);
         ItemStack esenciaNegra1 = MaterialesManager.getItem(IpMateriales.ESENCIA_NEGRA1);
-        crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(
+        crafteos.add( new CrafteoFragmentado( new LinkedList<>( List.of(
                 fragmentoNegro1,   fragmentoNegro1,   fragmentoNegro1,
                 fragmentoNegro1,   fragmentoNegro1,   fragmentoNegro1,
                 fragmentoNegro1,   fragmentoNegro1,   fragmentoNegro1
@@ -272,14 +273,6 @@ public class CrafteoManager {
             rango.addDesbloqueo("[Minas: has desbloqueado " + Objects.requireNonNull(c.getIcono().getItemMeta()).getDisplayName() + "]");
         }
 
-    }
-
-    public LinkedList<Recipe> getCrafteos() {
-        LinkedList<Recipe> recetas = new LinkedList<>();
-        for (Crafteo c : crafteos) {
-            recetas.addAll(c.getCrafteo());
-        }
-        return recetas;
     }
 
     public static Inventory CraftMenu(Player p){
@@ -399,14 +392,16 @@ public class CrafteoManager {
                 if (inventario.getItem(25) != null) p.getInventory().addItem(inventario.getItem(25));
                 inventario.setItem(25,crafteo.getResultado(ncraft));
                 p.sendMessage( crafteo.getResultado().getType().toString() );
-
+                tickCrafteo(inventario);
                 limpiarCrafteo(inventario);
             }
         }
 
         if(conseguido) {
             p.sendMessage("PIOLA");
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 2F);
         } else {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
             p.sendMessage("ANTIPIOLA");
 
         }
@@ -426,36 +421,6 @@ public class CrafteoManager {
         inventario.setItem(23,  IdleprisonCom.crearObjeto(Material.WHITE_STAINED_GLASS_PANE," "));
     }
 
-    public Crafteo getCrafteo(ItemStack itemStack){
-        for ( Crafteo c : crafteos ) {
-            if(c.getClass() != CrafteoEncantar.class){
-                if(c.isFragmento()) {
-                    if (c.getReceta().getFirst().getEnchantments().equals(itemStack.getEnchantments()))
-                        return c;
-                } else if(MaterialesManager.comparar(itemStack,c.getResultado())) return c;
-            }
-        }
-        return null;
-    }
-
-    public CrafteoEncantar getEncantar(ItemStack[] matrix) {
-        CrafteoEncantar devolver = null;
-        for (ItemStack i:matrix) {
-            if(i == null ) continue;
-            if(i.getItemMeta() == null ) continue;
-
-            if(i.getItemMeta().getDisplayName().contains("Esencia")){
-                for (Crafteo c:crafteos) {
-                    if(c.getClass() == CrafteoEncantar.class){
-                        CrafteoEncantar ce = (CrafteoEncantar) c;
-                        if (ce.isCrafteoEcantado(i.getEnchantments()))
-                            devolver = ce;
-                    }
-                }
-            }
-        }
-        return devolver;
-    }
 
     private void crafteosArmadura(ItemStack material, ItemStack nulo, List<ItemStack> armaduras, Rangos rango){
         crafteos.add( new CrafteoShaped( new LinkedList<>( List.of(

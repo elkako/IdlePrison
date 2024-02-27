@@ -7,8 +7,8 @@ import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.LinkedList;
 
-public class CrafteoShaped extends Crafteo {
-    public CrafteoShaped(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
+public class CrafteoFragmentado extends Crafteo {
+    public CrafteoFragmentado(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
         super(receta, resultado, permiso);
     }
 
@@ -19,10 +19,14 @@ public class CrafteoShaped extends Crafteo {
     public int isCrafteo(LinkedList<ItemStack> items) {
         LinkedList<ItemStack> receta = getReceta();
         for (ItemStack item : items) {
-            if(!receta.pop().getType().equals(item.getType()))
+            if(!receta.pop().getType().equals(item.getType()) || notComparteEnchantis(item) )
                 return 0;
         }
         return 1;
+    }
+
+    private boolean notComparteEnchantis(ItemStack item) {
+        return !getReceta().getFirst().getEnchantments().equals(item.getEnchantments());
     }
 
     @Override

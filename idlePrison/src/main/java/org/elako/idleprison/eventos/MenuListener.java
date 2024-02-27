@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.elako.idleprison.crafteos.CrafteoManager;
+import org.elako.idleprison.crafteos.CraftManager;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.player.VenderManager;
@@ -26,17 +26,17 @@ public class MenuListener implements Listener {
     private final RangosManager rangosManager;
     private final IdleManager idleManager;
     private final PlayerManager playerManager;
-    private final CrafteoManager crafteoManager;
+    private final CraftManager craftManager;
     private final VenderManager venderManager;
 
     public MenuListener(TreeSkillManager treeskill, MinaManager mina, RangosManager rango, IdleManager idle,
-                        PlayerManager player, VenderManager vender, CrafteoManager crafteo) {
+                        PlayerManager player, VenderManager vender, CraftManager crafteo) {
         playerManager = player;
         idleManager = idle;
         rangosManager = rango;
         treeSkillManager = treeskill;
         minaManager = mina;
-        crafteoManager = crafteo;
+        craftManager = crafteo;
         venderManager = vender;
     }
 
@@ -121,11 +121,11 @@ public class MenuListener implements Listener {
 
         if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
-            p.openInventory(CrafteoManager.CraftMenu(p));
+            p.openInventory(CraftManager.CraftMenu(p));
         } else if (e.getCurrentItem().getType().equals(Material.BOOK)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
 
-            p.openInventory(CrafteoManager.CraftGuide(p,1));
+            p.openInventory(CraftManager.CraftGuide(p,1));
         } else if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
             p.openInventory(IdleprisonCom.crearInventario(p));
@@ -148,12 +148,11 @@ public class MenuListener implements Listener {
         } else if (e.getCurrentItem().getType().equals(Material.GLASS_PANE)) {
             e.setCancelled(true);         // No mover item
         } else if (e.getCurrentItem().getType().equals(Material.WHITE_STAINED_GLASS_PANE) ||
-                e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE)) {
+                 e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE)) {
             e.setCancelled(true);         // No mover item
         } else if (e.getCurrentItem().getType().equals(Material.CRAFTING_TABLE)) {
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 2F);
             e.setCancelled(true);         // No mover item
-            crafteoManager.craftear(e.getView().getTopInventory(), p);
+            craftManager.craftear(e.getView().getTopInventory(), p);
         }
     }
 
@@ -166,7 +165,7 @@ public class MenuListener implements Listener {
         if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)){
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
             p.openInventory(CrafteoCom.crearInventario(p));
-        } else crafteoManager.interactuar(e.getCurrentItem(), p);
+        } else craftManager.interactuar(e.getCurrentItem(), p);
     }
 
     private void manejadorCrafteo(InventoryClickEvent e, Player p) {
@@ -177,8 +176,8 @@ public class MenuListener implements Listener {
 
         if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
-            p.openInventory(CrafteoManager.CraftGuide(p,1));
-        } else crafteoManager.interactuar(e.getCurrentItem(), p);
+            p.openInventory(CraftManager.CraftGuide(p,1));
+        } else craftManager.interactuar(e.getCurrentItem(), p);
     }
 
     private void manejadorIdle(InventoryClickEvent e, Player p, int cantidad) {

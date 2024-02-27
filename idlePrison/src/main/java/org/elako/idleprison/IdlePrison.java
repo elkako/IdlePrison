@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
 import org.elako.idleprison.comandos.*;
 import org.elako.idleprison.comandos.RangoCom;
-import org.elako.idleprison.crafteos.CrafteoManager;
+import org.elako.idleprison.crafteos.CraftManager;
 import org.elako.idleprison.eventos.*;
 import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
@@ -37,7 +37,7 @@ public final class IdlePrison extends JavaPlugin {
     private static IdlePrison plugin;
     private static int crafteoskey = 0;
     private int setContador = 10;
-    private CrafteoManager crafteo;
+    private CraftManager crafteo;
     private VenderManager vender;
 
     public static IdlePrison getPlugin(){ return plugin; }
@@ -297,7 +297,7 @@ public final class IdlePrison extends JavaPlugin {
         idle = new IdleManager(dinero,playerManager, rango);
         mina = new MinaManager(rango);
         treeskill = new TreeSkillManager(playerManager,rango,mina);
-        crafteo = new CrafteoManager(rango);
+        crafteo = new CraftManager(rango);
 
         insertarConfig();
 
@@ -325,12 +325,6 @@ public final class IdlePrison extends JavaPlugin {
         Objects.requireNonNull(getCommand("crafteo")).setExecutor(new CrafteoCom());
         Objects.requireNonNull(getCommand("idle")).setExecutor(new IdleCom(playerManager,rango,idle));
         Objects.requireNonNull(getCommand("renacer")).setExecutor(new RenacerCom(treeskill,playerManager,rango));
-
-        //recetas
-
-        for ( Recipe r: crafteo.getCrafteos() ) {
-            getServer().addRecipe(r);
-        }
 
         //cargar minas
        ConfigurationSection sec = getConfig().getConfigurationSection("Minas");

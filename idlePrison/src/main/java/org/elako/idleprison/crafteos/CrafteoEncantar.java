@@ -5,14 +5,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import static org.bukkit.ChatColor.*;
@@ -63,7 +61,7 @@ public class CrafteoEncantar extends Crafteo {
         else return 0;
     }
 
-    @Override
+   /* @Override
     public List<Recipe> getCrafteo() {
         ShapelessRecipe recetaW = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.WOODEN_PICKAXE));
         ShapelessRecipe recetaS = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.STONE_PICKAXE));
@@ -85,7 +83,7 @@ public class CrafteoEncantar extends Crafteo {
         IdlePrison.imprimirConsola("Crafteo creado:[Encantar: " + nivel + " " + encanti + "]");
 
         return List.of( recetaW, recetaS, recetaI, recetaD );
-    }
+    }*/
 
     @Override
     public Inventory getGuide(Player p) {

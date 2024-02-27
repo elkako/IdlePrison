@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.elako.idleprison.crafteos.CrafteoManager;
+import org.elako.idleprison.crafteos.CraftManager;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -43,11 +43,11 @@ public class CrafteoCom implements CommandExecutor {
             switch (strings[0]) {
                 case "craft":
                     //p.openWorkbench(null, true);
-                    p.openInventory(CrafteoManager.CraftMenu(p));
+                    p.openInventory(CraftManager.CraftMenu(p));
 
                     return true;
                 case "craftguide":
-                    p.openInventory(CrafteoManager.CraftGuide(p,1));
+                    p.openInventory(CraftManager.CraftGuide(p,1));
                     return true;
                 case "help":
                     p.sendMessage("'/crafteo' para ver el menú general de crafteos");

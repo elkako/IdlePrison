@@ -26,29 +26,6 @@ public class CrafteoShapelessDoble extends Crafteo {
     public LinkedList<ItemStack> getReceta2() { return new LinkedList<>(receta2); }
 
     @Override
-    public List<Recipe> getCrafteo() {
-        ShapelessRecipe r = new ShapelessRecipe(IdlePrison.getCrafteoskey(), getResultado());
-        ShapelessRecipe r2 = new ShapelessRecipe(IdlePrison.getCrafteoskey(), resultado2);
-        StringBuilder s= new StringBuilder();
-
-        for (ItemStack item : getReceta()) {
-          r.addIngredient(item.getType());
-          s.append(item.getType()).append(", ");
-        }
-        s = new StringBuilder(s.substring(0, s.length() - 2));
-        s.append("],[");
-
-        for (ItemStack item : receta2) {
-            r2.addIngredient(item.getType());
-            s.append(item.getType()).append(", ");
-        }
-        s = new StringBuilder(s.substring(0, s.length() - 2));
-
-        IdlePrison.imprimirConsola("Crafteo creado:[" + s + "]");
-        return List.of(r, r2);
-    }
-
-    @Override
     public int isCrafteo(LinkedList<ItemStack> items) {
         boolean devolver = true;
         int itemsMatch = 0;

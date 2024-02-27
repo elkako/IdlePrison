@@ -2,6 +2,7 @@ org\elako\idleprison\player\Jugador.class
 org\elako\idleprison\items\notas\NotaManager.class
 org\elako\idleprison\eventos\InteractPlayerEvent.class
 org\elako\idleprison\eventos\ItemDropEvent.class
+org\elako\idleprison\crafteos\CraftManager.class
 org\elako\idleprison\items\armaduras\IpArmadura.class
 org\elako\idleprison\player\rango\RangosManager.class
 org\elako\idleprison\mina\IpBloque.class
@@ -11,6 +12,7 @@ org\elako\idleprison\eventos\ItemsEvent.class
 org\elako\idleprison\mina\IpBloque$Morir.class
 org\elako\idleprison\eventos\MesasCrafteoEvent.class
 org\elako\idleprison\eventos\ComerEvent.class
+org\elako\idleprison\player\VenderManager.class
 org\elako\idleprison\crafteos\CrafteoShapelessDoble.class
 org\elako\idleprison\comandos\DineroCom.class
 org\elako\idleprison\items\IpHerramienta.class
@@ -32,9 +34,10 @@ org\elako\idleprison\player\PlayerManager.class
 org\elako\idleprison\mina\BloqueManager$Estado.class
 org\elako\idleprison\comandos\IdleprisonCom.class
 org\elako\idleprison\comandos\RenacerCom.class
+org\elako\idleprison\crafteos\CrafteoFragmentado.class
 org\elako\idleprison\comandos\MinaCom.class
 org\elako\idleprison\items\notas\TipoNota.class
-org\elako\idleprison\items\VenderManager.class
+org\elako\idleprison\crafteos\Crafteo.class
 org\elako\idleprison\comandos\VenderCom.class
 org\elako\idleprison\items\IpComida.class
 org\elako\idleprison\items\materiales\IpMaterial.class
@@ -53,5 +56,6 @@ org\elako\idleprison\player\TreeSkillManager.class
 org\elako\idleprison\eventos\BreakPutBlockEvent.class
 org\elako\idleprison\eventos\JoinPlayerEvent.class
 org\elako\idleprison\items\armaduras\IpArmaduraColor.class
+org\elako\idleprison\crafteos\CrafteoShaped.class
 org\elako\idleprison\comandos\IdleCom.class
 org\elako\idleprison\player\idle\IdleManager.class
