@@ -391,7 +391,7 @@ public class CraftManager {
                 conseguido = true;
                 ItemStack resul = crafteo.getResultado(ncraft);
                 if ( crafteo.getClass().equals(CrafteoEncantar.class) ){
-                    resul = ((CrafteoEncantar) crafteo).encantar(items.get(ncraft));
+                    resul = ((CrafteoEncantar) crafteo).encantar(items.get(ncraft-1));
                 }
                 if (inventario.getItem(25) != null) p.getInventory().addItem(inventario.getItem(25));
                 inventario.setItem(25,resul);
@@ -411,6 +411,7 @@ public class CraftManager {
 
         }
     }
+
 
     public void tickCrafteo(Inventory inventario) {
         LinkedList<ItemStack> items = new LinkedList<>(crafteoToLista(inventario));

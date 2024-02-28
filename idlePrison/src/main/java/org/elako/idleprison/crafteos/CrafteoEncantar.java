@@ -5,6 +5,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
@@ -56,12 +57,13 @@ public class CrafteoEncantar extends Crafteo {
                 index = items.indexOf(item);
             }
 
-            if( MaterialesManager.comparar(item, esencia) ) if(item.getAmount() > esencia.getAmount())
+            if( MaterialesManager.comparar(item, esencia) ) if(item.getAmount() >= esencia.getAmount())
                 devolver++;
         }
 
-        if (devolver >= 2) return index;
-        else return index;
+        //IdlePrison.broadcast("Encanta:" + encanti + " nivel:" + nivel+ " devolver:" + devolver + " index:" + index+1);
+        if (devolver >= 2) return index+1;
+        else return 0;
     }
 
     @Override
@@ -98,6 +100,7 @@ public class CrafteoEncantar extends Crafteo {
     }
 
     public ItemStack encantar(ItemStack item){
+        IdlePrison.imprimirConsola("Encanta:" + encanti + " nivel:" + nivel);
         ItemMeta itemMeta = item.getItemMeta();
 
         if(itemMeta == null) return MaterialesManager.getItem(IpMateriales.PICO_MADERA);
