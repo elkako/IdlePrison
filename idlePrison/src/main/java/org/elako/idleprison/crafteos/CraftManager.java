@@ -389,9 +389,14 @@ public class CraftManager {
             int ncraft = crafteo.isCrafteo(items);
             if(ncraft != 0) {
                 conseguido = true;
+                ItemStack resul = crafteo.getResultado(ncraft);
+                if ( crafteo.getClass().equals(CrafteoEncantar.class) ){
+                    resul = ((CrafteoEncantar) crafteo).encantar(items.get(ncraft));
+                }
                 if (inventario.getItem(25) != null) p.getInventory().addItem(inventario.getItem(25));
-                inventario.setItem(25,crafteo.getResultado(ncraft));
-                p.sendMessage( crafteo.getResultado().getType().toString() );
+                inventario.setItem(25,resul);
+
+                p.sendMessage( resul.getType().toString() );
                 tickCrafteo(inventario);
                 limpiarCrafteo(inventario);
             }

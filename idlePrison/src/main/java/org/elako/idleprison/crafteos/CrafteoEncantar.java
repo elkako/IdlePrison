@@ -46,44 +46,23 @@ public class CrafteoEncantar extends Crafteo {
     @Override
     public int isCrafteo(LinkedList<ItemStack> items){
         int devolver = 0;
+        int index = 0;
         ItemStack esencia = getReceta().getFirst();
 
         for (ItemStack item : items) {
             if( item.getType().equals(Material.WOODEN_PICKAXE) || item.getType().equals(Material.STONE_PICKAXE)
-            || item.getType().equals(Material.IRON_PICKAXE) || item.getType().equals(Material.DIAMOND_PICKAXE) )
+            || item.getType().equals(Material.IRON_PICKAXE) || item.getType().equals(Material.DIAMOND_PICKAXE) ){
                 devolver++;
+                index = items.indexOf(item);
+            }
 
             if( MaterialesManager.comparar(item, esencia) ) if(item.getAmount() > esencia.getAmount())
                 devolver++;
         }
 
-        if (devolver >= 2) return 1;
-        else return 0;
+        if (devolver >= 2) return index;
+        else return index;
     }
-
-   /* @Override
-    public List<Recipe> getCrafteo() {
-        ShapelessRecipe recetaW = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.WOODEN_PICKAXE));
-        ShapelessRecipe recetaS = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.STONE_PICKAXE));
-        ShapelessRecipe recetaI = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.IRON_PICKAXE));
-        ShapelessRecipe recetaD = new ShapelessRecipe(IdlePrison.getCrafteoskey(),new ItemStack(Material.DIAMOND_PICKAXE));
-
-        for (ItemStack esencia: getReceta()) {
-            recetaW.addIngredient(new RecipeChoice.ExactChoice(esencia));
-            recetaS.addIngredient(new RecipeChoice.ExactChoice(esencia));
-            recetaI.addIngredient(new RecipeChoice.ExactChoice(esencia));
-            recetaD.addIngredient(new RecipeChoice.ExactChoice(esencia));
-        }
-
-        recetaW.addIngredient(Material.WOODEN_PICKAXE);
-        recetaS.addIngredient(Material.STONE_PICKAXE);
-        recetaI.addIngredient(Material.IRON_PICKAXE);
-        recetaD.addIngredient(Material.DIAMOND_PICKAXE);
-
-        IdlePrison.imprimirConsola("Crafteo creado:[Encantar: " + nivel + " " + encanti + "]");
-
-        return List.of( recetaW, recetaS, recetaI, recetaD );
-    }*/
 
     @Override
     public Inventory getGuide(Player p) {
@@ -116,11 +95,6 @@ public class CrafteoEncantar extends Crafteo {
                 break;
         }
         return guiaCrafteoSimple(p, guia, getResultado());
-    }
-
-    public boolean isCrafteoEcantado(Map<Enchantment,Integer> map){
-        if (map.get(encanti) == null) return false;
-        return map.get(encanti)==nivel;
     }
 
     public ItemStack encantar(ItemStack item){
