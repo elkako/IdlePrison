@@ -67,9 +67,7 @@ public class Jugador {
     public void reduceTimeScore() { duracionScoreboard = duracionScoreboard-1; }
     public void reloadTimeScoreboard(int segs) { duracionScoreboard = segs; }
 
-    public int getIdle(int i){
-        return idle.get(i-1);
-    }
+    public int getIdle(int i){ return idle.get(i-1); }
 
     public double getDineroRun() { return dineroRun; }
     public double getDineroRenacer() { return dineroRenacer; }
@@ -185,6 +183,11 @@ public class Jugador {
         IdlePrison.getPlugin().escribirNotas(jugador, notas);
     }
 
+    public void reloadNotas() {
+        notas = "000000000000000000000000000000000000000000000000000000000000";
+        notasRecibidas = "000000000000000000000000000000000000000000000000000000000000";
+    }
+
     public void setNotasRecibidas(int i) {
         char[] lista = notasRecibidas.toCharArray();
         lista[i-1] = '1';
@@ -220,4 +223,6 @@ public class Jugador {
     }
     public double getDiferenciaDinero() {return diferenciaDinero;}
     public void reiniciarDiferenciaDinero() { diferenciaDinero = 0;}
+
+
 }

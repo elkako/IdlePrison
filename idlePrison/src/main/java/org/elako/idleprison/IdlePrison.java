@@ -11,14 +11,14 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
 import org.elako.idleprison.comandos.*;
 import org.elako.idleprison.comandos.RangoCom;
-import org.elako.idleprison.crafteos.CrafteoManager;
+import org.elako.idleprison.crafteos.CraftManager;
 import org.elako.idleprison.eventos.*;
-import org.elako.idleprison.items.*;
 import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.mina.BloqueManager;
 import org.elako.idleprison.mina.MinaManager;
 import org.elako.idleprison.player.*;
+import org.elako.idleprison.player.idle.IdleManager;
 import org.elako.idleprison.player.rango.Rangos;
 import org.elako.idleprison.player.rango.RangosManager;
 
@@ -37,6 +37,8 @@ public final class IdlePrison extends JavaPlugin {
     private static IdlePrison plugin;
     private static int crafteoskey = 0;
     private int setContador = 10;
+    private CraftManager crafteo;
+    private VenderManager vender;
 
     public static IdlePrison getPlugin(){ return plugin; }
 
@@ -209,50 +211,49 @@ public final class IdlePrison extends JavaPlugin {
 
         String diferenciaDinero = "";
         if(playerManager.getDiferenciaDinero(p.getName()) > 0.0) { // positivo
-             diferenciaDinero = " + " + DineroManager.dineroToString(diferencia);
+             diferenciaDinero = " + " + DineroManager.dineroToString(diferencia,true);
         } else if (diferencia < 0.0) { // negativo
-            diferenciaDinero = " - " + DineroManager.dineroToString( Math.abs(diferencia) );
-
-        }
+            diferenciaDinero = " - " + DineroManager.dineroToString( Math.abs(diferencia),true );
+        } else diferenciaDinero = "E";
 
         playerManager.reiniciarDiferenciaDinero(p.getName());
 
-        List<String> lineas;
         String s = ChatColor.WHITE + String.valueOf(sr.toUpperCase().charAt(0)) + sr.substring(1).toLowerCase();
-        if (rango.isPermitido(p.getName(),Rangos.CAMPESINO1) || treeskill.getDineroRenacer(p.getName()) > 0 ) {
-             lineas = Arrays.asList(
-                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero,
-                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Rango: ",
-                     s,
-                    ChatColor.WHITE + "Siguiente: " + rango.siguienteRango(p.getName()).toLowerCase() ,
-                    ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender),
-                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Acumulado en idle: ",
-                    ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())),
-                    ChatColor.WHITE + "Tiempo: " + IdleManager.tiempoToString(playerManager.getPlayer(p.getName()).getTimeTotal()),
-                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Renacer: ",
-                    ChatColor.WHITE + "Nivel: "+ treeskill.getNivelRenacer(p.getName()),
-                    ChatColor.WHITE + "Nivel tras renacer: "+ treeskill.getNivelTotal(p.getName()),
-                    ChatColor.WHITE + "Siguiente nivel: " + DineroManager.dineroToString( treeskill.ascenderRestos( treeskill.getDineroTotal(p.getName()) ) )
-
-
-            );
-        } else
-            lineas = Arrays.asList(
-                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d) + diferenciaDinero,
-                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Rango: ",
-                    s,
+        LinkedList<String> lineas = new LinkedList<>( List.of(
+                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Dinero: " + ChatColor.WHITE + DineroManager.dineroToString(d, false) + diferenciaDinero,
+                ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Rango: ", s,
                 ChatColor.WHITE + "Siguiente: " + rango.siguienteRango(p.getName()).toLowerCase() ,
-                ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender),
+                ChatColor.WHITE + "Necesario: " + DineroManager.dineroToString(ascender, true),
                 ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Acumulado en idle: ",
-                ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())),
+                ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName()), true),
                 ChatColor.WHITE + "Tiempo: " + IdleManager.tiempoToString(playerManager.getPlayer(p.getName()).getTimeTotal())
+        ) );
 
-        );
+        if (rango.isPermitido(p.getName(),Rangos.CAMPESINO1) || treeskill.getDineroRenacer(p.getName()) > 0 ) {
+            lineas.addAll( List.of(
+                    ChatColor.WHITE + String.valueOf(ChatColor.BOLD) + "Renacer: ",
+                    ChatColor.WHITE + "Nivel: " + treeskill.getNivelRenacer(p.getName()),
+                    ChatColor.WHITE + "Nivel tras renacer: " + treeskill.getNivelTotal(p.getName()),
+                    ChatColor.WHITE + "Siguiente nivel: " + DineroManager.dineroToString(treeskill.ascenderRestos(treeskill.getDineroTotal(p.getName())), true)
+            ) );
+        }
+
         for (int i = 0; i < lineas.size(); i++) {
             Score score = objetivo.getScore(lineas.get(i));
             score.setScore(lineas.size()-i);
         }
         p.setScoreboard(scoreboard);
+    }
+
+    private void tickInventarios(Player p) {
+        Inventory inventario = p.getOpenInventory().getTopInventory();
+        String titulo = p.getOpenInventory().getTitle();
+
+        if (titulo.equals(ChatColor.BOLD + String.valueOf(ChatColor.RED) + "Craftear")){
+            crafteo.tickCrafteo(inventario);
+        } else if (titulo.equals(ChatColor.BOLD + String.valueOf(ChatColor.GREEN) + "Vender")){
+            vender.tickVender(inventario, p);
+        }
     }
 
     private double getVida(Player p){
@@ -284,20 +285,19 @@ public final class IdlePrison extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         //inicializacion
         plugin = this;
         playerManager = new PlayerManager();
         dinero = new DineroManager(playerManager);
         rango = new RangosManager(dinero,playerManager);
         materiales = new MaterialesManager();
-        VenderManager vender = new VenderManager(dinero, rango, playerManager);
+        vender = new VenderManager(dinero, rango, playerManager);
         NotaManager nota = new NotaManager(dinero, playerManager);
         BloqueManager bloque = new BloqueManager();
-        idle = new IdleManager(dinero,playerManager);
+        idle = new IdleManager(dinero,playerManager, rango);
         mina = new MinaManager(rango);
         treeskill = new TreeSkillManager(playerManager,rango,mina);
-        CrafteoManager crafteo = new CrafteoManager(rango);
+        crafteo = new CraftManager(rango);
 
         insertarConfig();
 
@@ -326,12 +326,6 @@ public final class IdlePrison extends JavaPlugin {
         Objects.requireNonNull(getCommand("idle")).setExecutor(new IdleCom(playerManager,rango,idle));
         Objects.requireNonNull(getCommand("renacer")).setExecutor(new RenacerCom(treeskill,playerManager,rango));
 
-        //recetas
-
-        for ( Recipe r: crafteo.getCrafteos() ) {
-            getServer().addRecipe(r);
-        }
-
         //cargar minas
        ConfigurationSection sec = getConfig().getConfigurationSection("Minas");
 
@@ -355,13 +349,10 @@ public final class IdlePrison extends JavaPlugin {
                 if (getConfig().get("Players." + key) != "") {
                     // rangos
                     String rangoJugador = getConfig().getString("Players." + key + ".rango");
-
                     //money
                     double dineroJugador = getConfig().getDouble("Players." + key + ".dinero");
-
                     //money renacer
                     double dineroRenacer = getConfig().getDouble("Players." + key + ".dineroRenacer");
-
                     //money run
                     double dineroRun = getConfig().getDouble("Players." + key + ".dineroRun");
 
@@ -398,15 +389,20 @@ public final class IdlePrison extends JavaPlugin {
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (Player p : getServer().getOnlinePlayers()) { // a todos los jugadores en linea
+                tickInventarios(p);
+
                 if (playerManager.getTimeScore(p.getName())<=0) tickScoreboard(p);
                 else playerManager.reduceTimeScore(p.getName());
                 tickEffect(p);
             }
 
+
             mina.tick();
             idle.tick();
         }, 20, 20);
     }
+
+
 
     @Override
     public void onDisable() {

@@ -67,6 +67,7 @@ public class BloqueManager {
 
         if(b == null) IdlePrison.broadcast("ERROR: " + block.getType());
 
+        assert b != null;
         for (DropProb d : b.getDropsProb()) {
             if(dropProbabilidad(p, d.getProb(), d.getItem())) hasDropped = true;
         }
@@ -82,6 +83,40 @@ public class BloqueManager {
         if(damage && hasDropped) b.roto(p,block.getLocation());
 
     }
+
+    private enum Estado{ANGUSTIA, CALOR, FRIO}
+
+    private void efectoDeEstado(Player p, double prob, Estado estado, int magnitud){
+        if(probabilidad(prob)) switch (estado){
+            case ANGUSTIA:
+                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado angustia");
+                if(magnitud == 1) {
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*4,0));
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.POISON,60*2,2));
+                    p.damage(1);
+                }
+                break;
+            case CALOR:
+                p.sendMessage(ChatColor.RED + "Te ha dado calor");
+                if(magnitud == 1) {
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*4,0));
+                    p.setFireTicks(120);
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,4));
+                    p.damage(2);
+                }
+                break;
+            case FRIO:
+                p.sendMessage(ChatColor.AQUA + "Te ha dado frío");
+                if(magnitud == 1) {
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING,60*2,0));
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,60*5,0));
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,60*3,0));
+                    p.damage(10);
+                }
+        }
+
+    }
+
 
     public BloqueManager() {
         ipBloques.add(new IpBloque(Material.DRIED_KELP_BLOCK, new ArrayList<>(), List.of(
@@ -136,11 +171,7 @@ public class BloqueManager {
         ), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.PODREDUMBRE), 1, 3)
         ), (p, pos) -> {
-            if (probabilidad(0.1)) {
-                p.sendMessage(ChatColor.DARK_GREEN + "Te ha dado angustia");
-                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
-                p.addPotionEffect(new PotionEffect(PotionEffectType.POISON,60*2,2));
-            }
+            efectoDeEstado(p, 0.1, Estado.ANGUSTIA, 1);
         } ));
 
         ipBloques.add(new IpBloque(Material.STONE, Arrays.asList(
@@ -161,13 +192,7 @@ public class BloqueManager {
                 new DropProb( MaterialesManager.getItem(IpMateriales.MADERA_ROBLE), 0.1),
                 new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.007 )
         ), new ArrayList<>(), (p, pos) -> {
-            if (probabilidad(0.02)) {
-                p.sendMessage(ChatColor.RED + "Te ha dado calor");
-                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
-                p.setFireTicks(90);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
-                p.damage(4);
-            }
+            efectoDeEstado(p, 0.1, Estado.CALOR, 1);
         } ));
 
         ipBloques.add(new IpBloque(Material.RED_TERRACOTTA, List.of(
@@ -182,15 +207,7 @@ public class BloqueManager {
                 new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.015 )
         ), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.GRANITO), 3, 6)
-        ), (p, pos) -> {
-            if (probabilidad(0.05)) {
-                p.sendMessage(ChatColor.RED + "Te ha dado calor");
-                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
-                p.setFireTicks(90);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
-                p.damage(4);
-            }
-        } ));
+        ), (p, pos) -> efectoDeEstado(p, 0.05, Estado.CALOR, 1) ) );
 
         ipBloques.add(new IpBloque(Material.LIME_TERRACOTTA, List.of(
                 new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_VERDE1), 0.5)
@@ -212,41 +229,19 @@ public class BloqueManager {
                 new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.03 )
         ), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.ARENA), 1, 3)
-        ), (p, pos) -> {
-            if (probabilidad(0.05)) {
-                p.sendMessage(ChatColor.RED + "Te ha dado calor");
-                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
-                p.setFireTicks(90);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
-                p.damage(4);
-            }
-        } ));
+        ), (p, pos) -> efectoDeEstado(p, 0.1, Estado.CALOR, 1) ));
 
         ipBloques.add(new IpBloque(Material.SMOOTH_QUARTZ, List.of(
                 new DropProb(MaterialesManager.getItem(IpMateriales.CUARZO), 0.9),
                 new DropProb( MaterialesManager.getItem(IpMateriales.FLOR_DESIERTO), 0.015 )
-        ), new ArrayList<>(), (p, pos) -> {
-            if (probabilidad(0.05)) {
-                p.sendMessage(ChatColor.RED + "Te ha dado calor");
-                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
-                p.setFireTicks(90);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
-                p.damage(4);
-            }
-        } ));
+        ), new ArrayList<>(), (p, pos) -> efectoDeEstado(p, 0.05, Estado.CALOR, 1)));
 
         ipBloques.add(new IpBloque(Material.HAY_BLOCK, List.of(
                 new DropProb(MaterialesManager.getItem(IpMateriales.BAYA_LUMINOSA), 0.1)
         ), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.TRIGO), 1, 3)
         ), (p, pos) -> {
-            if (probabilidad(0.07)) {
-                p.sendMessage(ChatColor.RED + "Te ha dado calor");
-                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
-                p.setFireTicks(90);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER,60*4,2));
-                p.damage(4);
-            }
+            efectoDeEstado(p, 0.07, Estado.CALOR, 1);
         } ));
 
         ipBloques.add(new IpBloque(Material.COBBLESTONE, List.of(
@@ -273,29 +268,15 @@ public class BloqueManager {
                 new DropProb( MaterialesManager.getItem(IpMateriales.PIEDRA), 1 )
         ), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.DIORITA), 1, 4)
-        ), (p, pos) -> {
-            if (probabilidad(0.05)) {
-                p.damage(2);
-                p.sendMessage(ChatColor.AQUA + "Te ha dado frío");
-                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
-                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,60*2,0));
-            }
-        } ));
+        ), (p, pos) -> efectoDeEstado(p, 0.05, Estado.FRIO, 1) ));
 
         ipBloques.add(new IpBloque(Material.PACKED_ICE, Arrays.asList(
                 new DropProb( MaterialesManager.getItem(IpMateriales.HIELO_COMPACTO), 1 ),
                 new DropProb( MaterialesManager.getItem(IpMateriales.SALMON_CRUDO), 0.4 ),
                 new DropProb( MaterialesManager.getItem(IpMateriales.NIEVE), 0.3 ),
                 new DropProb( MaterialesManager.getItem(IpMateriales.PEZ_GLOBO), 0.2 )
-        ), new ArrayList<>(), (p, pos) -> {
-            pos.getBlock().setType(Material.AIR);
-            if (probabilidad(0.1)) {
-                p.damage(2);
-                p.sendMessage(ChatColor.AQUA + "Te ha dado frío");
-                p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION,60*2,0));
-                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,60*2,0));
-            }
-        }));
+        ), new ArrayList<>(), (p, pos) -> efectoDeEstado(p, 0.1, Estado.FRIO, 1) ));
+
 
         ipBloques.add(new IpBloque(Material.IRON_ORE, Arrays.asList(
                 new DropProb( MaterialesManager.getItem(IpMateriales.PIEDRA), 3 ),
@@ -349,8 +330,8 @@ public class BloqueManager {
         } ));
 
         ipBloques.add(new IpBloque(Material.BLACK_CONCRETE, List.of(
-                new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_OSCURO1), 0.3),
-                new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_OSCURO1), 0.2)
+                new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_NEGRO1), 0.3),
+                new DropProb(MaterialesManager.getItem(IpMateriales.FRAGMENTO_NEGRO1), 0.2)
         ), new ArrayList<>(), (p, pos) -> {
                 coloresEsencias(p,pos,Color.BLACK,Color.PURPLE);
                 p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER,60*4,1));

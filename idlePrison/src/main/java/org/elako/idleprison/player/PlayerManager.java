@@ -53,24 +53,6 @@ public class PlayerManager {
         getPlayer(player).setRango(rangos);
     }
 
-    public boolean isNotNota(String player, int i){ return getPlayer(player).isNotNota(i); }
-    public int getNotas(String player){ return getPlayer(player).getNotas(); }
-    public void setNotas(String player, int nota){ getPlayer(player).setNotas(nota); }
-    public boolean isNotaRecibidas(String player, int i){ return getPlayer(player).isNotaRecibida(i); }
-    public void setNotasRecibidas(String player, int nota){ getPlayer(player).setNotasRecibidas(nota); }
-
-    public int getItemsVendidos(String player){ return getPlayer(player).getItemsVendidos(); }
-    public void setItemsVendidos(String player, int cant){
-        IdlePrison.getPlugin().escribirItemsVendidos(player,cant);
-        getPlayer(player).setItemsVendidos(cant);
-    }
-
-    public int getBloquesRotos(String player){ return getPlayer(player).getBloquesRotos(); }
-    public void setBloquesRotos(String player, int n){
-        IdlePrison.getPlugin().escribirBloquesRotos(player,n);
-        getPlayer(player).setBloquesRotos(n);
-    }
-
     public int getTimeScore(String player){ return getPlayer(player).getTimeScore(); }
     public void reloadTimeScoreDetector(String player, int segs){ getPlayer(player).reloadTimeScoreboard(segs); }
     public void reduceTimeScore(String player){  getPlayer(player).reduceTimeScore(); }
@@ -80,9 +62,7 @@ public class PlayerManager {
     public void reloadTimeOffline(String player){ getPlayer(player).reloadTimeOffline(); }
     public void reduceTimeOffline(String player){  getPlayer(player).reduceTimeOffline(); }
 
-    public int getIdle(int i, String player){
-        return getPlayer(player).getIdle(i);
-    }
+    public int getIdle(int i, String player){ return getPlayer(player).getIdle(i); }
 
     public void setIdle(int i, String player, int cantidad){
         getPlayer(player).setIdle(i,cantidad);
@@ -125,7 +105,29 @@ public class PlayerManager {
     }
 
     // funciones para treeskill END
+    // funciones para notas START
+    public void reloadNotas(String player){ getPlayer(player).reloadNotas(); }
 
+    public boolean isNotNota(String player, int i){ return getPlayer(player).isNotNota(i); }
+    public int getNotas(String player){ return getPlayer(player).getNotas(); }
+    public void setNotas(String player, int nota){ getPlayer(player).setNotas(nota); }
+
+    public boolean isNotaRecibidas(String player, int i){ return getPlayer(player).isNotaRecibida(i); }
+    public void setNotasRecibidas(String player, int nota){ getPlayer(player).setNotasRecibidas(nota); }
+
+    public int getItemsVendidos(String player){ return getPlayer(player).getItemsVendidos(); }
+    public void setItemsVendidos(String player, int cant){
+        IdlePrison.getPlugin().escribirItemsVendidos(player,cant);
+        getPlayer(player).setItemsVendidos(cant);
+    }
+
+    public int getBloquesRotos(String player){ return getPlayer(player).getBloquesRotos(); }
+    public void setBloquesRotos(String player, int n){
+        IdlePrison.getPlugin().escribirBloquesRotos(player,n);
+        getPlayer(player).setBloquesRotos(n);
+    }
+
+    // funciones para notas END
 
     public LinkedList<String> getPlayers(){
         LinkedList<String> devolver = new LinkedList<>();

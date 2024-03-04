@@ -3,8 +3,10 @@ package org.elako.idleprison.mina;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.elako.idleprison.IdlePrison;
@@ -75,8 +77,8 @@ public class MinaManager {
         Location ubi9 = new Location(IdlePrison.getPlugin().getServer().getWorld("world2"),80.5,-7,-204.5);
         ubi9.setDirection(norte);
         ipMinas.add( new IpMina("poblado1", Material.SNOW_BLOCK, Rangos.MINERO3,68, ubi9, new HashMap<>(Map.of(
-                IpMateriales.MENA_CARBON, 35, IpMateriales.GRAN_DIORITA, 20, IpMateriales.HIELO_COMPACTO,10,
-                IpMateriales.MENA_HIERRO, 15, IpMateriales.ARBUSTO,20 ))) );
+                IpMateriales.MENA_CARBON, 35, IpMateriales.GRAN_DIORITA, 30, IpMateriales.HIELO_COMPACTO,10,
+                IpMateriales.MENA_HIERRO, 15, IpMateriales.ARBUSTO,10 ))) );
 
         Location ubi10 = new Location(IdlePrison.getPlugin().getServer().getWorld("world2"),-15.5,-5,-244.5);
         ubi10.setDirection(noroeste);
@@ -95,9 +97,15 @@ public class MinaManager {
         ipMinas.add( new IpMina("extra2", Material.BLACK_CONCRETE, Rangos.MINERO1,71, ubiE2, new HashMap<>(Map.of(
                 IpMateriales.AIRE, 30, IpMateriales.ESENCIA_AZUL1, 5, IpMateriales.ESENCIA_ROJA1,5,
                 IpMateriales.ESENCIA_VERDE1, 5, IpMateriales.ESENCIA_AZUL2,5 , IpMateriales.ESENCIA_VERDE2, 15,
-                IpMateriales.ESENCIA_ROJA2,15, IpMateriales.ESENCIA_OSCURA1, 20 ))) );
+                IpMateriales.ESENCIA_ROJA2,15, IpMateriales.ESENCIA_NEGRA1, 20 ))) );
 
-        // añadir mina
+        for (IpMina m : ipMinas) {
+            Rangos rango = m.getPermiso();
+
+            rango.addDesbloqueo("[Minas: has desbloqueado " + m.getName() + ChatColor.WHITE + "]");
+        }
+
+            // añadir mina
 
     }
 
@@ -168,8 +176,7 @@ public class MinaManager {
         return bloques;
     }
 
-    public void tpMina(Player jugador, String minas){
-        IpMina ipMina = getMina(minas);
+    public void tpMina(Player jugador, IpMina ipMina){
 
         if (rangosManager.isPermitido(jugador.getName(), ipMina.getPermiso())) {
             jugador.teleport( ipMina.getSpawn() );
@@ -199,7 +206,7 @@ public class MinaManager {
         for (Player p : IdlePrison.getPlugin().getServer().getOnlinePlayers()){
             if (entreUbicaciones(mina.getMaxBloque(), mina.getMinBloque() ,p.getLocation())){
                 p.sendMessage("REINISIO");
-                tpMina(p,mina.getId());
+                tpMina(p,mina);
             }
         }
 
@@ -265,4 +272,19 @@ public class MinaManager {
     }
 
 
+    public void interactuar(InventoryClickEvent e, Player p) {
+        if (e.getCurrentItem() == null) return;
+
+        if (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BANJO, 100, 1.3F);
+            p.openInventory(IdleprisonCom.crearInventario(p));
+        }
+        for (IpMina ipMina :ipMinas) {
+            if(e.getCurrentItem().getType().equals(ipMina.getIcono()) ){
+                tpMina(p, ipMina);
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 100, 2);
+                e.getView().close();
+            }
+        }
+    }
 }

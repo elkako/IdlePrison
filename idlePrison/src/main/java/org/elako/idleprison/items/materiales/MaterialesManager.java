@@ -382,28 +382,12 @@ public class MaterialesManager {
         materiales.add(new IpMaterial(Material.IRON_INGOT, "Lingote de hierro", List.of( // hierro
                 WHITE + "Es duro y resistente, es bueno para crear",
                 WHITE + " herramientas y armaduras."),
-                180, Rangos.MINERO3, IpMateriales.HIERRO));
+                180, Rangos.MINERO3, IpMateriales.LINGOTE_HIERRO));
 
-        materiales.add(new IpArmadura(Material.IRON_HELMET, "Casco metálico", List.of( // casco elemental
-                WHITE + "Contiene el poder del desierto y del calor",
-                WHITE + "Set hierro" ),
-                Rangos.MINERO3, IpMateriales.CASCO_HIERRO,3, SetsArmadura.NULO));
-
-        materiales.add(new IpArmadura(Material.IRON_CHESTPLATE, "Pechera metálico", List.of( // casco elemental
-                WHITE + "Contiene el poder del desierto y del calor",
-                WHITE + "Set hierro" ),
-                Rangos.MINERO3, IpMateriales.PECHERA_HIERRO,4, SetsArmadura.NULO ));
-
-        materiales.add(new IpArmadura(Material.IRON_LEGGINGS, "Pantalones metálicos", List.of( // casco elemental
-                WHITE + "Contiene el poder del desierto y del calor",
-                WHITE + "Set hierro" ),
-                Rangos.MINERO3, IpMateriales.PANTALONES_HIERRO,4, SetsArmadura.NULO ));
-
-        materiales.add(new IpArmadura(Material.IRON_BOOTS, "Botas metálicas", List.of( // casco elemental
-                WHITE + "Contiene el poder del desierto y del calor",
-                WHITE + "Set hierro" ),
-                Rangos.MINERO3, IpMateriales.BOTAS_HIERRO,3, SetsArmadura.NULO ));
-
+        materiales.add(new IpHerramienta(Material.IRON_PICKAXE, "Pico potente", List.of( // madera infierno
+                WHITE + "El pico mas utilizado por mineros debido a su",
+                WHITE + " gran potencia y no gran dificultad de crafteo"),
+                Rangos.MINERO3, IpMateriales.PICO_HIERRO, itemMeta -> itemMeta.setUnbreakable(true)));
 
         materiales.add(new IpMaterial(Material.SPRUCE_LEAVES, "Arbusto", List.of(), // arbusto
                 180, Rangos.MINERO3, IpMateriales.ARBUSTO));
@@ -432,6 +416,26 @@ public class MaterialesManager {
                 500, Rangos.MINERO3, IpMateriales.NIEVE));
 
         //Pueblo2
+        materiales.add(new IpArmadura(Material.IRON_HELMET, "Casco metálico", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set hierro" ),
+                Rangos.MINERO2, IpMateriales.CASCO_HIERRO,3, SetsArmadura.NULO));
+
+        materiales.add(new IpArmadura(Material.IRON_CHESTPLATE, "Pechera metálico", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set hierro" ),
+                Rangos.MINERO2, IpMateriales.PECHERA_HIERRO,4, SetsArmadura.NULO ));
+
+        materiales.add(new IpArmadura(Material.IRON_LEGGINGS, "Pantalones metálicos", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set hierro" ),
+                Rangos.MINERO2, IpMateriales.PANTALONES_HIERRO,4, SetsArmadura.NULO ));
+
+        materiales.add(new IpArmadura(Material.IRON_BOOTS, "Botas metálicas", List.of( // casco elemental
+                WHITE + "Contiene el poder del desierto y del calor",
+                WHITE + "Set hierro" ),
+                Rangos.MINERO2, IpMateriales.BOTAS_HIERRO,3, SetsArmadura.NULO ));
+
         materiales.add(new IpMaterial(Material.DEEPSLATE_COAL_ORE, "Mena de carbón oscura", List.of(), // Mena carbon oscura
                 0.5, Rangos.MINERO2, IpMateriales.MENA_CARBON_OSCURA ));
 
@@ -475,11 +479,11 @@ public class MaterialesManager {
 
         materiales.add(new IpFragmento(Material.BLACK_DYE, "Fragmento de esencia oscura [1]", List.of( // fragmento oscuro 1
                 WHITE + "Fragmento para crear una esencia de oscuridad"),
-                150, Rangos.MINERO1, Enchantment.MULTISHOT, 1, IpMateriales.FRAGMENTO_OSCURO1));
+                150, Rangos.MINERO1, Enchantment.MULTISHOT, 1, IpMateriales.FRAGMENTO_NEGRO1));
 
         materiales.add(new IpFragmento(Material.BLACK_CONCRETE, "Esencia oscura [1]", List.of( // esencia oscura 1
                 WHITE + "Esencia oscura utilizada para mejorar picos"),
-                1500, Rangos.MINERO1, Enchantment.MULTISHOT, 1, IpMateriales.ESENCIA_OSCURA1));
+                1500, Rangos.MINERO1, Enchantment.MULTISHOT, 1, IpMateriales.ESENCIA_NEGRA1));
 
 
     }

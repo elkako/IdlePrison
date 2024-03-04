@@ -1,20 +1,18 @@
 TO-DO prison
-añadir armaduras: cuarzo, granite, hierro, amatistas
-chetar bloques daño -> frio
-arreglar crafteo de fragmentos
+craftear max implementar boton
+añadir boton para abrir craftear desde el craftguide de cada objeto
+Rework carteles (rankup -> subir rango, eliminar sell hand y craftguide, cambiar cartel de crafteo)
+sacar a todos los players dentro de la mina al desconectarse
+requilibrar minas e idle dificultando
 rework treeskill
+añadir armaduras: amatistas
+crear enciclopedia con notas y bloques
 mejorar dar notas con inventario lleno
-idle menú automatico
 treeskill automatico?
-programar timeskip
-poner each rango as a class
-equilibrar nuevas minas
+programar timeskip?
 quitar excepcion al ejecutar comandos al no poner un numero o string donde va un numero o string
-
-testear nuevo idle
 crear mapas nuevos y reforzar viejos con schematic
 
-sacar a todos los players dentro de la mina al reiniciarla
 
 
 Posibles efectos armaduras:

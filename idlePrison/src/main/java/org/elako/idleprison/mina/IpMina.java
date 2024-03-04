@@ -71,7 +71,6 @@ public class IpMina {
     public Location getMinBloque() { return minBloque; }
 
     public int getExtra(){
-        IdlePrison.imprimirConsola(id + "[" + id.charAt(id.length()-1));
         if(id.contains("extra")) return Integer.parseInt(String.valueOf(id.charAt(id.length()-1)));
         return 0;
     }

@@ -14,8 +14,8 @@ public class NotaManager {
     private static final LinkedList<Nota> notas = new LinkedList<>();
 
     public NotaManager(DineroManager dineroManager, PlayerManager playerManager) {
-        this.playerManager = playerManager;
-        this.dineroManager = dineroManager;
+        NotaManager.playerManager = playerManager;
+        NotaManager.dineroManager = dineroManager;
 
         //infierno1
         notas.add(new Nota( notas.size()+1, "Mira la descripción de la nota", List.of( //1
@@ -224,7 +224,7 @@ public class NotaManager {
     public static void sendMensajeRecompensa(Player p, int n) {
         double dinero = notas.get(n-1).getRecompensa();
         dineroManager.addMoney(p.getName(),dinero);
-        p.sendMessage("Has conseguido " + DineroManager.dineroToString(dinero)
+        p.sendMessage("Has conseguido " + DineroManager.dineroToString(dinero, true)
                 + " por reclamar la nota");
 
         playerManager.setNotas(p.getName(), n);

@@ -6,12 +6,10 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.player.rango.Rangos;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public abstract class Crafteo {
     private final LinkedList<ItemStack> receta;
@@ -20,11 +18,11 @@ public abstract class Crafteo {
 
     public Crafteo(LinkedList<ItemStack> receta, ItemStack resultado, Rangos permiso) {
         this.receta = receta;
-        this.resultado = resultado;
+        this.resultado = resultado.clone();
         this.permiso = permiso;
     }
 
-    public abstract List<Recipe> getCrafteo();
+    public abstract int isCrafteo(LinkedList<ItemStack> items);
 
     public abstract Inventory getGuide(Player p);
 
@@ -33,7 +31,9 @@ public abstract class Crafteo {
 
     public LinkedList<ItemStack> getReceta() { return new LinkedList<>(receta); }
 
-    public ItemStack getResultado() { return resultado; }
+    public ItemStack getResultado() { return resultado.clone(); }
+
+    public ItemStack getResultado(int n) { return resultado.clone(); }
 
     public Rangos getPermiso() { return permiso; }
 
@@ -51,7 +51,6 @@ public abstract class Crafteo {
                 case 21:
                 case 22:
                     ItemStack item = items.pop();
-                    p.sendMessage(String.valueOf(item.getType()));
                     if(!item.getType().equals(Material.BARRIER)) inventario.setItem(i, item);
                     break;
                 case 15:

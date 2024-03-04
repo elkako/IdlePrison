@@ -38,7 +38,7 @@ public class Nota {
         lore.add(ChatColor.GRAY + "Se consigue: ");
         lore.addAll(conseguido);
         lore.add(ChatColor.YELLOW + String.valueOf(ChatColor.ITALIC) + "[Dropea la nota para reclamar " +
-                DineroManager.dineroToString(recompensa) + "]");
+                DineroManager.dineroToString(recompensa, true) + "]");
 
 
         itemMeta.setLore(lore);

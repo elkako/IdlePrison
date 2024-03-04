@@ -26,26 +26,50 @@ public class CrafteoShapelessDoble extends Crafteo {
     public LinkedList<ItemStack> getReceta2() { return new LinkedList<>(receta2); }
 
     @Override
-    public List<Recipe> getCrafteo() {
-        ShapelessRecipe r = new ShapelessRecipe(IdlePrison.getCrafteoskey(), getResultado());
-        ShapelessRecipe r2 = new ShapelessRecipe(IdlePrison.getCrafteoskey(), resultado2);
-        StringBuilder s= new StringBuilder();
+    public int isCrafteo(LinkedList<ItemStack> items) {
+        boolean devolver = true;
+        int itemsMatch = 0;
+        LinkedList<ItemStack> receta = new LinkedList<>(getReceta());
+        LinkedList<ItemStack> receta2 = new LinkedList<>(getReceta2());
 
-        for (ItemStack item : getReceta()) {
-          r.addIngredient(item.getType());
-          s.append(item.getType()).append(", ");
+        for (ItemStack item : items) {
+            if(item.getType().equals(Material.BARRIER)) continue;
+            boolean existe = false;
+            for (ItemStack rece : receta) {
+                if(item.getType().equals(rece.getType())) {
+                    receta.remove(rece);
+                    existe = true;
+                    itemsMatch++;
+                }
+            }
+            if(!existe) {
+                devolver = false;
+                break;
+            }
         }
-        s = new StringBuilder(s.substring(0, s.length() - 2));
-        s.append("],[");
+        if(devolver && itemsMatch >= getReceta().size()) return 1;
+        itemsMatch = 0;
 
-        for (ItemStack item : receta2) {
-            r2.addIngredient(item.getType());
-            s.append(item.getType()).append(", ");
+        for (ItemStack item : items) {
+            if(item.getType().equals(Material.BARRIER)) continue;
+            boolean existe = false;
+            for (ItemStack rece : receta2) {
+                if(item.getType().equals(rece.getType())) {
+                    receta2.remove(rece);
+                    existe = true;
+                    itemsMatch++;
+                }
+            }
+            if(!existe) return 0;
         }
-        s = new StringBuilder(s.substring(0, s.length() - 2));
+        if (itemsMatch >= getReceta2().size()) return 2;
+        return 0;
+    }
 
-        IdlePrison.imprimirConsola("Crafteo creado:[" + s + "]");
-        return List.of(r, r2);
+    @Override
+    public ItemStack getResultado(int n){
+        if(n == 1) return super.getResultado(n);
+        else return resultado2.clone();
     }
 
     @Override

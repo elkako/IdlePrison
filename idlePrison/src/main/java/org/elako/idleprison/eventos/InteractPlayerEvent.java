@@ -10,13 +10,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.elako.idleprison.comandos.*;
-import org.elako.idleprison.crafteos.CrafteoManager;
-import org.elako.idleprison.items.*;
+import org.elako.idleprison.crafteos.CraftManager;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.items.notas.TipoNota;
 import org.elako.idleprison.player.PlayerManager;
+import org.elako.idleprison.player.VenderManager;
 import org.elako.idleprison.player.rango.RangosManager;
 
 public class InteractPlayerEvent implements Listener {
@@ -68,7 +68,7 @@ public class InteractPlayerEvent implements Listener {
                 } else if(firstLine.contains("vender")){
                     p.openInventory(VenderCom.crearInventario(p));
                 } else if(firstLine.contains("Craftguide")){
-                    p.openInventory(CrafteoManager.CraftGuide(p));
+                    p.openInventory(CraftManager.CraftGuide(p,1));
                 } else if(firstLine.contains("craftear")){
                     p.openWorkbench(null,true);
                 }

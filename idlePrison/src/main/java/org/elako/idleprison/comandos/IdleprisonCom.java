@@ -16,7 +16,7 @@ import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.mina.MinaManager;
-import org.elako.idleprison.player.IdleManager;
+import org.elako.idleprison.player.idle.IdleManager;
 import org.elako.idleprison.player.DineroManager;
 import org.elako.idleprison.player.rango.Rangos;
 import org.elako.idleprison.player.rango.RangosManager;
@@ -82,22 +82,22 @@ public class IdleprisonCom implements CommandExecutor {
         inventario.setItem(10, crearObjetoLore(Material.PLAYER_HEAD, ChatColor.RED + "Éstadisticas", Arrays.asList(
                 ChatColor.WHITE + "Nivel de renacer: " + treeSkillManager.getNivelRenacer(p.getName()),
                 ChatColor.WHITE + "Rango: " + rango.toString().toLowerCase(),
-                ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(dineroP)  +"laCoins" ) ));
+                ChatColor.WHITE + "Dinero: " + DineroManager.dineroToString(dineroP,false)  +" ElaCoins" ) ));
         if (dineroAscender>dineroP)
             inventario.setItem(12, crearObjetoLore(Material.IRON_PICKAXE, ChatColor.RED + "Rankup",Arrays.asList(
                     ChatColor.WHITE + "Haz click aquí para subir de rango",
                     ChatColor.WHITE +  "Siguiente rango: " + rangoManager.siguienteRango(p.getName()).toLowerCase(),
-                    ChatColor.WHITE + "Dinero necesario: " + DineroManager.dineroToString(dineroAscender)
-                            + ", te falta: "  + DineroManager.dineroToString(dineroAscender-dineroP)) ));
+                    ChatColor.WHITE + "Dinero necesario: " + DineroManager.dineroToString(dineroAscender,true)
+                            + ", te falta: "  + DineroManager.dineroToString(dineroAscender-dineroP,true)) ));
         else
             inventario.setItem(12, crearObjetoLore(Material.IRON_PICKAXE, ChatColor.RED + "Rankup",Arrays.asList(
                     ChatColor.WHITE + "Haz click aquí para subir de rango",
                     ChatColor.WHITE +  "Siguiente rango: " + rangoManager.siguienteRango(p.getName()).toLowerCase(),
-                    ChatColor.WHITE + "Dinero necesario: " + DineroManager.dineroToString(dineroAscender)
-                            + ", te sobra: "  + DineroManager.dineroToString(dineroP-dineroAscender)) ));
+                    ChatColor.WHITE + "Dinero necesario: " + DineroManager.dineroToString(dineroAscender,true)
+                            + ", te sobra: "  + DineroManager.dineroToString(dineroP-dineroAscender,true)) ));
         inventario.setItem(14, crearObjetoLore(Material.CHEST, ChatColor.RED + "Idle", Arrays.asList(
                 ChatColor.WHITE + "Clickea para ir al menu idle y coneguir dinero ",
-                ChatColor.WHITE + "Dinero acumulado: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName())),
+                ChatColor.WHITE + "Dinero acumulado: " + DineroManager.dineroToString(playerManager.getDineroAcum(p.getName()),true),
                 ChatColor.WHITE + "Tiempo sin recoger: " + IdleManager.tiempoToString(playerManager.getPlayer(p.getName()).getTimeTotal())
                 )  ));
         inventario.setItem(16, crearObjetoLore(Material.CRAFTING_TABLE, ChatColor.RED + "Crafteos", Arrays.asList(
@@ -116,10 +116,12 @@ public class IdleprisonCom implements CommandExecutor {
                     ChatColor.WHITE + "Clickea aquí para despertar y conseguir " ,
                     ChatColor.WHITE + "tantos puntos para treeskill como nivel tengas" ,
                     ChatColor.WHITE + "Nivel actual: "+ treeSkillManager.getNivelRenacer(p.getName()) ,
-                    ChatColor.WHITE + "Te quedarás en nivel: "+ treeSkillManager.getNivelTotal(p.getName()),
-                    ChatColor.WHITE + "Dinero para siguiente: " + DineroManager.dineroToString( treeSkillManager.dineroPaAscender( treeSkillManager.getDineroTotal(p.getName()) ) ) ,
-                    ChatColor.WHITE + "Te queda: " + DineroManager.dineroToString( treeSkillManager.ascenderRestos( treeSkillManager.getDineroTotal(p.getName()) ) )   ,
-                    ChatColor.WHITE + "Has conseguido: " + DineroManager.dineroToString( treeSkillManager.getDineroRun(p.getName()) ) ) ));
+                    ChatColor.WHITE + "Nivel tras ascender: "+ treeSkillManager.getNivelTotal(p.getName()),
+                    ChatColor.WHITE + "Siguiente nivel en: " + DineroManager.dineroToString( treeSkillManager.ascenderRestos(
+                            treeSkillManager.getDineroTotal(p.getName()) ),false ) + "/" + DineroManager.dineroToString(
+                            treeSkillManager.dineroPaAscender( treeSkillManager.getDineroTotal(p.getName()) ),true )  ,
+                    ChatColor.WHITE + "Has conseguido: " + DineroManager.dineroToString( treeSkillManager.getDineroRun(p.getName()),
+                            true ) + " en este despertar" ) ));
         } else {
             inventario.setItem(30, crearObjetoLore(Material.GOLD_INGOT, ChatColor.GOLD + "Vender", List.of(
                     ChatColor.WHITE + "Haz click aquí para vender objetos")));
@@ -150,26 +152,31 @@ public class IdleprisonCom implements CommandExecutor {
             return true;
         } else if (strings.length == 1) {
             if (strings[0].equals("reiniciar")  && permiso) {
-                playerManager.recogerDineroAcum(p.getName());
+                String ps = p.getName();
+                playerManager.recogerDineroAcum(ps);
                 playerManager.setDinero(p.getName(), 0.0);
-                rangoManager.setPlayer(p.getName(), Rangos.CONDENADO4.toString());
-                for (int i = 1; i <= 6; i++) {
-                    playerManager.setIdle(i, p.getName(), 0);
-                }
-                minaManager.tpMina(p, "mina1");
+                rangoManager.setPlayer(ps, Rangos.CONDENADO4.toString());
+                for (int i = 1; i <= 6; i++)
+                    playerManager.setIdle(i, ps, 0);
+
+                minaManager.tpMina(p, minaManager.getMina("mina1"));
 
                 for (ItemStack i : p.getInventory().getContents()) {
                     if (i == null) continue;
                     i.setAmount(0);
                 }
-                playerManager.reloadTimeOffline(p.getName());
-                playerManager.setDineroRenacer(p.getName(), 0);
-                playerManager.setDineroRun(p.getName(), 0);
+                playerManager.reloadTimeOffline(ps);
+                playerManager.setDineroRenacer(ps, 0);
+                playerManager.setDineroRun(ps, 0);
                 p.getInventory().addItem(MaterialesManager.getItem(IpMateriales.PICO_MADERA));
                 p.getInventory().setItem(8, MaterialesManager.getItem(IpMateriales.MENU));
-                for (int i = 1; i <= 3; i++) {
-                    playerManager.setTreeSkill(i, p.getName(), 0);
-                }
+                for (int i = 1; i <= 3; i++)
+                    playerManager.setTreeSkill(i, ps, 0);
+
+                playerManager.reloadNotas(ps);
+                playerManager.setItemsVendidos(ps, 0);
+                playerManager.setBloquesRotos(ps, 0);
+
                 p.sendMessage("RELOADED");
                 return true;
             } else if (strings[0].equals("help")){
@@ -185,6 +192,17 @@ public class IdleprisonCom implements CommandExecutor {
                 if (p.hasPermission("op")) p.sendMessage("'/ip setperm nm' para ver cambiar los permisos de un jugador" +
                         " el n es el permiso de constructor y el segundo de comandos ");
                 return true;
+            } else if (strings[0].equals("materiales")  && permiso) {
+                // tamaños inventarios: 9 18 27 36 45 54
+                Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.DARK_AQUA) + "-=(materiales)=-");
+                int i = 0;
+                for (IpMaterial m : materialesManager.getMateriales()) {
+                    inventario.setItem(i,m.getItem(1));
+                    i++;
+                    if (i == 54) break;
+                }
+                p.openInventory(inventario);
+                return true;
             }
         }else if (strings.length == 2) {
             if (strings[0].equals("getnota") && permiso) {
@@ -194,7 +212,6 @@ public class IdleprisonCom implements CommandExecutor {
                 // tamaños inventarios: 9 18 27 36 45 54
                 Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.DARK_AQUA) + "-=(materiales)=-");
                 if (strings[1].equals("1")){
-
                     int i = 0;
                     for (IpMaterial m : materialesManager.getMateriales()) {
                         inventario.setItem(i,m.getItem(1));

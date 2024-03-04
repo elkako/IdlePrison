@@ -39,6 +39,7 @@ public class ItemDropEvent implements Listener {
 
         if(nota == 1) {
             p.getInventory().setItem(8, MaterialesManager.getItem(IpMateriales.MENU));
+            rangosManager.ascender(p);
             rangosManager.setPlayer(p.getName(), "condenado4");
             NotaManager.getNota(p,2);
         }

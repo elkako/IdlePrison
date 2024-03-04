@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.elako.idleprison.items.VenderManager;
+import org.elako.idleprison.player.VenderManager;
 import org.elako.idleprison.player.DineroManager;
 import org.elako.idleprison.player.TreeSkillManager;
 
@@ -41,7 +41,7 @@ public class DeathPlayerEvent implements Listener {
                 i.setAmount(i.getAmount()-cantidad);
             }
         }
-        p.sendMessage("Hubieras ganado vendiendolo " + DineroManager.dineroToString(dinero) );
+        p.sendMessage("Hubieras ganado vendiendolo " + DineroManager.dineroToString(dinero, true) );
 
 
     }
