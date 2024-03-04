@@ -11,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.elako.idleprison.crafteos.CraftManager;
 
 import javax.annotation.Nonnull;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CrafteoCom implements CommandExecutor {
@@ -42,9 +43,7 @@ public class CrafteoCom implements CommandExecutor {
         } else if (strings.length == 1){
             switch (strings[0]) {
                 case "craft":
-                    //p.openWorkbench(null, true);
-                    p.openInventory(CraftManager.CraftMenu(p));
-
+                    p.openInventory(CraftManager.CraftMenu(p, new LinkedList<>()));
                     return true;
                 case "craftguide":
                     p.openInventory(CraftManager.CraftGuide(p,1));

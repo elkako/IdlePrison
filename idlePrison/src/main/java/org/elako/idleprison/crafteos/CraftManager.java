@@ -11,6 +11,7 @@ import org.elako.idleprison.IdlePrison;
 import org.elako.idleprison.comandos.IdleprisonCom;
 import org.elako.idleprison.items.materiales.IpMateriales;
 import org.elako.idleprison.items.materiales.MaterialesManager;
+import org.elako.idleprison.player.Jugador;
 import org.elako.idleprison.player.rango.Rangos;
 import org.elako.idleprison.player.rango.RangosManager;
 
@@ -275,12 +276,13 @@ public class CraftManager {
 
     }
 
-    public static Inventory CraftMenu(Player p){
+    public static Inventory CraftMenu(Player p, LinkedList<ItemStack> items){
         // tamaños inventarios: 9 18 27 36 45 54
 
         Inventory inventario = Bukkit.createInventory(p, 54, ChatColor.BOLD + String.valueOf(ChatColor.RED) + "Craftear");
 
         for (int i=0;i<54;i++) {
+
             switch (i){
                 case 10:
                 case 11:
@@ -288,10 +290,22 @@ public class CraftManager {
                 case 19:
                 case 20:
                 case 21:
-                case 25:
                 case 28:
                 case 29:
                 case 30:
+                    if (!items.isEmpty()) {
+                        ItemStack item = items.pop();
+
+                        ItemStack content = inventarioContiene(p.getInventory(),item );
+                        if (!item.getType().equals(Material.BARRIER)) if (content != null){
+                            content.setAmount(content.getAmount()-1) ;
+                            inventario.setItem(i,item);
+                        } else{
+                            p.sendMessage("Te falta " + item.getItemMeta().getDisplayName());
+                        }
+                    }
+                    break;
+                case 25:
                     break;
                 case 22:
                 case 24:
@@ -319,6 +333,13 @@ public class CraftManager {
         return inventario;
     }
 
+    private static ItemStack inventarioContiene(PlayerInventory inventory, ItemStack item) {
+        for (ItemStack content : inventory.getContents()) {
+            if(MaterialesManager.comparar(content,item)) return content;
+        }
+        return null;
+    }
+
     public static Inventory CraftGuide(Player p, int pagina){
         // tamaños inventarios: 9 18 27 36 45 54
 
@@ -340,9 +361,13 @@ public class CraftManager {
         return inventario;
     }
 
-    public void interactuar(ItemStack item, Player p){
+    public void interactuar(ItemStack item, Jugador j){
         for ( Crafteo c : crafteos ) {
-            if(MaterialesManager.comparar(item, c.getIcono())) p.openInventory(c.getGuide(p));
+            if(MaterialesManager.comparar(item, c.getIcono())) {
+                Player p = j.getPlayer();
+                p.openInventory(c.getGuide(p));
+                j.setLastCraftGuide(c);
+            }
         }
     }
 

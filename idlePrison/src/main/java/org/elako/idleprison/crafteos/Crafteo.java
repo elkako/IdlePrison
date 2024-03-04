@@ -53,6 +53,9 @@ public abstract class Crafteo {
                     ItemStack item = items.pop();
                     if(!item.getType().equals(Material.BARRIER)) inventario.setItem(i, item);
                     break;
+                case 8:
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.CRAFTING_TABLE,ChatColor.WHITE + "Crafteo 1"));
+                    break;
                 case 15:
                     inventario.setItem(i, resul);
                     break;
@@ -94,6 +97,12 @@ public abstract class Crafteo {
                     if (i<27) item = items.pop();
                     else  item = items2.pop();
                     if(!item.getType().equals(Material.BARRIER)) inventario.setItem(i, item);
+                    break;
+                case 8:
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.CRAFTING_TABLE,ChatColor.WHITE + "Crafteo 1"));
+                    break;
+                case 27:
+                    inventario.setItem(i, IdleprisonCom.crearObjeto(Material.CRAFTING_TABLE,ChatColor.WHITE + "Crafteo 2"));
                     break;
                 case 15:
                     inventario.setItem(i, resul);

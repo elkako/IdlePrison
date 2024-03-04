@@ -2,6 +2,7 @@ package org.elako.idleprison.player;
 
 import org.bukkit.entity.Player;
 import org.elako.idleprison.IdlePrison;
+import org.elako.idleprison.crafteos.Crafteo;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.items.notas.TipoNota;
 import org.elako.idleprison.player.rango.Rangos;
@@ -28,10 +29,11 @@ public class Jugador {
     private String notasRecibidas;
     private int itemsVendidos;
     private int bloquesRotos;
+    private Crafteo lastCraftGuide = null;
 
     public Jugador(String jugador, double dinero, double dineroRenacer, double dineroRun, Rangos rango, int idle1,
-               int idle2, int idle3, int idle4, int idle5, int idle6, int treeskill1, int treeskill2, int treeskill3,
-               String permisos , String notas, String notasRecibidas, int itemsVendidos, int bloquesRotos) {
+                   int idle2, int idle3, int idle4, int idle5, int idle6, int treeskill1, int treeskill2, int treeskill3,
+                   String permisos , String notas, String notasRecibidas, int itemsVendidos, int bloquesRotos) {
         this.jugador = jugador;
         this.dinero = dinero;
         this.dineroRun = dineroRun;
@@ -71,6 +73,14 @@ public class Jugador {
 
     public double getDineroRun() { return dineroRun; }
     public double getDineroRenacer() { return dineroRenacer; }
+
+    public Crafteo getLastCraftGuide() {
+        return lastCraftGuide;
+    }
+
+    public void setLastCraftGuide(Crafteo lastCraftGuide) {
+        this.lastCraftGuide = lastCraftGuide;
+    }
 
     public int getTreeSkill(int i){
         switch (i){
