@@ -44,7 +44,6 @@ public class CrafteoShapeless extends Crafteo {
         LinkedList<ItemStack> lista = getReceta();
         LinkedList<ItemStack> guia = new LinkedList<>();
         ItemStack vacio = new ItemStack(Material.BARRIER);
-        p.sendMessage("LISTASIZE" + lista.size());
         switch (lista.size()){
             case 1:
                 for (int i = 0; i < 4; i++) guia.add(vacio);
