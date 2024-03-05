@@ -301,7 +301,7 @@ public class CraftManager {
                             content.setAmount(content.getAmount()-1) ;
                             inventario.setItem(i,item);
                         } else{
-                            p.sendMessage("Te falta " + item.getItemMeta().getDisplayName());
+                            p.sendMessage("Te falta " + Objects.requireNonNull(item.getItemMeta()).getDisplayName());
                         }
                     }
                     break;
