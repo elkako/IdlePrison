@@ -32,6 +32,7 @@ org\elako\idleprison\items\armaduras\SetsArmadura.class
 org\elako\idleprison\eventos\MenuListener.class
 org\elako\idleprison\player\PlayerManager.class
 org\elako\idleprison\mina\BloqueManager$Estado.class
+org\elako\idleprison\mina\RompiendoBloque.class
 org\elako\idleprison\comandos\IdleprisonCom.class
 org\elako\idleprison\comandos\RenacerCom.class
 org\elako\idleprison\crafteos\CrafteoFragmentado.class
@@ -59,3 +60,4 @@ org\elako\idleprison\items\armaduras\IpArmaduraColor.class
 org\elako\idleprison\crafteos\CrafteoShaped.class
 org\elako\idleprison\comandos\IdleCom.class
 org\elako\idleprison\player\idle\IdleManager.class
+org\elako\idleprison\eventos\BlockDigEvent.class

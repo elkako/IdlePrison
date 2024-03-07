@@ -278,11 +278,6 @@ public final class IdlePrison extends JavaPlugin {
         }
     }
 
-    public static NamespacedKey getCrafteoskey(){
-        crafteoskey++;
-        return new NamespacedKey(getPlugin(), "craft"+crafteoskey);
-    }
-
     @Override
     public void onEnable() {
         //inicializacion
@@ -313,6 +308,8 @@ public final class IdlePrison extends JavaPlugin {
         pm.registerEvents(new ComerEvent(rango),this);
         pm.registerEvents(new ItemDropEvent(rango),this);
         pm.registerEvents(new InteractPlayerEvent(playerManager, rango, vender),this);
+        pm.registerEvents(new BlockDigEvent(),this);
+
 
         //comandos
         Objects.requireNonNull(getCommand("idleprison")).setExecutor(new IdleprisonCom(rango,dinero,playerManager,treeskill,mina, materiales));
