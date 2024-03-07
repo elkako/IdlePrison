@@ -1,30 +1,27 @@
 package org.elako.idleprison.mina;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class RompiendoBloque {
     Player player;
     long tiempo;
     boolean activo;
-
+    Block block;
 
     //https://www.spigotmc.org/threads/1-8-1-13-custom-block-breaking-change-block-hardness.362586/
-    public RompiendoBloque(Player player){
+    public RompiendoBloque(Player player, Block block){
         tiempo = System.currentTimeMillis() / 1000L;
         this.player = player;
         activo = true;
-        estoyRompiendoBloque(1);
+        this.block = block;
     }
 
-    public void estoyRompiendoBloque(int i){
-        /*while (activo) {
-            long tiempoActual = System.currentTimeMillis() / 1000L;
-            if (tiempo+i == tiempoActual) {
-                player.sendMessage("HOLA ta:" + tiempoActual + " t:" + tiempo + " lleva:" +  i);
-            }
+    public void romperBloque(){
+        if (block.getType() != Material.AIR && activo) {
+            block.breakNaturally();
         }
-
-        estoyRompiendoBloque(i+1);*/
     }
 
     public void terminarRompiendoBloque(){

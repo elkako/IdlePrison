@@ -1,5 +1,5 @@
 TO-DO prison
-
+añadir madera que se rompa en X segundos
 añadir encantamientos: dejar fortuna/loot bonus, boquete/digger, saqueador/bank breaker, conocimiento/knowledge
 craftear max implementar boton
 añadir boton para abrir craftear desde el craftguide de cada objeto
