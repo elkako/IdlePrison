@@ -32,9 +32,7 @@ public class ItemsEvent implements Listener {
     public double media(int a, int b){ return (double)(a + b)/2; }
 
     public boolean isNotPrisonBlock(Block bloque){
-        for (Block b: minaManager.getBloques())
-            if (bloque.equals(b)) return false;
-        return true;
+        return  !minaManager.isPrison(bloque);
     }
 
     @EventHandler

@@ -11,6 +11,7 @@ public class IpBloque {
     private final List<DropCuanti> dropsCuanti;
     private final Material tipo;
     private final Morir morir;
+    private final int vida;
 
     public interface Morir{
         void morir(Player p, Location pos);
@@ -21,6 +22,19 @@ public class IpBloque {
         this.dropsProb = dropsProb;
         this.dropsCuanti = dropsCuanti;
         this.morir = morir;
+        this.vida = 0;
+    }
+
+    public IpBloque(Material tipo, List<DropProb> dropsProb, List<DropCuanti> dropsCuanti, Morir morir, int vida) {
+        this.tipo = tipo;
+        this.dropsProb = dropsProb;
+        this.dropsCuanti = dropsCuanti;
+        this.morir = morir;
+        this.vida = vida;
+    }
+
+    public int getVida(){
+        return vida;
     }
 
     public void roto(Player p, Location pos){

@@ -33,7 +33,7 @@ public class MinaManager {
         Location ubi1 = new Location(IdlePrison.getPlugin().getServer().getWorld("world2"),81.5,-2,-86.5);
         ubi1.setDirection(norte);
         ipMinas.add( new IpMina("infierno1", Material.CALCITE, Rangos.CONDENADO4, 60, ubi1, new HashMap<>(Map.of(
-                IpMateriales.CALCITA, 90, IpMateriales.ALGA_BLOQUE, 10 ))) );
+                IpMateriales.CALCITA, 87, IpMateriales.ALGA_BLOQUE, 10, IpMateriales.TABLONES_INFERNALES, 3))) );
 
         Location ubi2 = new Location(IdlePrison.getPlugin().getServer().getWorld("world2"),30,-2,-86);
         ubi2.setDirection(norte);
@@ -120,6 +120,15 @@ public class MinaManager {
         return null;
     }
 
+    public IpMina getMina(Block bloque){
+        for (IpMina m : ipMinas) {
+            if(m.getBloques() != null) for (Block b:m.getBloques()) {
+
+            }
+        }
+        return null;
+    }
+
     public void minaAll(Player p){
         for (IpMina m : ipMinas) {
             p.sendMessage(m.getId());
@@ -167,17 +176,16 @@ public class MinaManager {
     }
 
     // para saber si un item es de mina
-    public LinkedList<Block> getBloques() {
-        LinkedList<Block> bloques = new LinkedList<>();
-
+    public boolean isPrison(Block b) {
         for (IpMina m : ipMinas) {
-            if(m.getBloques() != null) bloques.addAll(m.getBloques());
+            if(m.getBloques() != null) for (Block bloque: m.getBloques())
+                if (bloque.equals(b)) return true;
         }
-        return bloques;
+        return false;
     }
 
-    public void tpMina(Player jugador, IpMina ipMina){
 
+    public void tpMina(Player jugador, IpMina ipMina){
         if (rangosManager.isPermitido(jugador.getName(), ipMina.getPermiso())) {
             jugador.teleport( ipMina.getSpawn() );
             jugador.sendMessage("Has sido correctamente teletransportado a " + ipMina.getName());

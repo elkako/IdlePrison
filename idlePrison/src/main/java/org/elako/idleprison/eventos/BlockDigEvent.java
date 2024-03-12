@@ -7,17 +7,28 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDamageAbortEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.inventory.ItemStack;
 import org.elako.idleprison.IdlePrison;
+import org.elako.idleprison.mina.BloqueManager;
+import org.elako.idleprison.mina.IpBloque;
+import org.elako.idleprison.mina.RomperBloquesManager;
 import org.elako.idleprison.mina.RompiendoBloque;
 
 import java.util.HashMap;
 
 public class BlockDigEvent implements Listener {
-    HashMap<Player,RompiendoBloque> rompiendos = new HashMap<>();
+    private final HashMap<Player,RompiendoBloque> rompiendos;
+    private final RomperBloquesManager romperBloque;
+    private final BloqueManager bloqueManager;
+
+    public BlockDigEvent(RomperBloquesManager romperBloque, BloqueManager bloqueManager) {
+        this.romperBloque = romperBloque;
+        rompiendos = new HashMap<>();
+        this.bloqueManager = bloqueManager;
+    }
 
     @EventHandler
     public void onBlockDamage(BlockDamageEvent e) {
-        //event.getPlayer().sendMessage( String.valueOf( event.getBlock().getType() ) );
         Player player = e.getPlayer();
         Block block = e.getBlock();
 
@@ -26,11 +37,24 @@ public class BlockDigEvent implements Listener {
         RompiendoBloque rompiendo = new RompiendoBloque(player, block);
         rompiendos.put(player,rompiendo);
 
-        int segundos = 1;
+        IpBloque ipBloque = bloqueManager.getBloque(block.getType());
+        int segundos = ipBloque.getVida();
 
-        if (block.getType() != Material.AIR) {
+        if (block.getType() != Material.AIR && segundos != 0) {
             plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-               rompiendo.romperBloque();
+                Player p = e.getPlayer();
+                ItemStack pico = p.getInventory().getItemInMainHand(); //obtener item mano principal
+                Block bloque = e.getBlock();
+
+                if (rompiendo.isActivo() && block.getType() != Material.AIR){
+                    if (!romperBloque.romperBloque(pico,p,bloque)) {
+                        e.setCancelled(true);
+                        p.sendMessage("Permiso denegado: porfavor vaya a la zona de mina");
+                    }
+                    block.setType(Material.AIR);
+                }
+
+
                if(rompiendos.containsKey(player)) rompiendos.remove(player);
             }, 20L*segundos); // 20 ticks = 1 segundo
         }

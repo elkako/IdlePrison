@@ -15,8 +15,6 @@ public class BlockDropEvent implements Listener {
 
     @EventHandler
     public void onBlockDropItem(BlockDropItemEvent e){
-        for (Block b: bloquesPrison.getBloques()) {
-            if(e.getBlock().equals(b)) e.setCancelled(true);
-        }
+        if(bloquesPrison.isPrison(e.getBlock())) e.setCancelled(true);
     }
 }

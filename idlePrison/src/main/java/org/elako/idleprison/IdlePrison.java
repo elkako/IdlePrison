@@ -17,6 +17,7 @@ import org.elako.idleprison.items.materiales.MaterialesManager;
 import org.elako.idleprison.items.notas.NotaManager;
 import org.elako.idleprison.mina.BloqueManager;
 import org.elako.idleprison.mina.MinaManager;
+import org.elako.idleprison.mina.RomperBloquesManager;
 import org.elako.idleprison.player.*;
 import org.elako.idleprison.player.idle.IdleManager;
 import org.elako.idleprison.player.rango.Rangos;
@@ -33,6 +34,7 @@ public final class IdlePrison extends JavaPlugin {
     private static RangosManager rango;
     private static TreeSkillManager treeskill;
     private static MaterialesManager materiales;
+    private static RomperBloquesManager romperBloques;
     private static IdleManager idle;
     private static IdlePrison plugin;
     private static int crafteoskey = 0;
@@ -293,12 +295,13 @@ public final class IdlePrison extends JavaPlugin {
         mina = new MinaManager(rango);
         treeskill = new TreeSkillManager(playerManager,rango,mina);
         crafteo = new CraftManager(rango);
+        romperBloques = new RomperBloquesManager(mina, playerManager, dinero, bloque);
 
         insertarConfig();
 
         //eventos
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new BreakPutBlockEvent(mina,dinero,playerManager, bloque),this);
+        pm.registerEvents(new BreakPutBlockEvent(romperBloques,playerManager),this);
         pm.registerEvents(new BlockDropEvent(mina), this);
         pm.registerEvents(new MesasCrafteoEvent(rango,crafteo),this);
         pm.registerEvents(new JoinPlayerEvent(rango,dinero, playerManager),this);
@@ -308,7 +311,7 @@ public final class IdlePrison extends JavaPlugin {
         pm.registerEvents(new ComerEvent(rango),this);
         pm.registerEvents(new ItemDropEvent(rango),this);
         pm.registerEvents(new InteractPlayerEvent(playerManager, rango, vender),this);
-        pm.registerEvents(new BlockDigEvent(),this);
+        pm.registerEvents(new BlockDigEvent(romperBloques, bloque),this);
 
 
         //comandos

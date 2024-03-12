@@ -25,6 +25,9 @@ public class MaterialesManager {
 
     public MaterialesManager() {
         //infierno 1,2,3,4
+        materiales.add(new IpMaterial(Material.WARPED_PLANKS, "Tablones infernales", List.of(), // tablones infernales
+                0.5, Rangos.CONDENADO4, IpMateriales.TABLONES_INFERNALES ));
+
         materiales.add(new IpHerramienta(Material.ENCHANTED_BOOK, "Menú de idlePrison", List.of( // madera infierno
                 WHITE + "Pontelo en la mano o haz click para",
                 WHITE + " abrir el menú de /idleprison"),

@@ -3,6 +3,7 @@ package org.elako.idleprison.mina;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class RompiendoBloque {
     Player player;
@@ -18,10 +19,8 @@ public class RompiendoBloque {
         this.block = block;
     }
 
-    public void romperBloque(){
-        if (block.getType() != Material.AIR && activo) {
-            block.breakNaturally();
-        }
+    public boolean isActivo(){
+        return activo;
     }
 
     public void terminarRompiendoBloque(){

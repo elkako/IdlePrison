@@ -119,6 +119,10 @@ public class BloqueManager {
 
 
     public BloqueManager() {
+        ipBloques.add(new IpBloque(Material.WARPED_PLANKS, new ArrayList<>(), List.of(
+                new DropCuanti(MaterialesManager.getItem(IpMateriales.TABLONES_QUEMADOS), 1, 3)
+        ), (p, pos) -> {}, 2));
+
         ipBloques.add(new IpBloque(Material.DRIED_KELP_BLOCK, new ArrayList<>(), List.of(
                 new DropCuanti(MaterialesManager.getItem(IpMateriales.ALGA), 2, 4)
         ), (p, pos) -> {} ));

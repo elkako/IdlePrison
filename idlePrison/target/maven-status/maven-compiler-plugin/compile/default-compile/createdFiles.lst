@@ -33,6 +33,7 @@ org\elako\idleprison\eventos\MenuListener.class
 org\elako\idleprison\player\PlayerManager.class
 org\elako\idleprison\mina\BloqueManager$Estado.class
 org\elako\idleprison\mina\RompiendoBloque.class
+org\elako\idleprison\mina\RomperBloquesManager.class
 org\elako\idleprison\comandos\IdleprisonCom.class
 org\elako\idleprison\comandos\RenacerCom.class
 org\elako\idleprison\crafteos\CrafteoFragmentado.class
